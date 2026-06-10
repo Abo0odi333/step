@@ -6,7 +6,7 @@
     <title>منصة معين التعليمية - دورة STEP</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2 family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -182,13 +182,16 @@
             line-height: 1.4;
         }
 
-        /* مدة الفيديو باللون الأسود وعلى يمين الشيك ليست مباشرة */
+        /* العداد ومدة المشاهدة التفاعلية باللون الأسود */
         .lecture-duration {
             font-size: 12px;
             color: #000000;
             margin-left: 12px;
             font-weight: 700;
             flex-shrink: 0;
+        }
+        .lecture-duration.completed-text {
+            color: var(--success-color);
         }
 
         /* الشيك ليست الدائري في أقصى اليسار */
@@ -451,31 +454,31 @@
                     
                     <div class="sub-category-title" onclick="toggleSubCategory('t-grammar')">⚖️ تأسيس القرامر والنماذج <span>▼</span></div>
                     <div class="sub-category-content" id="t-grammar" style="max-height: 1500px;">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الأولى (الأزمنة – شرح)', 'fk20o2cfcZ4', this)">المحاضرة الأولى (الأزمنة – شرح)</a><span class="lecture-duration">47m 07s</span><input type="checkbox" class="checklist-checkbox" id="chk_fk20o2cfcZ4" onchange="toggleCheck('fk20o2cfcZ4')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثانية (الأزمنة – حل)', 'CoED7-aKR-E', this)">المحاضرة الثانية (الأزمنة – حل)</a><span class="lecture-duration">55m 01s</span><input type="checkbox" class="checklist-checkbox" id="chk_CoED7-aKR-E" onchange="toggleCheck('CoED7-aKR-E')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثالثة (حالات if الشرطية)', 'M0CCccwcG-U', this)">المحاضرة الثالثة (حالات if الشرطية)</a><span class="lecture-duration">30m 33s</span><input type="checkbox" class="checklist-checkbox" id="chk_M0CCccwcG-U" onchange="toggleCheck('M0CCccwcG-U')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الرابعة (الأفعال الناقصة modals)', 'OzpTSO5t5qo', this)">المحاضرة الرابعة (الأفعال الناقصة modals)</a><span class="lecture-duration">22m 35s</span><input type="checkbox" class="checklist-checkbox" id="chk_OzpTSO5t5qo" onchange="toggleCheck('OzpTSO5t5qo')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الخامسة (ضمائر الوصل relative pronouns)', 'DXVXc8YIpGU', this)">المحاضرة الخامسة (ضمائر الوصل)</a><span class="lecture-duration">25m 08s</span><input type="checkbox" class="checklist-checkbox" id="chk_DXVXc8YIpGU" onchange="toggleCheck('DXVXc8YIpGU')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة السادسة (الروابط conjunctions)', 'sUYZsMPDVNA', this)">المحاضرة السادسة (الروابط conjunctions)</a><span class="lecture-duration">44m 33s</span><input type="checkbox" class="checklist-checkbox" id="chk_sUYZsMPDVNA" onchange="toggleCheck('sUYZsMPDVNA')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة السابعة (الروابط الزمنية time conjunctions)', 'k_tnZRgF51M', this)">المحاضرة السابعة (الروابط الزمنية)</a><span class="lecture-duration">23m 11s</span><input type="checkbox" class="checklist-checkbox" id="chk_k_tnZRgF51M" onchange="toggleCheck('k_tnZRgF51M')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثامنة ( الضمائر pronouns )', 'oCJLpJeWAsw', this)">المحاضرة الثامنة (الضمائر pronouns)</a><span class="lecture-duration">21m 15s</span><input type="checkbox" class="checklist-checkbox" id="chk_oCJLpJeWAsw" onchange="toggleCheck('oCJLpJeWAsw')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة التاسعة (الاسماء المعدودة وغير المعدودة)', 'JXs3JIgSy-g', this)">المحاضرة التاسعة (المعدود وغير المعدود)</a><span class="lecture-duration">19m 23s</span><input type="checkbox" class="checklist-checkbox" id="chk_JXs3JIgSy-g" onchange="toggleCheck('JXs3JIgSy-g')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة العاشرة ( القواعد الفرعية sub rules )', 'PyXisPDrqFE', this)">المحاضرة العاشرة (القواعد الفرعية)</a><span class="lecture-duration">20m 30s</span><input type="checkbox" class="checklist-checkbox" id="chk_PyXisPDrqFE" onchange="toggleCheck('PyXisPDrqFE')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 11 ( الصفات والأحوال adjectives and adverbs )', 'jTPWebWGaZw', this)">المحاضرة 11 (الصفات والأحوال)</a><span class="lecture-duration">24m 15s</span><input type="checkbox" class="checklist-checkbox" id="chk_jTPWebWGaZw" onchange="toggleCheck('jTPWebWGaZw')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 12 ( الأفعال المنتهية بing والأفعال المصدرية )', 'HGek7Psp2QE', this)">المحاضرة 12 (الأفعال بـ ing والمصدر)</a><span class="lecture-duration">28m 42s</span><input type="checkbox" class="checklist-checkbox" id="chk_HGek7Psp2QE" onchange="toggleCheck('HGek7Psp2QE')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الأولى (الأزمنة – شرح)', 'fk20o2cfcZ4', this)">المحاضرة الأولى (الأزمنة – شرح)</a><span class="lecture-duration" id="time_fk20o2cfcZ4">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_fk20o2cfcZ4" onchange="toggleCheck('fk20o2cfcZ4')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثانية (الأزمنة – حل)', 'CoED7-aKR-E', this)">المحاضرة الثانية (الأزمنة – حل)</a><span class="lecture-duration" id="time_CoED7-aKR-E">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_CoED7-aKR-E" onchange="toggleCheck('CoED7-aKR-E')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثالثة (حالات if الشرطية)', 'M0CCccwcG-U', this)">المحاضرة الثالثة (حالات if الشرطية)</a><span class="lecture-duration" id="time_M0CCccwcG-U">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_M0CCccwcG-U" onchange="toggleCheck('M0CCccwcG-U')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الرابعة (الأفعال الناقصة modals)', 'OzpTSO5t5qo', this)">المحاضرة الرابعة (الأفعال الناقصة modals)</a><span class="lecture-duration" id="time_OzpTSO5t5qo">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_OzpTSO5t5qo" onchange="toggleCheck('OzpTSO5t5qo')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الخامسة (ضمائر الوصل relative pronouns)', 'DXVXc8YIpGU', this)">المحاضرة الخامسة (ضمائر الوصل)</a><span class="lecture-duration" id="time_DXVXc8YIpGU">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_DXVXc8YIpGU" onchange="toggleCheck('DXVXc8YIpGU')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة السادسة (الروابط conjunctions)', 'sUYZsMPDVNA', this)">المحاضرة السادسة (الروابط conjunctions)</a><span class="lecture-duration" id="time_sUYZsMPDVNA">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_sUYZsMPDVNA" onchange="toggleCheck('sUYZsMPDVNA')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة السابعة (الروابط الزمنية time conjunctions)', 'k_tnZRgF51M', this)">المحاضرة السابعة (الروابط الزمنية)</a><span class="lecture-duration" id="time_k_tnZRgF51M">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_k_tnZRgF51M" onchange="toggleCheck('k_tnZRgF51M')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثامنة ( الضمائر pronouns )', 'oCJLpJeWAsw', this)">المحاضرة الثامنة (الضمائر pronouns)</a><span class="lecture-duration" id="time_oCJLpJeWAsw">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_oCJLpJeWAsw" onchange="toggleCheck('oCJLpJeWAsw')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة التاسعة (الاسماء المعدودة وغير المعدودة)', 'JXs3JIgSy-g', this)">المحاضرة التاسعة (المعدود وغير المعدود)</a><span class="lecture-duration" id="time_JXs3JIgSy-g">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_JXs3JIgSy-g" onchange="toggleCheck('JXs3JIgSy-g')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة العاشرة ( القواعد الفرعية sub rules )', 'PyXisPDrqFE', this)">المحاضرة العاشرة (القواعد الفرعية)</a><span class="lecture-duration" id="time_PyXisPDrqFE">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_PyXisPDrqFE" onchange="toggleCheck('PyXisPDrqFE')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 11 ( الصفات والأحوال adjectives and adverbs )', 'jTPWebWGaZw', this)">المحاضرة 11 (الصفات والأحوال)</a><span class="lecture-duration" id="time_jTPWebWGaZw">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_jTPWebWGaZw" onchange="toggleCheck('jTPWebWGaZw')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 12 ( الأفعال المنتهية بing والأفعال المصدرية )', 'HGek7Psp2QE', this)">المحاضرة 12 (الأفعال بـ ing والمصدر)</a><span class="lecture-duration" id="time_HGek7Psp2QE">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_HGek7Psp2QE" onchange="toggleCheck('HGek7Psp2QE')"></div>
                     </div>
 
                     <div class="sub-category-title" onclick="toggleSubCategory('t-reading')">📖 تأسيس الريدنق والقطع <span>▼</span></div>
                     <div class="sub-category-content" id="t-reading">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضره الاولى تأسيس وشرح ( قطعة الباندا )', 'Ga1kdQGCU_A', this)">المحاضرة 1 (قطعة الباندا تكرار 2026)</a><span class="lecture-duration">38m 14s</span><input type="checkbox" class="checklist-checkbox" id="chk_Ga1kdQGCU_A" onchange="toggleCheck('Ga1kdQGCU_A')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضره الثانيه تأسيس + شرح ( قطعة كلاي والمناخ والنمل )', 'WG-DWgb1gy4', this)">المحاضرة 2 (كلاي + مايك + النمل + المناخ)</a><span class="lecture-duration">52m 40s</span><input type="checkbox" class="checklist-checkbox" id="chk_WG-DWgb1gy4" onchange="toggleCheck('WG-DWgb1gy4')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضره الثالثة تأسيس + شرح ( قطعة النحل وابن سينا والمسواك )', 'awO-_4yVy64', this)">المحاضرة 3 (النحل + ابن سينا + المسواك + ج2)</a><span class="lecture-duration">44m 10s</span><input type="checkbox" class="checklist-checkbox" id="chk_awO-_4yVy64" onchange="toggleCheck('awO-_4yVy64')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الرابعة تأسيس + شرح ( قطعة التلوث والعولمة والسكر )', 'mpWjhBTcAas', this)">المحاضرة 4 (التلوث + العولمة + السكر + القائد)</a><span class="lecture-duration">49m 25s</span><input type="checkbox" class="checklist-checkbox" id="chk_mpWjhBTcAas" onchange="toggleCheck('mpWjhBTcAas')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضره الاولى تأسيس وشرح ( قطعة الباندا )', 'Ga1kdQGCU_A', this)">المحاضرة 1 (قطعة الباندا تكرار 2026)</a><span class="lecture-duration" id="time_Ga1kdQGCU_A">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_Ga1kdQGCU_A" onchange="toggleCheck('Ga1kdQGCU_A')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضره الثانيه تأسيس + شرح ( قطعة كلاي والمناخ والنمل )', 'WG-DWgb1gy4', this)">المحاضرة 2 (كلاي + مايك + النمل + المناخ)</a><span class="lecture-duration" id="time_WG-DWgb1gy4">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_WG-DWgb1gy4" onchange="toggleCheck('WG-DWgb1gy4')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضره الثالثة تأسيس + شرح ( قطعة النحل وابن سينا والمسواك )', 'awO-_4yVy64', this)">المحاضرة 3 (النحل + ابن سينا + المسواك + ج2)</a><span class="lecture-duration" id="time_awO-_4yVy64">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_awO-_4yVy64" onchange="toggleCheck('awO-_4yVy64')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الرابعة تأسيس + شرح ( قطعة التلوث والعولمة والسكر )', 'mpWjhBTcAas', this)">المحاضرة 4 (التلوث + العولمة + السكر + القائد)</a><span class="lecture-duration" id="time_mpWjhBTcAas">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_mpWjhBTcAas" onchange="toggleCheck('mpWjhBTcAas')"></div>
                     </div>
 
                     <div class="sub-category-title" onclick="toggleSubCategory('t-listening')">🎧 تأسيس وتكنيك اللسينق <span>▼</span></div>
                     <div class="sub-category-content" id="t-listening">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('تأسيس قسم اللسينق', 'JOWAfPSMB8M', this)">تأسيس قسم اللسينق الرئيسي</a><span class="lecture-duration">35m 18s</span><input type="checkbox" class="checklist-checkbox" id="chk_JOWAfPSMB8M" onchange="toggleCheck('JOWAfPSMB8M')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('تأسيس قسم اللسينق', 'JOWAfPSMB8M', this)">تأسيس قسم اللسينق الرئيسي</a><span class="lecture-duration" id="time_JOWAfPSMB8M">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_JOWAfPSMB8M" onchange="toggleCheck('JOWAfPSMB8M')"></div>
                     </div>
                 </div>
 
@@ -487,23 +490,23 @@
                     
                     <div class="sub-category-title" onclick="toggleSubCategory('r-grammar')">✏️ مراجعة الجرامر المكثفة <span>▼</span></div>
                     <div class="sub-category-content" id="r-grammar">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الاولى', 'yxtxd3reRlA', this)">مراجعة الجرامر المحاضرة الأولى</a><span class="lecture-duration">41m 12s</span><input type="checkbox" class="checklist-checkbox" id="chk_yxtxd3reRlA" onchange="toggleCheck('yxtxd3reRlA')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الثانية', 'OdBtlBoA3E4', this)">مراجعة الجرامر المحاضرة الثانية</a><span class="lecture-duration">38m 45s</span><input type="checkbox" class="checklist-checkbox" id="chk_OdBtlBoA3E4" onchange="toggleCheck('OdBtlBoA3E4')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الثالثة', 'y1-kXYrYNv8', this)">مراجعة الجرامر المحاضرة الثالثة</a><span class="lecture-duration">45m 10s</span><input type="checkbox" class="checklist-checkbox" id="chk_y1-kXYrYNv8" onchange="toggleCheck('y1-kXYrYNv8')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الرابعة ( الاخيره )', 'inbFNKjS_1Q', this)">مراجعة الجرامر المحاضرة الرابعة والأخيرة</a><span class="lecture-duration">51m 20s</span><input type="checkbox" class="checklist-checkbox" id="chk_inbFNKjS_1Q" onchange="toggleCheck('inbFNKjS_1Q')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الاولى', 'yxtxd3reRlA', this)">مراجعة الجرامر المحاضرة الأولى</a><span class="lecture-duration" id="time_yxtxd3reRlA">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_yxtxd3reRlA" onchange="toggleCheck('yxtxd3reRlA')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الثانية', 'OdBtlBoA3E4', this)">مراجعة الجرامر المحاضرة الثانية</a><span class="lecture-duration" id="time_OdBtlBoA3E4">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_OdBtlBoA3E4" onchange="toggleCheck('OdBtlBoA3E4')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الثالثة', 'y1-kXYrYNv8', this)">مراجعة الجرامر المحاضرة الثالثة</a><span class="lecture-duration" id="time_y1-kXYrYNv8">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_y1-kXYrYNv8" onchange="toggleCheck('y1-kXYrYNv8')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الرابعة ( الاخيره )', 'inbFNKjS_1Q', this)">مراجعة الجرامر المحاضرة الرابعة والأخيرة</a><span class="lecture-duration" id="time_inbFNKjS_1Q">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_inbFNKjS_1Q" onchange="toggleCheck('inbFNKjS_1Q')"></div>
                     </div>
 
                     <div class="sub-category-title" onclick="toggleSubCategory('r-reading')">📋 مراجعة الريدنق المكثفة <span>▼</span></div>
                     <div class="sub-category-content" id="r-reading">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الاولى', 'hqgHEUHYbsc', this)">مراجعة الريدنق المحاضرة الأولى</a><span class="lecture-duration">34m 55s</span><input type="checkbox" class="checklist-checkbox" id="chk_hqgHEUHYbsc" onchange="toggleCheck('hqgHEUHYbsc')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الثانية', 'S93Y486nZDY', this)">مراجعة الريدنق المحاضرة الثانية</a><span class="lecture-duration">42m 18s</span><input type="checkbox" class="checklist-checkbox" id="chk_S93Y486nZDY" onchange="toggleCheck('S93Y486nZDY')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الثالثة ( الاخيره )', 'NljYaGzpkuE', this)">مراجعة الريدنق المحاضرة الثالثة والأخيرة</a><span class="lecture-duration">48m 05s</span><input type="checkbox" class="checklist-checkbox" id="chk_NljYaGzpkuE" onchange="toggleCheck('NljYaGzpkuE')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الاولى', 'hqgHEUHYbsc', this)">مراجعة الريدنق المحاضرة الأولى</a><span class="lecture-duration" id="time_hqgHEUHYbsc">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_hqgHEUHYbsc" onchange="toggleCheck('hqgHEUHYbsc')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الثانية', 'S93Y486nZDY', this)">مراجعة الريدنق المحاضرة الثانية</a><span class="lecture-duration" id="time_S93Y486nZDY">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_S93Y486nZDY" onchange="toggleCheck('S93Y486nZDY')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الثالثة ( الاخيره )', 'NljYaGzpkuE', this)">مراجعة الريدنق المحاضرة الثالثة والأخيرة</a><span class="lecture-duration" id="time_NljYaGzpkuE">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_NljYaGzpkuE" onchange="toggleCheck('NljYaGzpkuE')"></div>
                     </div>
 
                     <div class="sub-category-title" onclick="toggleSubCategory('r-listening')">📢 مراجعة اللسينق المكثفة <span>▼</span></div>
                     <div class="sub-category-content" id="r-listening">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة ليسنق المحاضرة الاولي', 'Zh4IsxxWcp4', this)">مراجعة ليسنق المحاضرة الأولى</a><span class="lecture-duration">29m 12s</span><input type="checkbox" class="checklist-checkbox" id="chk_Zh4IsxxWcp4" onchange="toggleCheck('Zh4IsxxWcp4')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة اللسينق المحاضره الثانية ( الاخيره )', 'Q2e0KbHUL-U', this)">مراجعة اللسينق المحاضرة الثانية والأخيرة</a><span class="lecture-duration">33m 40s</span><input type="checkbox" class="checklist-checkbox" id="chk_Q2e0KbHUL-U" onchange="toggleCheck('Q2e0KbHUL-U')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة ليسنق المحاضرة الاولي', 'Zh4IsxxWcp4', this)">مراجعة ليسنق المحاضرة الأولى</a><span class="lecture-duration" id="time_Zh4IsxxWcp4">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_Zh4IsxxWcp4" onchange="toggleCheck('Zh4IsxxWcp4')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة اللسينق المحاضره الثانية ( الاخيره )', 'Q2e0KbHUL-U', this)">مراجعة اللسينق المحاضرة الثانية والأخيرة</a><span class="lecture-duration" id="time_Q2e0KbHUL-U">0m 00s</span><input type="checkbox" class="checklist-checkbox" id="chk_Q2e0KbHUL-U" onchange="toggleCheck('Q2e0KbHUL-U')"></div>
                     </div>
                 </div>
 
@@ -524,8 +527,8 @@
             </div>
 
             <div class="welcome-box" id="welcomeMessage">
-                <h2>🎯 أهلاً بك في منصة معين التعليمية المحدثة</h2>
-                <p style="margin-top: 10px; color: var(--gray-text);">تم إصلاح مشكلة فيديو مراجعة الاستماع الأولى بدقة وتدقيق مدد الفيديوهات بالكامل.</p>
+                <h2>🎯 أهلاً بك في منصة معين التعليمية</h2>
+                <p style="margin-top: 10px; color: var(--gray-text);">تم تفعيل العداد والتايمر التلقائي الذكي لكل فيديو بنجاح لحفظ مدة دراستك الفعلية.</p>
             </div>
 
             <div id="videoArea" style="display: none; width: 100%;" class="video-area-animated">
@@ -563,29 +566,64 @@
 
     <script>
         // إعدادات التخزين والتتبع التلقائي
-        let appData = { checked: [], notes: {} };
+        let appData = { checked: [], notes: {}, watchTime: {} };
         let currentVideoId = "";
+        let watchInterval;
 
         window.onload = function() {
-            let stored = localStorage.getItem("muin_step_real_time_data");
+            let stored = localStorage.getItem("muin_step_dynamic_time_data");
             if (stored) {
                 appData = JSON.parse(stored);
                 if (!appData.notes) appData.notes = {};
+                if (!appData.watchTime) appData.watchTime = {};
+                
                 appData.checked.forEach(id => {
                     let cb = document.getElementById('chk_' + id);
                     if (cb) cb.checked = true;
                 });
             }
             updateProgressBar();
+            renderAllTimes();
 
             // حفظ الملاحظات لحظياً أثناء الكتابة
             document.getElementById('notebook').addEventListener('input', function() {
                 if (currentVideoId) {
                     appData.notes[currentVideoId] = this.value;
-                    localStorage.setItem("muin_step_real_time_data", JSON.stringify(appData));
+                    saveData();
                 }
             });
         };
+
+        function saveData() {
+            localStorage.setItem("muin_step_dynamic_time_data", JSON.stringify(appData));
+        }
+
+        // تحويل الثواني إلى صيغة وقت مقروءة m s
+        function formatWatchTime(seconds) {
+            if (!seconds) return "0m 00s";
+            let m = Math.floor(seconds / 60);
+            let s = seconds % 60;
+            return m + "m " + (s < 10 ? "0" : "") + s + "s";
+        }
+
+        // عرض الأوقات وحالات الاكتمال لكل الفيديوهات في الفهرس الجانبي
+        function renderAllTimes() {
+            let checkboxes = document.getElementsByClassName('checklist-checkbox');
+            for (let cb of checkboxes) {
+                let id = cb.id.replace('chk_', '');
+                let durationSpan = document.getElementById('time_' + id);
+                if (durationSpan) {
+                    if (appData.checked.includes(id)) {
+                        durationSpan.innerText = "مكتمل ✓";
+                        durationSpan.classList.add('completed-text');
+                    } else {
+                        let savedTime = appData.watchTime[id] || 0;
+                        durationSpan.innerText = formatWatchTime(savedTime);
+                        durationSpan.classList.remove('completed-text');
+                    }
+                }
+            }
+        }
 
         // حساب الإنجاز وتحديث البار العلوي
         function updateProgressBar() {
@@ -625,8 +663,11 @@
             content.style.maxHeight = (content.style.maxHeight && content.style.maxHeight !== "0px") ? "0px" : "1500px";
         }
 
-        // تشغيل الفيديوهات
+        // تشغيل الفيديوهات وبدء حساب وقت التصفح الفعلي تلقائياً وبدقة
         function playVideo(title, videoId, element) {
+            // إيقاف عداد الفيديو السابق إن وجد
+            clearInterval(watchInterval);
+
             currentVideoId = videoId;
             document.getElementById('welcomeMessage').style.display = 'none';
             
@@ -639,7 +680,6 @@
 
             document.getElementById('videoTitle').innerText = title;
             
-            // رابط المشغل المدمج
             document.getElementById('youtubePlayer').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&controls=1";
             document.getElementById('externalLink').href = "https://www.youtube.com/watch?v=" + videoId;
             
@@ -648,17 +688,32 @@
             let items = document.getElementsByClassName('lecture-item');
             for (let i = 0; i < items.length; i++) { items[i].classList.remove('active'); }
             element.parentElement.classList.add('active');
+
+            // تشغيل العداد الفعلي أثناء بقاء الطالب داخل صفحة الدرس
+            if (!appData.checked.includes(videoId)) {
+                if (!appData.watchTime[videoId]) appData.watchTime[videoId] = 0;
+                watchInterval = setInterval(() => {
+                    appData.watchTime[videoId]++;
+                    let durationSpan = document.getElementById('time_' + videoId);
+                    if (durationSpan && !appData.checked.includes(videoId)) {
+                        durationSpan.innerText = formatWatchTime(appData.watchTime[videoId]);
+                    }
+                    saveData();
+                }, 1000);
+            }
         }
 
         function toggleCheck(id) {
             let cb = document.getElementById('chk_' + id);
             if (cb.checked) {
                 if (!appData.checked.includes(id)) appData.checked.push(id);
+                clearInterval(watchInterval); // إيقاف العداد لأنه اكتمل
             } else {
                 appData.checked = appData.checked.filter(item => item !== id);
             }
-            localStorage.setItem("muin_step_real_time_data", JSON.stringify(appData));
+            saveData();
             updateProgressBar();
+            renderAllTimes();
         }
 
         /* سكريبت مؤقت البومودورو */
