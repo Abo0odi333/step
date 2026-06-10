@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة دورة ستيب STEP الذكية</title>
+    <title>منصة دورة ستيب STEP الذكية المتكاملة</title>
     <style>
         :root {
             --main-bg: #f4f0fa;
@@ -14,6 +14,7 @@
             --text-color: #333333;
             --border-color: #e0d4f7;
             --success-color: #00c853;
+            --warning-color: #ff9100;
         }
 
         * {
@@ -44,17 +45,74 @@
         }
 
         .sidebar-header {
-            padding: 20px;
+            padding: 15px;
             background-color: var(--dark-purple);
             color: white;
             text-align: center;
-            border-bottom: 3px solid var(--primary-purple);
         }
 
-        .sidebar-header h2 {
-            font-size: 22px;
-            letter-spacing: 1px;
+        /* شريط الإنجاز */
+        .progress-box {
+            background: var(--light-purple);
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
         }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--dark-purple);
+            margin-bottom: 5px;
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--success-color);
+            transition: width 0.4s ease;
+        }
+
+        /* مؤقت البومودورو */
+        .pomodoro-box {
+            background: #fff;
+            margin: 10px 15px 5px 15px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .pomodoro-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--dark-purple);
+            margin-bottom: 5px;
+        }
+        .pomodoro-time {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+        .pomodoro-btn {
+            padding: 4px 10px;
+            font-size: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 2px;
+            color: white;
+        }
+        .btn-start { background-color: var(--primary-purple); }
+        .btn-pause { background-color: var(--warning-color); }
+        .btn-reset { background-color: #757575; }
 
         .menu-container {
             flex: 1;
@@ -62,34 +120,28 @@
             padding: 15px;
         }
 
-        /* الأقسام الرئيسية القابلة للطي مع أنيميشن */
+        /* الأقسام الرئيسية القابلة للطي */
         .main-category {
             margin-bottom: 15px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             overflow: hidden;
             background: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
         .main-category-btn {
             width: 100%;
             background-color: var(--primary-purple);
             color: white;
-            padding: 14px;
+            padding: 12px;
             text-align: right;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             border: none;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background 0.3s ease;
-        }
-
-        .main-category-btn:hover {
-            background-color: var(--dark-purple);
         }
 
         .main-category-content {
@@ -111,12 +163,6 @@
             cursor: pointer;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            transition: background 0.2s;
-        }
-
-        .sub-category-title:hover {
-            background-color: #e1d7f2;
         }
 
         .sub-category-content {
@@ -135,12 +181,11 @@
             margin: 6px 0;
             border-radius: 6px;
             border: 1px solid #eee;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease;
         }
 
         .lecture-item:hover {
             transform: translateX(-5px);
-            box-shadow: 0 4px 8px rgba(124, 77, 255, 0.1);
         }
 
         .checklist-checkbox {
@@ -163,7 +208,6 @@
         .lecture-item.active {
             background-color: var(--light-purple);
             border-color: var(--primary-purple);
-            animation: pulse 1.5s infinite alternate;
         }
         
         .lecture-item.active .lecture-link {
@@ -176,7 +220,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 30px;
+            padding: 25px;
             height: 100%;
             overflow-y: auto;
         }
@@ -190,12 +234,64 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             font-size: 14px;
             border-right: 4px solid var(--primary-purple);
-            animation: fadeInDown 0.5s ease;
         }
 
-        /* منطقة عرض الفيديو مع أنيميشن الظهور المفاجئ الأنيق */
+        /* تقسيم شاشة الفيديو والملاحظات */
+        .workspace-container {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+            align-items: flex-start;
+        }
+
+        .video-section {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* مساحة كتابة الملاحظات */
+        .notebook-section {
+            flex: 1;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 450px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .notebook-section h3 {
+            font-size: 16px;
+            color: var(--dark-purple);
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .notebook-textarea {
+            flex: 1;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: none;
+            font-size: 14px;
+            line-height: 1.5;
+            outline: none;
+            background-color: #fdfbff;
+        }
+
+        .notebook-textarea:focus {
+            border-color: var(--primary-purple);
+        }
+
         .video-area-animated {
-            animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: zoomIn 0.4s ease;
+            width: 100%;
         }
 
         .video-header {
@@ -204,19 +300,17 @@
 
         .video-header h2 {
             color: var(--dark-purple);
-            font-size: 22px;
+            font-size: 20px;
         }
 
         .video-container {
             position: relative;
             width: 100%;
-            max-width: 850px;
             padding-top: 56.25%;
             background-color: #000;
             border-radius: 12px;
             overflow: hidden;
-            margin: 0 auto;
-            box-shadow: 0 10px 30px rgba(74, 20, 140, 0.12);
+            box-shadow: 0 10px 30px rgba(74, 20, 140, 0.08);
         }
 
         .video-container iframe {
@@ -226,64 +320,58 @@
 
         .external-link-btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 12px 24px;
+            margin-top: 15px;
+            padding: 10px 20px;
             background-color: #e53935;
             color: white;
             text-decoration: none;
             border-radius: 30px;
             font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);
-            transition: all 0.2s;
-        }
-
-        .external-link-btn:hover {
-            background-color: #b71c1c;
-            transform: scale(1.05);
+            font-size: 13px;
+            text-align: center;
         }
 
         .welcome-message {
             text-align: center;
             margin: auto;
-            animation: fadeIn 1s ease;
         }
 
-        /* تعريفات الأنيميشن (Keyframes) */
-        @keyframes fadeIn {
-            from { opacity: 0; } to { opacity: 1; }
-        }
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
         @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.95); }
+            from { opacity: 0; transform: scale(0.98); }
             to { opacity: 1; transform: scale(1); }
         }
-        @keyframes pulse {
-            from { box-shadow: 0 0 0px rgba(124, 77, 255, 0.2); }
-            to { box-shadow: 0 0 10px rgba(124, 77, 255, 0.5); }
-        }
 
-        /* تخصيص شريط التمرير */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--main-bg); }
         ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary-purple); }
     </style>
 </head>
 <body>
 
-    <!-- القائمة الجانبية -->
     <div class="sidebar">
         <div class="sidebar-header">
             <h2>دورة STEP الذكية 2026</h2>
         </div>
+
+        <div class="progress-box">
+            <div class="progress-label">
+                <span>مستوى الإنجاز العام في الدورة</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+        </div>
+
+        <div class="pomodoro-box">
+            <div class="pomodoro-title" id="pomodoroMode">⏱️ مؤقت التركيز (بومودورو)</div>
+            <div class="pomodoro-time" id="pomodoroDisplay">25:00</div>
+            <button class="pomodoro-btn btn-start" onclick="startPomodoro()">ابدأ</button>
+            <button class="pomodoro-btn btn-pause" onclick="pausePomodoro()">إيقاف</button>
+            <button class="pomodoro-btn btn-reset" onclick="resetPomodoro()">إعادة</button>
+        </div>
         
         <div class="menu-container">
-            
-            <!-- 1. قسم التأسيس الكبير -->
             <div class="main-category">
                 <button class="main-category-btn" onclick="toggleMainCategory('tasees')">
                     <span>📚 أقسام التأسيس والشرح</span>
@@ -291,8 +379,7 @@
                 </button>
                 <div class="main-category-content" id="tasees-content">
                     
-                    <!-- فرعي: قرامر -->
-                    <div class="sub-category-title" onclick="toggleSubCategory('t-grammar')">⚖️ تأسيس القرامر <span class="arrow">▼</span></div>
+                    <div class="sub-category-title" onclick="toggleSubCategory('t-grammar')">⚖️ تأسيس القرامر <span>▼</span></div>
                     <div class="sub-category-content" id="t-grammar">
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_fk20o2cfcZ4" onchange="toggleCheck('fk20o2cfcZ4')"><a class="lecture-link" onclick="playVideo('المحاضرة 1 (الأزمنة – شرح)', 'fk20o2cfcZ4', this)">المحاضرة 1 (الأزمنة – شرح)</a></div>
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_CoED7-aKR-E" onchange="toggleCheck('CoED7-aKR-E')"><a class="lecture-link" onclick="playVideo('المحاضرة 2 (الأزمنة – حل)', 'CoED7-aKR-E', this)">المحاضرة 2 (الأزمنة – حل)</a></div>
@@ -308,8 +395,7 @@
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_HGek7Psp2QE" onchange="toggleCheck('HGek7Psp2QE')"><a class="lecture-link" onclick="playVideo('المحاضرة 12 (ing والمصدر)', 'HGek7Psp2QE', this)">المحاضرة 12 (ing والمصدر)</a></div>
                     </div>
 
-                    <!-- فرعي: ريدنق -->
-                    <div class="sub-category-title" onclick="toggleSubCategory('t-reading')">📖 تأسيس الريدنق <span class="arrow">▼</span></div>
+                    <div class="sub-category-title" onclick="toggleSubCategory('t-reading')">📖 تأسيس الريدنق <span>▼</span></div>
                     <div class="sub-category-content" id="t-reading">
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_Ga1kdQGCU_A" onchange="toggleCheck('Ga1kdQGCU_A')"><a class="lecture-link" onclick="playVideo('تأسيس ريدنق - قطعة الباندا', 'Ga1kdQGCU_A', this)">المحاضرة 1 (قطعة الباندا)</a></div>
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_WG-DWgb1gy4" onchange="toggleCheck('WG-DWgb1gy4')"><a class="lecture-link" onclick="playVideo('تأسيس ريدنق - كلاي والمناخ والنمل', 'WG-DWgb1gy4', this)">المحاضرة 2 (كلاي، مايك، النمل)</a></div>
@@ -317,16 +403,13 @@
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_mpWjhBTcAas" onchange="toggleCheck('mpWjhBTcAas')"><a class="lecture-link" onclick="playVideo('تأسيس ريدنق - التلوث والعولمة', 'mpWjhBTcAas', this)">المحاضرة 4 (التلوث، العولمة، السكر)</a></div>
                     </div>
 
-                    <!-- فرعي: ليسنق -->
-                    <div class="sub-category-title" onclick="toggleSubCategory('t-listening')">🎧 تأسيس اللسينق <span class="arrow">▼</span></div>
+                    <div class="sub-category-title" onclick="toggleSubCategory('t-listening')">🎧 تأسيس اللسينق <span>▼</span></div>
                     <div class="sub-category-content" id="t-listening">
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_JOWAfPSMB8M" onchange="toggleCheck('JOWAfPSMB8M')"><a class="lecture-link" onclick="playVideo('تأسيس وتكنيك قسم اللسينق', 'JOWAfPSMB8M', this)">تأسيس قسم اللسينق الرئيسي</a></div>
                     </div>
-
                 </div>
             </div>
 
-            <!-- 2. قسم المراجعات الكبير -->
             <div class="main-category">
                 <button class="main-category-btn" onclick="toggleMainCategory('review')">
                     <span>🔥 أقسام المراجعات المكثفة 2026</span>
@@ -334,8 +417,7 @@
                 </button>
                 <div class="main-category-content" id="review-content">
                     
-                    <!-- فرعي: مراجعة جرامر -->
-                    <div class="sub-category-title" onclick="toggleSubCategory('r-grammar')">✏️ مراجعة الجرامر <span class="arrow">▼</span></div>
+                    <div class="sub-category-title" onclick="toggleSubCategory('r-grammar')">✏️ مراجعة الجرامر <span>▼</span></div>
                     <div class="sub-category-content" id="r-grammar">
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_yxtxd3reRlA" onchange="toggleCheck('yxtxd3reRlA')"><a class="lecture-link" onclick="playVideo('مراجعة الجرامر - المحاضرة 1', 'yxtxd3reRlA', this)">مراجعة جرامر - المحاضرة 1</a></div>
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_OdBtlBoA3E4" onchange="toggleCheck('OdBtlBoA3E4')"><a class="lecture-link" onclick="playVideo('مراجعة الجرامر - المحاضرة 2', 'OdBtlBoA3E4', this)">مراجعة جرامر - المحاضرة 2</a></div>
@@ -343,30 +425,24 @@
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_inbFNKjS_1Q" onchange="toggleCheck('inbFNKjS_1Q')"><a class="lecture-link" onclick="playVideo('مراجعة الجرامر - المحاضرة 4', 'inbFNKjS_1Q', this)">مراجعة جرامر - المحاضرة 4</a></div>
                     </div>
 
-                    <!-- فرعي: مراجعة ريدنق -->
-                    <div class="sub-category-title" onclick="toggleSubCategory('r-reading')">📋 مراجعة الريدنق <span class="arrow">▼</span></div>
+                    <div class="sub-category-title" onclick="toggleSubCategory('r-reading')">📋 مراجعة الريدنق <span>▼</span></div>
                     <div class="sub-category-content" id="r-reading">
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_hqgHEUHYbsc" onchange="toggleCheck('hqgHEUHYbsc')"><a class="lecture-link" onclick="playVideo('مراجعة الريدنق - المحاضرة 1', 'hqgHEUHYbsc', this)">مراجعة ريدنق - المحاضرة 1</a></div>
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_S93Y486nZDY" onchange="toggleCheck('S93Y486nZDY')"><a class="lecture-link" onclick="playVideo('مراجعة الريدنق - المحاضرة 2', 'S93Y486nZDY', this)">مراجعة ريدنق - المحاضرة 2</a></div>
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_NljYaGzpkuE" onchange="toggleCheck('NljYaGzpkuE')"><a class="lecture-link" onclick="playVideo('مراجعة الريدنق - المحاضرة 3', 'NljYaGzpkuE', this)">مراجعة ريدنق - المحاضرة 3</a></div>
                     </div>
 
-                    <!-- فرعي: مراجعة ليسنق -->
-                    <div class="sub-category-title" onclick="toggleSubCategory('r-listening')">📢 مراجعة اللسينق <span class="arrow">▼</span></div>
+                    <div class="sub-category-title" onclick="toggleSubCategory('r-listening')">📢 مراجعة اللسينق <span>▼</span></div>
                     <div class="sub-category-content" id="r-listening">
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_Zh4IsxxWComp4" onchange="toggleCheck('Zh4IsxxWComp4')"><a class="lecture-link" onclick="playVideo('مراجعة ليسنق - المحاضرة 1', 'Zh4IsxxWComp4', this)">مراجعة ليسنق - المحاضرة 1</a></div>
                         <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_Q2e0KbHUL-U" onchange="toggleCheck('Q2e0KbHUL-U')"><a class="lecture-link" onclick="playVideo('مراجعة ليسنق - المحاضرة 2', 'Q2e0KbHUL-U', this)">مراجعة ليسنق - المحاضرة 2</a></div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- منطقة العرض الرئيسية -->
     <div class="main-content">
-        <!-- السجل -->
         <div class="history-bar">
             ⏱️ <strong>آخر محاضرة شاهدتها:</strong> <span id="lastWatched">لا يوجد محاضرات في السجل حالياً.</span>
         </div>
@@ -376,102 +452,119 @@
             <p>اضغط على أي قسم من اليمين لمشاهدة الدروس وتتبع إنجازك تلقائياً.</p>
         </div>
         
-        <div id="videoArea" style="display: none; width: 100%;">
-            <div class="video-header">
-                <h2 id="videoTitle">اسم المحاضرة</h2>
+        <div id="videoArea" class="video-area-animated" style="display: none;">
+            <div class="workspace-container">
+                
+                <div class="video-section">
+                    <div class="video-header">
+                        <h2 id="videoTitle">اسم المحاضرة</h2>
+                    </div>
+                    <div class="video-container">
+                        <iframe id="youtubePlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <center>
+                        <a id="externalLink" class="external-link-btn" target="_blank" href="#">
+                            📺 فتح الفيديو مباشرة في تطبيق YouTube
+                        </a>
+                    </center>
+                </div>
+
+                <div class="notebook-section">
+                    <h3>📝 مفكرة المحاضرة</h3>
+                    <textarea id="notebookNote" class="notebook-textarea" placeholder="اكتب هنا ملاحظاتك، القواعد المهمة، أو الكلمات الجديدة الصعبة لهذه المحاضرة... (يتم حفظها تلقائياً لكل درس)"></textarea>
+                </div>
+
             </div>
-            <div class="video-container">
-                <!-- تم تحسين الرابط هنا لحل مشكلة التضمين وتفادي الحجب المباشر -->
-                <iframe id="youtubePlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <center>
-                <a id="externalLink" class="external-link-btn" target="_blank" href="#">
-                    📺 فتح الفيديو مباشرة في تطبيق YouTube
-                </a>
-            </center>
         </div>
     </div>
 
     <script>
-        // مصفوفة حفظ البيانات تلقائياً للمتصفح بدون حسابات
+        // داتا الحفظ التلقائي في اللوكل ستوريج
         let localData = {
             checkedVideos: [],
-            lastVideo: ""
+            lastVideo: "",
+            notes: {} // لحفظ الملاحظات برقم الـ ID الخاص بكل فيديو
         };
 
-        // عند تحميل الصفحة، نقوم بجلب البيانات المحفوظة مسبقاً إن وجدت
+        let currentActiveVideoId = ""; // لمعرفة أي فيديو مفتوح حالياً لتخزين ملاحظته
+
         window.onload = function() {
             let stored = localStorage.getItem("step_progress_data");
             if (stored) {
                 localData = JSON.parse(stored);
-                // تفعيل التشيك بوكس المحفوظة
+                if(!localData.notes) localData.notes = {}; // حماية في حال عدم وجود الكائن مسبقاً
+                
                 localData.checkedVideos.forEach(id => {
                     let cb = document.getElementById('chk_' + id);
                     if (cb) cb.checked = true;
                 });
-                // جلب آخر محاضرة زرتها
                 if (localData.lastVideo) {
                     document.getElementById('lastWatched').innerText = localData.lastVideo;
                 }
             }
+            updateProgressBar();
+            
+            // ربط حدث الكتابة في المفكرة لحفظ البيانات فورياً
+            document.getElementById('notebookNote').addEventListener('input', function() {
+                if (currentActiveVideoId) {
+                    localData.notes[currentActiveVideoId] = this.value;
+                    localStorage.setItem("step_progress_data", JSON.stringify(localData));
+                }
+            });
         };
 
-        // التحكم في طي الأقسام الكبرى مع أنيميشن الارتفاع
+        // تحديث شريط الإنجاز الـ Progress Bar
+        function updateProgressBar() {
+            let totalCheckboxes = document.getElementsByClassName('checklist-checkbox').length;
+            let checkedCount = localData.checkedVideos.length;
+            let percent = totalCheckboxes > 0 ? Math.round((checkedCount / totalCheckboxes) * 100) : 0;
+            
+            document.getElementById('progressBarFill').style.width = percent + "%";
+            document.getElementById('progressPercent').innerText = percent + "%";
+        }
+
         function toggleMainCategory(id) {
             let content = document.getElementById(id + '-content');
             let icon = document.getElementById(id + '-icon');
-            
             if (content.style.maxHeight && content.style.maxHeight !== "0px") {
                 content.style.maxHeight = "0px";
                 icon.innerText = "➕";
             } else {
-                content.style.maxHeight = "2000px"; // قيمة كافية لعرض كل العناصر بمرونة
+                content.style.maxHeight = "2000px";
                 icon.innerText = "➖";
             }
         }
 
-        // التحكم في طي الأقسام الفرعية
         function toggleSubCategory(id) {
             let content = document.getElementById(id);
-            if (content.style.maxHeight && content.style.maxHeight !== "0px") {
-                content.style.maxHeight = "0px";
-            } else {
-                content.style.maxHeight = "1000px";
-            }
+            content.style.maxHeight = (content.style.maxHeight && content.style.maxHeight !== "0px") ? "0px" : "1000px";
         }
 
-        // تشغيل الفيديو بخصائص متوافقة وحل مشكلة التشغيل
+        // تشغيل الفيديو والمفكرة الخاصة به
         function playVideo(title, videoId, element) {
-            let videoArea = document.getElementById('videoArea');
-            document.getElementById('welcomeMessage').style.display = 'none';
-            videoArea.style.display = 'block';
+            currentActiveVideoId = videoId; // تحديد الفيديو النشط
             
-            // إضافة أنيميشن إعادة التشغيل عند تبديل الفيديوهات بشكل مفاجئ وجميل
-            videoArea.classList.remove('video-area-animated');
-            void videoArea.offsetWidth; // إعادة تهيئة الـ DOM لتفعيل الأنيميشن مجدداً
-            videoArea.classList.add('video-area-animated');
-
+            document.getElementById('welcomeMessage').style.display = 'none';
+            document.getElementById('videoArea').style.display = 'block';
             document.getElementById('videoTitle').innerText = title;
             
-            // الحل البرمجي لفك حظر التشغيل عبر المتصفحات المحلية وإضافة مشغلات التحكم الكاملة
             document.getElementById('youtubePlayer').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&mute=0&rel=0&showinfo=0&controls=1";
             document.getElementById('externalLink').href = "https://www.youtube.com/watch?v=" + videoId;
             
-            // تحديث سجل آخر محاضرة تلقائياً مع توقيتها الحالي
+            // جلب وعرض الملاحظة المخزنة لهذا الفيديو بالتحديد
+            document.getElementById('notebookNote').value = localData.notes[videoId] || "";
+
             let timeStamp = new Date().toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit'});
             localData.lastVideo = title + " [ الساعة " + timeStamp + " ]";
             document.getElementById('lastWatched').innerText = localData.lastVideo;
             
-            // حفظ التغيير في الذاكرة المحلية
             localStorage.setItem("step_progress_data", JSON.stringify(localData));
 
-            // تفعيل لون العنصر النشط بالقائمة
             let items = document.getElementsByClassName('lecture-item');
             for (let i = 0; i < items.length; i++) { items[i].classList.remove('active'); }
             element.parentElement.classList.add('active');
         }
 
-        // حفظ وتحديث الشيك ليست تلقائياً
         function toggleCheck(id) {
             let checkBox = document.getElementById('chk_' + id);
             if (checkBox.checked) {
@@ -480,6 +573,56 @@
                 localData.checkedVideos = localData.checkedVideos.filter(item => item !== id);
             }
             localStorage.setItem("step_progress_data", JSON.stringify(localData));
+            updateProgressBar();
+        }
+
+        /* سكريبت مؤقت البومودورو */
+        let pomodoroInterval;
+        let pomodoroTimeLeft = 25 * 60; // 25 دقيقة بالثواني
+        let isWorkingMode = true;
+
+        function updatePomodoroDisplay() {
+            let minutes = Math.floor(pomodoroTimeLeft / 60);
+            let seconds = pomodoroTimeLeft % 60;
+            document.getElementById('pomodoroDisplay').innerText = 
+                (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        }
+
+        function startPomodoro() {
+            clearInterval(pomodoroInterval);
+            pomodoroInterval = setInterval(() => {
+                if (pomodoroTimeLeft > 0) {
+                    pomodoroTimeLeft--;
+                    updatePomodoroDisplay();
+                } else {
+                    clearInterval(pomodoroInterval);
+                    if (isWorkingMode) {
+                        alert("انتهى وقت التركيز! خذ قسطاً من الراحة (5 دقائق).");
+                        pomodoroTimeLeft = 5 * 60;
+                        isWorkingMode = false;
+                        document.getElementById('pomodoroMode').innerText = "☕ وقت الراحة القصيرة";
+                    } else {
+                        alert("انتهت الراحة! عد للتركيز والدراسة الآن.");
+                        pomodoroTimeLeft = 25 * 60;
+                        isWorkingMode = true;
+                        document.getElementById('pomodoroMode').innerText = "⏱️ مؤقت التركيز (بومودورو)";
+                    }
+                    updatePomodoroDisplay();
+                    startPomodoro();
+                }
+            }, 1000);
+        }
+
+        function pausePomodoro() {
+            clearInterval(pomodoroInterval);
+        }
+
+        function resetPomodoro() {
+            clearInterval(pomodoroInterval);
+            isWorkingMode = true;
+            pomodoroTimeLeft = 25 * 60;
+            document.getElementById('pomodoroMode').innerText = "⏱️ مؤقت التركيز (بومودورو)";
+            updatePomodoroDisplay();
         }
     </script>
 </body>
