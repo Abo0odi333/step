@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة تمكين التعليمية - دورة STEP</title>
+    <title>منصة معين التعليمية - دورة STEP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --main-bg: #f9fbfd;
@@ -20,7 +24,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
@@ -32,82 +36,24 @@
             overflow: hidden;
         }
 
-        /* 1. الهيدر العلوي (مطابق للصورة) */
+        /* 1. الهيدر العلوي المُنظف (فقط الاسم والشعار) */
         .navbar {
             height: 70px;
             background-color: #ffffff;
             display: flex;
-            justify-content: space-between;
             align-items: center;
             padding: 0 30px;
             border-bottom: 1px solid var(--border-color);
             z-index: 100;
         }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
         .brand-logo {
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 800;
             color: var(--primary-purple);
             text-decoration: none;
+            letter-spacing: 0.5px;
         }
-
-        .search-box {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-box input {
-            background-color: #f1f5f9;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            width: 220px;
-            font-size: 13px;
-            outline: none;
-            text-align: right;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-purple);
-        }
-
-        .nav-left {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-nav {
-            padding: 8px 20px;
-            border-radius: 20px;
-            border: none;
-            font-size: 14px;
-            cursor: pointer;
-            font-weight: bold;
-            color: white;
-        }
-        .btn-dashboard { background-color: var(--primary-purple); }
-        .btn-logout { background-color: #9e9e9e; }
 
         /* تقسيم الشاشة الرئيسي */
         .app-container {
@@ -117,9 +63,9 @@
             overflow: hidden;
         }
 
-        /* 2. القائمة الجانبية اليمين (مطابقة للصورة) */
+        /* 2. القائمة الجانبية يمين */
         .sidebar {
-            width: 350px;
+            width: 360px;
             background-color: var(--sidebar-bg);
             border-left: 1px solid #e2e8f0;
             display: flex;
@@ -131,6 +77,7 @@
         .sidebar-header-title {
             padding: 15px 20px;
             font-size: 14px;
+            font-weight: 700;
             color: var(--gray-text);
             border-bottom: 1px solid var(--border-color);
         }
@@ -141,7 +88,7 @@
             padding: 0;
         }
 
-        /* الأقسام الكبرى */
+        /* الأقسام الكبرى مع أنيميشن */
         .main-category-btn {
             width: 100%;
             background: none;
@@ -149,123 +96,167 @@
             padding: 15px 20px;
             text-align: right;
             font-size: 15px;
-            font-weight: bold;
+            font-weight: 700;
             color: #333;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
             border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s;
+        }
+
+        .main-category-btn:hover {
+            background-color: #fcfaff;
         }
 
         .main-category-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             background-color: #ffffff;
         }
 
         /* الأقسام الفرعية */
         .sub-category-title {
             padding: 12px 20px;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 13px;
+            font-weight: 700;
             color: var(--text-color);
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             border-bottom: 1px solid var(--border-color);
             background-color: #fafafa;
+            transition: background 0.2s;
+        }
+
+        .sub-category-title:hover {
+            background-color: #f5f5f5;
         }
 
         .sub-category-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.35s ease-out;
         }
 
-        /* قائمة المحاضرات */
+        /* قائمة الدروس والمحاضرات (تعديل الترتيب يمين/يسار) */
         .lecture-item {
             display: flex;
             align-items: center;
-            padding: 12px 25px;
+            padding: 12px 20px;
             border-bottom: 1px solid #f8fafc;
-            transition: background 0.2s;
+            transition: transform 0.2s ease, background 0.2s ease;
         }
 
         .lecture-item:hover {
             background-color: #f6f2ff;
+            transform: translateX(-3px);
         }
 
-        .checklist-checkbox {
-            width: 16px;
-            height: 16px;
-            margin-left: 12px;
-            cursor: pointer;
-            accent-color: var(--primary-purple);
-        }
-
-        .lecture-link {
-            flex: 1;
-            color: #555;
-            text-decoration: none;
-            font-size: 13px;
-            cursor: pointer;
-            text-align: right;
-        }
-
-        .lecture-duration {
-            font-size: 11px;
-            color: #ff3d00;
-            margin-left: 10px;
-            font-weight: 600;
-        }
-
+        /* أيقونة الفيديو جهة اليمين */
         .play-icon {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             background-color: #eeebfc;
             color: var(--primary-purple);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: 9px;
+            margin-left: 12px;
+            flex-shrink: 0;
+            transition: all 0.2s;
         }
 
+        .lecture-link {
+            flex: 1;
+            color: #444;
+            text-decoration: none;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        /* مدة الفيديو باللون الأسود وعلى يمين الشيك ليست مباشرة */
+        .lecture-duration {
+            font-size: 12px;
+            color: #000000;
+            margin-left: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* الشيك ليست الدائري في أقصى اليسار */
+        .checklist-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-purple);
+            border-radius: 50%; /* تحويل الشكل لدائري */
+            appearance: none; /* إلغاء الستايل الافتراضي للمتصفح لتطبيق الدائرة */
+            -webkit-appearance: none;
+            border: 2px solid #ccd4dc;
+            outline: none;
+            transition: all 0.2s;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .checklist-checkbox:checked {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+        }
+
+        .checklist-checkbox:checked::before {
+            content: "✓";
+            position: absolute;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* حالة العنصر النشط المختار حالياً مع أنيميشن نبض خفيف */
         .lecture-item.active {
             background-color: #f1edfe;
+            border-right: 3px solid var(--primary-purple);
         }
         .lecture-item.active .lecture-link {
             color: var(--dark-purple);
-            font-weight: bold;
+            font-weight: 700;
         }
         .lecture-item.active .play-icon {
             background-color: var(--primary-purple);
             color: white;
         }
 
-        /* 3. منطقة المحتوى والدرس اليسار */
+        /* 3. منطقة المحتوى وعرض الدرس */
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
             padding: 20px 30px;
             overflow-y: auto;
-            position: relative;
         }
 
-        /* بار التقدم العلوي للدرس المتطابق مع الصورة */
+        /* بار التقدم العلوي المعرّب بالكامل */
         .lesson-progress-bar {
             background: #fff;
             padding: 12px 20px;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
             display: flex;
             justify-content: space-between;
             align-items: center;
             border: 1px solid var(--border-color);
+            animation: fadeInDown 0.4s ease;
         }
 
         .progress-right {
@@ -273,28 +264,33 @@
             align-items: center;
             gap: 10px;
             font-size: 14px;
-            color: var(--gray-text);
+            color: var(--text-color);
+            font-weight: 600;
         }
 
         .btn-complete {
             background-color: var(--primary-purple);
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 4px;
             font-size: 13px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+        .btn-complete:hover {
+            background-color: var(--dark-purple);
         }
 
         .lesson-title-display {
             font-size: 18px;
-            color: #333;
+            color: #222;
             margin-bottom: 15px;
-            font-weight: bold;
+            font-weight: 700;
         }
 
-        /* مساحة العمل: فيديو ومفكرة ومؤقت */
+        /* مساحة العمل: فيديو مع الأدوات الجانبية */
         .workspace {
             display: flex;
             gap: 20px;
@@ -323,7 +319,7 @@
             top: 0; left: 0; width: 100%; height: 100%; border: none;
         }
 
-        /* أدوات الدراسة الجانبية (بومودورو + ملاحظات) */
+        /* أدوات الدراسة الجانبية */
         .study-tools {
             flex: 1;
             display: flex;
@@ -336,6 +332,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.01);
         }
 
         .tool-card h3 {
@@ -344,14 +341,16 @@
             margin-bottom: 10px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 5px;
+            font-weight: 700;
         }
 
         /* البومودورو */
         .pomo-timer {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 26px;
+            font-weight: 800;
             text-align: center;
             margin-bottom: 10px;
+            color: #333;
         }
         .pomo-controls {
             display: flex;
@@ -359,138 +358,137 @@
             gap: 5px;
         }
         .pomo-controls button {
-            padding: 4px 10px;
-            font-size: 11px;
+            padding: 5px 12px;
+            font-size: 12px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             color: white;
             background-color: var(--primary-purple);
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .pomo-controls button:hover {
+            background-color: var(--dark-purple);
         }
 
         /* المفكرة */
         .notebook-textarea {
             width: 100%;
             height: 180px;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #e2e8f0;
             border-radius: 6px;
             resize: none;
             font-size: 13px;
             outline: none;
             background: #fafafa;
+            line-height: 1.6;
         }
-
-        /* زر الواتساب العائم المطابق للصورة */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: #25d366;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 999;
+        .notebook-textarea:focus {
+            border-color: var(--primary-purple);
+            background: #fff;
         }
 
         .welcome-box {
             text-align: center;
             margin: auto;
             padding: 40px;
+            animation: fadeIn 0.6s ease;
         }
 
         .external-btn {
             display: block;
             text-align: center;
             margin-top: 15px;
-            color: #ff3d00;
+            color: #e53935;
             text-decoration: none;
             font-size: 13px;
-            font-weight: bold;
+            font-weight: 700;
         }
+
+        /* تأثيرات الأنميشن المضافة */
+        .video-area-animated {
+            animation: zoomIn 0.4s cubic-bezier(0.1, 0.8, 0.2, 1);
+            width: 100%;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--main-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
     </style>
 </head>
 <body>
 
     <header class="navbar">
-        <div class="nav-right">
-            <a href="#" class="brand-logo">تمكين 🎓</a>
-            <div class="search-box">
-                <input type="text" placeholder="ماذا تود أن تتعلم اليوم؟">
-            </div>
-            <ul class="nav-links">
-                <li><a href="#">الدورات</a></li>
-                <li><a href="#">كيف تشترك بالدورات</a></li>
-                <li><a href="#">تواصل معنا</a></li>
-                <li><a href="#">لوحة التحكم</a></li>
-            </ul>
-        </div>
-        <div class="nav-left">
-            <button class="btn-nav btn-dashboard">لوحة التحكم</button>
-            <button class="btn-nav btn-logout">خروج</button>
-        </div>
+        <a href="#" class="brand-logo">معين 🎓</a>
     </header>
 
     <div class="app-container">
         
         <aside class="sidebar">
-            <div class="sidebar-header-title">Table of Contents</div>
+            <div class="sidebar-header-title">فهرس الدورة والدروس</div>
             <div class="menu-container">
                 
                 <button class="main-category-btn" onclick="toggleMainCategory('tasees')">
-                    <span>الحساب والتأسيس الرئيسي</span>
+                    <span>📚 أقسام التأسيس والشرح الرئيسي</span>
                     <span id="tasees-icon">▼</span>
                 </button>
                 <div class="main-category-content" id="tasees-content" style="max-height: 2000px;">
                     
                     <div class="sub-category-title" onclick="toggleSubCategory('t-grammar')">⚖️ أساسيات القرامر <span>▼</span></div>
                     <div class="sub-category-content" id="t-grammar" style="max-height: 1000px;">
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_fk20o2cfcZ4" onchange="toggleCheck('fk20o2cfcZ4')"><span class="lecture-duration">16m 49s</span><a class="lecture-link" onclick="playVideo('المحاضرة 1 - الأزمنة شرح كامل', 'fk20o2cfcZ4', this)">أساسيات الأزمنة - شرح</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_CoED7-aKR-E" onchange="toggleCheck('CoED7-aKR-E')"><span class="lecture-duration">18m 37s</span><a class="lecture-link" onclick="playVideo('المحاضرة 2 - الأزمنة تطبيق وحل النماذج', 'CoED7-aKR-E', this)">تطبيقات على الأزمنة - حل</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_M0CCccwcG-U" onchange="toggleCheck('M0CCccwcG-U')"><span class="lecture-duration">14m 20s</span><a class="lecture-link" onclick="playVideo('المحاضرة 3 - قواعد وحالات If الشرطية', 'M0CCccwcG-U', this)">حالات if الشرطية</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_OzpTSO5t5qo" onchange="toggleCheck('OzpTSO5t5qo')"><span class="lecture-duration">12m 10s</span><a class="lecture-link" onclick="playVideo('المحاضرة 4 - الأفعال الناقصة Modals', 'OzpTSO5t5qo', this)">الأفعال الناقصة modals</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_DXVXc8YIpGU" onchange="toggleCheck('DXVXc8YIpGU')"><span class="lecture-duration">15m 45s</span><a class="lecture-link" onclick="playVideo('المحاضرة 5 - ضمائر الوصل relative pronouns', 'DXVXc8YIpGU', this)">ضمائر الوصل</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_sUYZsMPDVNA" onchange="toggleCheck('sUYZsMPDVNA')"><span class="lecture-duration">19m 12s</span><a class="lecture-link" onclick="playVideo('المحاضرة 6 - الروابط وأدوات الربط conjunctions', 'sUYZsMPDVNA', this)">الروابط التنسيقية</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_k_tnZRgF51M" onchange="toggleCheck('k_tnZRgF51M')"><span class="lecture-duration">11m 30s</span><a class="lecture-link" onclick="playVideo('المحاضرة 7 - الروابط الزمنية time conjunctions', 'k_tnZRgF51M', this)">الروابط الزمنية</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_oCJLpJeWAsw" onchange="toggleCheck('oCJLpJeWAsw')"><span class="lecture-duration">13m 50s</span><a class="lecture-link" onclick="playVideo('المحاضرة 8 - أنواع الضمائر pronouns وكيفية حلها', 'oCJLpJeWAsw', this)">الضمائر بالتفصيل</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_JXs3JIgSy-g" onchange="toggleCheck('JXs3JIgSy-g')"><span class="lecture-duration">17m 05s</span><a class="lecture-link" onclick="playVideo('المحاضرة 9 - الأسماء المعدودة وغير المعدودة', 'JXs3JIgSy-g', this)">الأسماء القابلة للعد</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_PyXisPDrqFE" onchange="toggleCheck('PyXisPDrqFE')"><span class="lecture-duration">14m 40s</span><a class="lecture-link" onclick="playVideo('المحاضرة 10 - القواعد الفرعية الهامة sub rules', 'PyXisPDrqFE', this)">القواعد الفرعية المكملة</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_jTPWebWGaZw" onchange="toggleCheck('jTPWebWGaZw')"><span class="lecture-duration">16m 22s</span><a class="lecture-link" onclick="playVideo('المحاضرة 11 - الفرق بين الصفات والأحوال', 'jTPWebWGaZw', this)">الصفات والأحوال</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_HGek7Psp2QE" onchange="toggleCheck('HGek7Psp2QE')"><span class="lecture-duration">22m 15s</span><a class="lecture-link" onclick="playVideo('المحاضرة 12 - الأفعال المنتهية بـ ing والمصدرية', 'HGek7Psp2QE', this)">الأفعال المصدرية و ing</a><div class="play-icon">▶</div></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 1 - الأزمنة شرح كامل', 'fk20o2cfcZ4', this)">أساسيات الأزمنة - شرح</a><span class="lecture-duration">16:49</span><input type="checkbox" class="checklist-checkbox" id="chk_fk20o2cfcZ4" onchange="toggleCheck('fk20o2cfcZ4')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 2 - الأزمنة تطبيق وحل النماذج', 'CoED7-aKR-E', this)">تطبيقات على الأزمنة - حل</a><span class="lecture-duration">18:37</span><input type="checkbox" class="checklist-checkbox" id="chk_CoED7-aKR-E" onchange="toggleCheck('CoED7-aKR-E')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 3 - قواعد وحالات If الشرطية', 'M0CCccwcG-U', this)">حالات if الشرطية</a><span class="lecture-duration">14:20</span><input type="checkbox" class="checklist-checkbox" id="chk_M0CCccwcG-U" onchange="toggleCheck('M0CCccwcG-U')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 4 - الأفعال الناقصة Modals', 'OzpTSO5t5qo', this)">الأفعال الناقصة modals</a><span class="lecture-duration">12:10</span><input type="checkbox" class="checklist-checkbox" id="chk_OzpTSO5t5qo" onchange="toggleCheck('OzpTSO5t5qo')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 5 - ضمائر الوصل relative pronouns', 'DXVXc8YIpGU', this)">ضمائر الوصل</a><span class="lecture-duration">15:45</span><input type="checkbox" class="checklist-checkbox" id="chk_DXVXc8YIpGU" onchange="toggleCheck('DXVXc8YIpGU')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 6 - الروابط وأدوات الربط conjunctions', 'sUYZsMPDVNA', this)">الروابط التنسيقية</a><span class="lecture-duration">19:12</span><input type="checkbox" class="checklist-checkbox" id="chk_sUYZsMPDVNA" onchange="toggleCheck('sUYZsMPDVNA')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 7 - الروابط الزمنية time conjunctions', 'k_tnZRgF51M', this)">الروابط الزمنية</a><span class="lecture-duration">11:30</span><input type="checkbox" class="checklist-checkbox" id="chk_k_tnZRgF51M" onchange="toggleCheck('k_tnZRgF51M')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 8 - أنواع الضمائر pronouns وكيفية حلها', 'oCJLpJeWAsw', this)">الضمائر بالتفصيل</a><span class="lecture-duration">13:50</span><input type="checkbox" class="checklist-checkbox" id="chk_oCJLpJeWAsw" onchange="toggleCheck('oCJLpJeWAsw')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 9 - الأسماء المعدودة وغير المعدودة', 'JXs3JIgSy-g', this)">الأسماء القابلة للعد</a><span class="lecture-duration">17:05</span><input type="checkbox" class="checklist-checkbox" id="chk_JXs3JIgSy-g" onchange="toggleCheck('JXs3JIgSy-g')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 10 - القواعد الفرعية الهامة sub rules', 'PyXisPDrqFE', this)">القواعد الفرعية المكملة</a><span class="lecture-duration">14:40</span><input type="checkbox" class="checklist-checkbox" id="chk_PyXisPDrqFE" onchange="toggleCheck('PyXisPDrqFE')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 11 - الفرق بين الصفات والأحوال', 'jTPWebWGaZw', this)">الصفات والأحوال</a><span class="lecture-duration">16:22</span><input type="checkbox" class="checklist-checkbox" id="chk_jTPWebWGaZw" onchange="toggleCheck('jTPWebWGaZw')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 12 - الأفعال المنتهية بـ ing والمصدرية', 'HGek7Psp2QE', this)">الأفعال المصدرية و ing</a><span class="lecture-duration">22:15</span><input type="checkbox" class="checklist-checkbox" id="chk_HGek7Psp2QE" onchange="toggleCheck('HGek7Psp2QE')"></div>
                     </div>
 
                     <div class="sub-category-title" onclick="toggleSubCategory('t-reading')">📖 أساسيات وقراءات الريدنق <span>▼</span></div>
                     <div class="sub-category-content" id="t-reading">
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_Ga1kdQGCU_A" onchange="toggleCheck('Ga1kdQGCU_A')"><span class="lecture-duration">25m 40s</span><a class="lecture-link" onclick="playVideo('تأسيس ريدنق - قطعة الباندا التكرارية', 'Ga1kdQGCU_A', this)">المحاضرة 1 (قطعة الباندا)</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_WG-DWgb1gy4" onchange="toggleCheck('WG-DWgb1gy4')"><span class="lecture-duration">32m 15s</span><a class="lecture-link" onclick="playVideo('تأسيس ريدنق - قطع كلاي، مايك، النمل، المناخ', 'WG-DWgb1gy4', this)">المحاضرة 2 (كلاي والمناخ والنمل)</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_awO-_4yVy64" onchange="toggleCheck('awO-_4yVy64')"><span class="lecture-duration">28m 10s</span><a class="lecture-link" onclick="playVideo('تأسيس ريدنق - قطع النحل، ابن سينا، المسواك، ج2', 'awO-_4yVy64', this)">المحاضرة 3 (النحل وابن سينا)</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_mpWjhBTcAas" onchange="toggleCheck('mpWjhBTcAas')"><span class="lecture-duration">30m 50s</span><a class="lecture-link" onclick="playVideo('تأسيس ريدنق - قطع التلوث، العولمة، السكر، النبتة', 'mpWjhBTcAas', this)">المحاضرة 4 (التلوث والعولمة والسكر)</a><div class="play-icon">▶</div></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('تأسيس ريدنق - قطعة الباندا التكرارية', 'Ga1kdQGCU_A', this)">المحاضرة 1 (قطعة الباندا)</a><span class="lecture-duration">25:40</span><input type="checkbox" class="checklist-checkbox" id="chk_Ga1kdQGCU_A" onchange="toggleCheck('Ga1kdQGCU_A')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('تأسيس ريدنق - قطع كلاي، مايك، النمل، المناخ', 'WG-DWgb1gy4', this)">المحاضرة 2 (كلاي والمناخ)</a><span class="lecture-duration">32:15</span><input type="checkbox" class="checklist-checkbox" id="chk_WG-DWgb1gy4" onchange="toggleCheck('WG-DWgb1gy4')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('تأسيس ريدنق - قطع النحل، ابن سينا، المسواك، ج2', 'awO-_4yVy64', this)">المحاضرة 3 (النحل وابن سينا)</a><span class="lecture-duration">28:10</span><input type="checkbox" class="checklist-checkbox" id="chk_awO-_4yVy64" onchange="toggleCheck('awO-_4yVy64')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('تأسيس ريدنق - قطع التلوث، العولمة، السكر، النبتة', 'mpWjhBTcAas', this)">المحاضرة 4 (التلوث والعولمة)</a><span class="lecture-duration">30:50</span><input type="checkbox" class="checklist-checkbox" id="chk_mpWjhBTcAas" onchange="toggleCheck('mpWjhBTcAas')"></div>
                     </div>
 
                     <div class="sub-category-title" onclick="toggleSubCategory('t-listening')">🎧 استراتيجيات اللسينق <span>▼</span></div>
                     <div class="sub-category-content" id="t-listening">
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_JOWAfPSMB8M" onchange="toggleCheck('JOWAfPSMB8M')"><span class="lecture-duration">18m 44s</span><a class="lecture-link" onclick="playVideo('تأسيس وتكنيك قسم اللسينق والاستماع', 'JOWAfPSMB8M', this)">تأسيس قسم اللسينق الرئيسي</a><div class="play-icon">▶</div></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('تأسيس وتكنيك قسم اللسينق والاستماع', 'JOWAfPSMB8M', this)">تأسيس قسم اللسينق الرئيسي</a><span class="lecture-duration">18:44</span><input type="checkbox" class="checklist-checkbox" id="chk_JOWAfPSMB8M" onchange="toggleCheck('JOWAfPSMB8M')"></div>
                     </div>
                 </div>
 
                 <button class="main-category-btn" onclick="toggleMainCategory('review')">
-                    <span>المراجعات المكثفة والتجميعات</span>
+                    <span>🔥 المراجعات المكثفة والتجميعات 2026</span>
                     <span id="review-icon">➕</span>
                 </button>
                 <div class="main-category-content" id="review-content">
                     <div class="sub-category-title" onclick="toggleSubCategory('r-grammar')">✏️ مراجعة الجرامر المكثفة <span>▼</span></div>
                     <div class="sub-category-content" id="r-grammar">
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_yxtxd3reRlA" onchange="toggleCheck('yxtxd3reRlA')"><span class="lecture-duration">15m</span><a class="lecture-link" onclick="playVideo('مراجعة الجرامر - المحاضرة الأولى', 'yxtxd3reRlA', this)">مراجعة جرامر - 1</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_OdBtlBoA3E4" onchange="toggleCheck('OdBtlBoA3E4')"><span class="lecture-duration">14m</span><a class="lecture-link" onclick="playVideo('مراجعة الجرامر - المحاضرة الثانية', 'OdBtlBoA3E4', this)">مراجعة جرامر - 2</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_y1-kXYrYNv8" onchange="toggleCheck('y1-kXYrYNv8')"><span class="lecture-duration">16m</span><a class="lecture-link" onclick="playVideo('مراجعة الجرامر - المحاضرة الثالثة', 'y1-kXYrYNv8', this)">مراجعة جرامر - 3</a><div class="play-icon">▶</div></div>
-                        <div class="lecture-item"><input type="checkbox" class="checklist-checkbox" id="chk_inbFNKjS_1Q" onchange="toggleCheck('inbFNKjS_1Q')"><span class="lecture-duration">20m</span><a class="lecture-link" onclick="playVideo('مراجعة الجرامر - المحاضرة الرابعة والأخيرة', 'inbFNKjS_1Q', this)">مراجعة جرامر - 4</a><div class="play-icon">▶</div></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر - المحاضرة الأولى', 'yxtxd3reRlA', this)">مراجعة جرامر - 1</a><span class="lecture-duration">15:00</span><input type="checkbox" class="checklist-checkbox" id="chk_yxtxd3reRlA" onchange="toggleCheck('yxtxd3reRlA')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر - المحاضرة الثانية', 'OdBtlBoA3E4', this)">مراجعة جرامر - 2</a><span class="lecture-duration">14:00</span><input type="checkbox" class="checklist-checkbox" id="chk_OdBtlBoA3E4" onchange="toggleCheck('OdBtlBoA3E4')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر - المحاضرة الثالثة', 'y1-kXYrYNv8', this)">مراجعة جرامر - 3</a><span class="lecture-duration">16:00</span><input type="checkbox" class="checklist-checkbox" id="chk_y1-kXYrYNv8" onchange="toggleCheck('y1-kXYrYNv8')"></div>
+                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر - المحاضرة الرابعة والأخيرة', 'inbFNKjS_1Q', this)">مراجعة جرامر - 4</a><span class="lecture-duration">20:00</span><input type="checkbox" class="checklist-checkbox" id="chk_inbFNKjS_1Q" onchange="toggleCheck('inbFNKjS_1Q')"></div>
                     </div>
                 </div>
 
@@ -500,28 +498,30 @@
         <main class="main-content">
             
             <div class="lesson-progress-bar">
-                <button class="btn-complete">Mark as Complete</button>
+                <button class="btn-complete" onclick="markCurrentAsComplete()">تحديد كمكتمل</button>
                 <div class="progress-right">
-                    <span id="overallProgressDisplay">0% Your Progress</span>
+                    <span id="overallProgressDisplay">0% من إنجازك الكلي</span>
                     <span>&lt;</span>
-                    <span>قدرات كمي</span>
+                    <span>دورة ستيب STEP</span>
+                    <span>&lt;</span>
+                    <span>منصة معين</span>
                 </div>
             </div>
 
             <div class="welcome-box" id="welcomeMessage">
-                <h2>🎯 أهلاً بك في منصة تمكين التعليمية المحدثة</h2>
-                <p style="margin-top: 10px; color: var(--gray-text);">اختر الدرس أو المحاضرة المطلوبة من لوحة التنقل يمين للبدء الفوري.</p>
+                <h2>🎯 أهلاً بك في منصة معين التعليمية</h2>
+                <p style="margin-top: 10px; color: var(--gray-text);">اختر الدرس أو المحاضرة المطلوبة من القائمة يمين لبدء الدراسة الفورية وتتبع إنجازك.</p>
             </div>
 
-            <div id="videoArea" style="display: none; width: 100%;">
-                <div class="lesson-title-display" id="videoTitle">اساسيات الحساب</div>
+            <div id="videoArea" style="display: none; width: 100%;" class="video-area-animated">
+                <div class="lesson-title-display" id="videoTitle">اساسيات الدرس</div>
                 
                 <div class="workspace">
                     <div class="video-wrapper">
                         <div class="video-container">
                             <iframe id="youtubePlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
-                        <a id="externalLink" class="external-btn" target="_blank" href="#">⚠️ لم يشتغل معك المشغل؟ اضغط هنا لفتحه مباشرة في يوتيوب</a>
+                        <a id="externalLink" class="external-btn" target="_blank" href="#">⚠️ لم يشتغل معك المشغل الفوري؟ اضغط هنا لفتح الفيديو مباشرة داخل يوتيوب</a>
                     </div>
 
                     <div class="study-tools">
@@ -536,8 +536,8 @@
                         </div>
 
                         <div class="tool-card">
-                            <h3>📝 ملاحظات الدرس الحالية</h3>
-                            <textarea id="notebook" class="notebook-textarea" placeholder="دون هنا الملاحظات أو الكلمات الجديدة الصعبة لهذا الدرس... وسيقوم النظام بحفظها تلقائياً"></textarea>
+                            <h3>📝 ملاحظات المحاضرة الحالية</h3>
+                            <textarea id="notebook" class="notebook-textarea" placeholder="دون هنا الملاحظات أو الكلمات الجديدة الصعبة لهذا الدرس... وسيقوم النظام بحفظها تلقائياً بالذاكرة"></textarea>
                         </div>
                     </div>
                 </div>
@@ -546,17 +546,13 @@
         </main>
     </div>
 
-    <a href="https://wa.me/#" class="whatsapp-float" target="_blank">
-        <span>نتشرف بخدمتك على الواتس ! 🍏</span>
-    </a>
-
     <script>
         // إعدادات التخزين والتتبع التلقائي
         let appData = { checked: [], notes: {} };
         let currentVideoId = "";
 
         window.onload = function() {
-            let stored = localStorage.getItem("tamkeen_step_data");
+            let stored = localStorage.getItem("muin_step_data");
             if (stored) {
                 appData = JSON.parse(stored);
                 if (!appData.notes) appData.notes = {};
@@ -571,7 +567,7 @@
             document.getElementById('notebook').addEventListener('input', function() {
                 if (currentVideoId) {
                     appData.notes[currentVideoId] = this.value;
-                    localStorage.setItem("tamkeen_step_data", JSON.stringify(appData));
+                    localStorage.setItem("muin_step_data", JSON.stringify(appData));
                 }
             });
         };
@@ -581,7 +577,20 @@
             let total = document.getElementsByClassName('checklist-checkbox').length;
             let checkedCount = appData.checked.length;
             let percent = total > 0 ? Math.round((checkedCount / total) * 100) : 0;
-            document.getElementById('overallProgressDisplay').innerText = percent + "% : Your Progress";
+            document.getElementById('overallProgressDisplay').innerText = percent + "% من إنجازك الكلي";
+        }
+
+        // إتاحة تفعيل الاكتمال من الزر العلوي أيضاً لراحة الطالب
+        function markCurrentAsComplete() {
+            if (currentVideoId) {
+                let cb = document.getElementById('chk_' + currentVideoId);
+                if (cb && !cb.checked) {
+                    cb.checked = true;
+                    toggleCheck(currentVideoId);
+                }
+            } else {
+                alert("الرجاء اختيار فيديو أولاً لتحديده كمكتمل.");
+            }
         }
 
         function toggleMainCategory(id) {
@@ -605,11 +614,19 @@
         function playVideo(title, videoId, element) {
             currentVideoId = videoId;
             document.getElementById('welcomeMessage').style.display = 'none';
-            document.getElementById('videoArea').style.display = 'block';
+            
+            let videoArea = document.getElementById('videoArea');
+            videoArea.style.display = 'block';
+            
+            // إعادة تفعيل أنيميشن الظهور السلس عند الانتقال بين الفيديوهات
+            videoArea.classList.remove('video-area-animated');
+            void videoArea.offsetWidth; 
+            videoArea.classList.add('video-area-animated');
+
             document.getElementById('videoTitle').innerText = title;
             
-            // تهيئة رابط التشغيل ببروتوكولات يوتيوب الحديثة للمواقع المحلية لمنع حدوث خطأ التشغيل الـ 153
-            document.getElementById('youtubePlayer').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&controls=1&origin=" + window.location.origin;
+            // تهيئة رابط التشغيل التلقائي المتوافق
+            document.getElementById('youtubePlayer').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&controls=1";
             document.getElementById('externalLink').href = "https://www.youtube.com/watch?v=" + videoId;
             
             // تحميل الملاحظة السابقة للفيديو المختار إن وجدت
@@ -627,7 +644,7 @@
             } else {
                 appData.checked = appData.checked.filter(item => item !== id);
             }
-            localStorage.setItem("tamkeen_step_data", JSON.stringify(appData));
+            localStorage.setItem("muin_step_data", JSON.stringify(appData));
             updateProgressBar();
         }
 
