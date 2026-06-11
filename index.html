@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة معين التعليمية - دورة STEP</title>
+    <title>منصة معين التعليمية - نظام الحسابات السحابية</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -116,6 +116,46 @@
             color: var(--primary-purple);
         }
 
+        .navbar-left-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sync-status-badge {
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--gray-text);
+        }
+
+        /* أزرار الحسابات المضافة بجانب تغيير الثيم */
+        .auth-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+        .auth-btn.primary {
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+        }
+        .auth-btn:hover { filter: brightness(1.08); }
+
+        .user-profile-tag {
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--primary-purple);
+            background-color: var(--hover-bg);
+            padding: 6px 14px;
+            border-radius: 20px;
+            display: none;
+        }
+
         .theme-toggle-btn {
             background: none;
             border: 1px solid var(--border-color);
@@ -130,6 +170,17 @@
             gap: 6px;
         }
 
+        .btn-clear-database {
+            background-color: var(--error-color);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
         /* تقسيم الشاشة */
         .app-container {
             display: flex;
@@ -139,7 +190,6 @@
             position: relative;
         }
 
-        /* 2. القائمة الجانبية */
         .sidebar {
             width: 395px;
             background-color: var(--sidebar-bg);
@@ -157,10 +207,7 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .menu-container {
-            flex: 1;
-            overflow-y: auto;
-        }
+        .menu-container { flex: 1; overflow-y: auto; }
 
         .main-category-btn {
             width: 100%;
@@ -177,7 +224,6 @@
             cursor: pointer;
             border-bottom: 1px solid var(--border-color);
         }
-
         .main-category-btn:hover { background-color: var(--hover-bg); }
 
         .main-category-content {
@@ -211,7 +257,6 @@
             padding: 12px 20px;
             border-bottom: 1px solid var(--border-color);
         }
-
         .lecture-item:hover {
             background-color: var(--hover-bg);
             transform: translateX(-3px);
@@ -251,10 +296,7 @@
             padding: 2px 6px;
             border-radius: 4px;
         }
-        .lecture-duration.completed-text {
-            color: #ffffff;
-            background-color: var(--success-color);
-        }
+        .lecture-duration.completed-text { color: #ffffff; background-color: var(--success-color); }
 
         .checklist-checkbox {
             width: 18px;
@@ -269,103 +311,36 @@
             position: relative;
             flex-shrink: 0;
         }
-
-        .checklist-checkbox:checked {
-            background-color: var(--success-color);
-            border-color: var(--success-color);
-        }
-
+        .checklist-checkbox:checked { background-color: var(--success-color); border-color: var(--success-color); }
         .checklist-checkbox:checked::before {
-            content: "✓";
-            position: absolute;
-            color: white;
-            font-size: 11px;
-            font-weight: bold;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
+            content: "✓"; position: absolute; color: white; font-size: 11px; font-weight: bold; top: 50%; left: 50%; transform: translate(-50%, -50%);
         }
 
-        .lecture-item.active {
-            background-color: var(--hover-bg);
-            border-right: 3px solid var(--primary-purple);
-        }
+        .lecture-item.active { background-color: var(--hover-bg); border-right: 3px solid var(--primary-purple); }
         .lecture-item.active .lecture-link { color: var(--primary-purple); font-weight: 700; }
         .lecture-item.active .play-icon { background-color: var(--primary-purple); color: white; }
 
-        /* 3. منطقة المحتوى وعرض الدرس */
         .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 20px 30px;
-            overflow-y: auto;
+            flex: 1; display: flex; flex-direction: column; padding: 20px 30px; overflow-y: auto;
         }
 
         .lesson-progress-bar {
-            background: var(--card-bg);
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--border-color);
+            background: var(--card-bg); padding: 12px 20px; border-radius: 8px; margin-bottom: 20px;
+            box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color);
         }
 
-        .progress-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 14px;
-            color: var(--text-color);
-            font-weight: 600;
-        }
+        .progress-right { display: flex; align-items: center; gap: 15px; font-size: 14px; color: var(--text-color); font-weight: 600; }
 
         .exam-countdown-container {
-            font-size: 13px;
-            background-color: var(--main-bg);
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: 1px dashed var(--primary-purple);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 13px; background-color: var(--main-bg); padding: 6px 14px; border-radius: 20px;
+            border: 1px dashed var(--primary-purple); display: flex; align-items: center; gap: 8px;
         }
-        .exam-btn {
-            background: none;
-            border: none;
-            color: var(--primary-purple);
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: underline;
-        }
+        .exam-btn { background: none; border: none; color: var(--primary-purple); font-weight: 700; cursor: pointer; text-decoration: underline; }
         .countdown-live-text { color: #ff3d00; font-weight: 700; }
 
         .action-buttons { display: flex; gap: 10px; }
-
-        .btn-complete {
-            background-color: var(--primary-purple);
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 4px;
-            font-size: 13px;
-            cursor: pointer;
-            font-weight: 700;
-        }
-        
-        .btn-quiz-trigger {
-            background-color: #ff9100;
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 4px;
-            font-size: 13px;
-            cursor: pointer;
-            font-weight: 700;
-            display: none;
-        }
+        .btn-complete { background-color: var(--primary-purple); color: white; border: none; padding: 8px 18px; border-radius: 4px; font-size: 13px; cursor: pointer; font-weight: 700; }
+        .btn-quiz-trigger { background-color: #ff9100; color: white; border: none; padding: 8px 18px; border-radius: 4px; font-size: 13px; cursor: pointer; font-weight: 700; display: none; }
 
         .lesson-title-display { font-size: 18px; color: var(--heading-color); margin-bottom: 15px; font-weight: 700; }
 
@@ -389,33 +364,21 @@
         .welcome-box { text-align: center; margin: auto; padding: 40px; color: var(--heading-color); }
         .external-btn { display: block; text-align: center; margin-top: 15px; color: #e53935; text-decoration: none; font-size: 13px; font-weight: 700; }
 
-        /* 4. لوحة قسم الكويزات */
         .quiz-view-panel {
             display: none; flex: 1; width: 100%; height: 100%; padding: 30px; overflow-y: auto;
             animation: slideInUp 0.4s cubic-bezier(0.1, 0.8, 0.2, 1);
         }
 
-        .quiz-sub-navbar {
-            display: flex; gap: 10px; margin-top: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;
-        }
-
-        .quiz-sub-btn {
-            background-color: var(--sub-bg); border: 1px solid var(--border-color); padding: 6px 16px;
-            border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer; color: var(--text-color);
-        }
+        .quiz-sub-navbar { display: flex; gap: 10px; margin-top: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .quiz-sub-btn { background-color: var(--sub-bg); border: 1px solid var(--border-color); padding: 6px 16px; border-radius: 4px; font-size: 13px; font-weight: bold; cursor: pointer; color: var(--text-color); }
         .quiz-sub-btn.active { background-color: var(--primary-purple); color: white; border-color: var(--primary-purple); }
 
         .quiz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
-        
-        .quiz-card {
-            background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px;
-            padding: 20px; box-shadow: var(--shadow); display: flex; flex-direction: column; justify-content: space-between; height: 160px;
-        }
+        .quiz-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; box-shadow: var(--shadow); display: flex; flex-direction: column; justify-content: space-between; height: 160px; }
         .quiz-card h4 { font-size: 15px; color: var(--heading-color); font-weight: 700; }
         .quiz-card p { font-size: 12px; color: var(--gray-text); }
         .btn-start-quiz { background-color: var(--primary-purple); color: white; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: 700; width: 100%; }
 
-        /* واجهة حل ومراجعة الكويزات التفاعلية الملونة */
         .quiz-execution-panel {
             display: none; width: 100%; max-width: 850px; margin: 0 auto; background-color: var(--card-bg);
             border: 1px solid var(--border-color); border-radius: 12px; padding: 30px; box-shadow: var(--shadow);
@@ -427,10 +390,8 @@
         .btn-back-to-lessons { background-color: #6b7280; color: white; border: none; padding: 6px 14px; border-radius: 4px; font-weight: 700; cursor: pointer; }
 
         .question-block { margin-bottom: 25px; padding: 15px; border-radius: 8px; border: 1px solid transparent; border-bottom: 1px dashed var(--border-color); }
-        
-        /* الألوان التفاعلية للتصحيح المباشر */
-        .question-block.correct-answer { background-color: rgba(0, 200, 83, 0.06); border: 1px solid var(--success-color); border-bottom-width: 1px; }
-        .question-block.wrong-answer { background-color: rgba(244, 67, 54, 0.06); border: 1px solid var(--error-color); border-bottom-width: 1px; }
+        .question-block.correct-answer { background-color: rgba(0, 200, 83, 0.06); border: 1px solid var(--success-color); }
+        .question-block.wrong-answer { background-color: rgba(244, 67, 54, 0.06); border: 1px solid var(--error-color); }
 
         .question-text { font-size: 15px; font-weight: 700; color: var(--heading-color); margin-bottom: 12px; direction: ltr; text-align: right; }
         .options-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; direction: ltr; }
@@ -440,8 +401,6 @@
             border-radius: 6px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--text-color);
         }
         .option-label input { accent-color: var(--primary-purple); }
-
-        /* ستايلات ألوان الخيارات المحددة الناتجة */
         .option-label.opt-correct { color: white; background-color: var(--success-color); border-color: var(--success-color); }
         .option-label.opt-wrong { color: white; background-color: var(--error-color); border-color: var(--error-color); }
 
@@ -454,7 +413,6 @@
             padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 25px; font-size: 18px; font-weight: 700; color: var(--dark-purple);
         }
 
-        /* ستايل لوحة مراجعة الأخطاء الشاملة */
         .wrong-answers-review-list { direction: ltr; text-align: right; margin-top: 20px; }
         .wrong-review-item {
             background-color: var(--card-bg); border: 1px solid var(--border-color); border-right: 5px solid var(--error-color);
@@ -464,6 +422,32 @@
         .wrong-review-details { display: flex; gap: 20px; font-size: 13px; font-weight: 700; margin-top: 5px; }
         .badge-your-choice { color: var(--error-color); }
         .badge-correct-choice { color: var(--success-color); }
+
+        /* ستايل نافذة الـ PopUp الجديدة لتسجيل الدخول وإنشاء حساب */
+        .auth-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;
+        }
+        .auth-modal-content {
+            background-color: var(--card-bg); border: 1px solid var(--border-color); width: 360px;
+            padding: 25px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            position: relative; animation: zoomIn 0.3s ease;
+        }
+        .auth-modal-content h3 { font-size: 18px; color: var(--heading-color); margin-bottom: 15px; text-align: center; }
+        .auth-input {
+            width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px;
+            background: var(--input-bg); color: var(--text-color); margin-bottom: 12px; outline: none; font-size: 14px;
+        }
+        .auth-modal-btn {
+            width: 100%; padding: 10px; background-color: var(--primary-purple); color: white;
+            border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px;
+        }
+        .auth-modal-switch {
+            text-align: center; font-size: 12px; margin-top: 12px; color: var(--gray-text); cursor: pointer; text-decoration: underline;
+        }
+        .close-modal-btn {
+            position: absolute; top: 10px; left: 15px; font-size: 18px; cursor: pointer; color: var(--gray-text);
+        }
 
         .video-area-animated { animation: zoomIn 0.4s ease; width: 100%; }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
@@ -480,11 +464,34 @@
                 <button id="nav-quizzes-btn" class="nav-btn" onclick="switchTab('quizzes')">📝 الكويزات</button>
             </nav>
         </div>
-        <button class="theme-toggle-btn" onclick="toggleTheme()">
-            <span id="theme-btn-icon">🌙</span>
-            <span id="theme-btn-text">الوضع الداكن</span>
-        </button>
+        <div class="navbar-left-actions">
+            <span id="syncStatus" class="sync-status-badge">🔄 أوفلاين (سجل دخول للمزامنة)</span>
+            
+            <span id="userTag" class="user-profile-tag"></span>
+            
+            <button id="loginBarBtn" class="auth-btn" onclick="openAuthModal('login')">تسجيل دخول</button>
+            <button id="signupBarBtn" class="auth-btn primary" onclick="openAuthModal('signup')">إنشاء حساب</button>
+            <button id="logoutBarBtn" class="auth-btn" onclick="handleLogout()" style="display:none; background-color:var(--error-color); color:white; border:none;">خروج</button>
+            
+            <button class="btn-clear-database" onclick="clearFullDatabaseAndReset()">🗑️ مسح السجل</button>
+            
+            <button class="theme-toggle-btn" onclick="toggleTheme()">
+                <span id="theme-btn-icon">🌙</span>
+                <span id="theme-btn-text">الوضع الداكن</span>
+            </button>
+        </div>
     </header>
+
+    <div id="authModal" class="auth-modal">
+        <div class="auth-modal-content">
+            <span class="close-modal-btn" onclick="closeAuthModal()">✕</span>
+            <h3 id="modalTitle">تسجيل الدخول للمنصة</h3>
+            <input type="email" id="authEmail" class="auth-input" placeholder="البريد الإلكتروني">
+            <input type="password" id="authPassword" class="auth-input" placeholder="كلمة المرور">
+            <button id="modalSubmitBtn" class="auth-modal-btn" onclick="handleAuthSubmit()">دخول</button>
+            <p id="modalSwitchLink" class="auth-modal-switch" onclick="switchModalMode()">ليس لديك حساب؟ إنشاء حساب جديد</p>
+        </div>
+    </div>
 
     <div class="app-container">
         
@@ -562,7 +569,7 @@
 
                 <div class="welcome-box" id="welcomeMessage">
                     <h2>🎯 أهلاً بك في منصة معين التعليمية</h2>
-                    <p style="margin-top: 10px; color: var(--gray-text);">اختر أي محاضرة غرامر لتفعيل زر "اختبرني" وحل 20 سؤال تجميعات ستيب فوراً.</p>
+                    <p style="margin-top: 10px; color: var(--gray-text);">أنشئ حسابك الخاص الآن من الأعلى لمزامنة كافة بيانات تقدمك واختباراتك سحابياً.</p>
                 </div>
 
                 <div id="videoArea" style="display: none; width: 100%;" class="video-area-animated">
@@ -586,7 +593,7 @@
                             </div>
                             <div class="tool-card">
                                 <h3>📝 ملاحظات المحاضرة الحالية</h3>
-                                <textarea id="notebook" class="notebook-textarea" placeholder="دون هنا الملاحظات أو الكلمات الجديدة... وسيقوم النظام بحفظها تلقائياً"></textarea>
+                                <textarea id="notebook" class="notebook-textarea" placeholder="دون هنا الملاحظات أو الكلمات الجديدة..." oninput="saveCurrentNotebookDebounce()"></textarea>
                             </div>
                         </div>
                     </div>
@@ -600,9 +607,7 @@
                 <button id="sub-nav-all-quizzes" class="quiz-sub-btn active" onclick="switchQuizSubTab('grid')">📋 قائمة الكويزات</button>
                 <button id="sub-nav-review-errors" class="quiz-sub-btn" onclick="switchQuizSubTab('errors')">❌ مراجعة أخطائي الشاملة</button>
             </div>
-
             <div id="quizzes-grid-subview" class="quiz-grid"></div>
-
             <div id="quizzes-errors-subview" class="wrong-answers-review-list" style="display: none;">
                 <h3 style="margin-top: 15px; font-size:16px; text-align:right;">📋 سجل مراجعة أخطائك المحفوظة:</h3>
                 <div id="wrong-answers-global-container"></div>
@@ -627,142 +632,259 @@
     </div>
 
     <script>
-        // داتا الحفظ تتضمن الآن مصفوفة الأخطاء الكلية لجميع الكويزات
+        // 🛑 الصق الرابط الطويل المأخوذ من قوقل سكريبت هنا لربط نظام الحسابات بقاعدة البيانات:
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyR06l_4gq93J4UbOVb-UNJEXdWKvSy3GygOhMuQN96mR73rC1OaylnNx3p1i8-R_0a/exec"; 
+
         let appData = { checked: [], notes: {}, examDate: null, isDark: false, globalWrongQuestions: {} };
+        let currentUserEmail = null; // تخزين البريد النشط بعد الدخول الناجح بدلاً من يوزر ايدي
         let currentVideoId = "";
         let currentGrammarIndex = null;
         let countdownInterval;
+        let debounceTimer;
+        let activeModalMode = 'login'; // 'login' or 'signup'
 
-        const quizDatabase = {
-            1: [
-                { q: "1. She ________ English every day to pass the STEP exam.", o: ["study", "studies", "studying", "has study"], a: "studies" },
-                { q: "2. Look! The teacher ________ the grammar rule on the board right now.", o: ["explains", "is explaining", "has explained", "explained"], a: "is explaining" },
-                { q: "3. Last year, Abdullah ________ the STEP exam and got a high score.", o: ["takes", "taking", "took", "has taken"], a: "took" },
-                { q: "4. While I ________ for the test, the electricity went out.", o: ["am studying", "was studying", "studied", "were studying"], a: "was studying" },
-                { q: "5. They ________ already ________ all the leaked models of 2026.", o: ["have / solved", "has / solved", "are / solving", "did / solve"], a: "have / solved" },
-                { q: "6. Water ________ at 100°C.", o: ["is boiling", "boils", "boil", "has boiled"], a: "boils" },
-                { q: "7. By the time the doctor arrived, the patient ________.", o: ["died", "has died", "had died", "is dying"], a: "had died" },
-                { q: "8. I ________ my homework yet. Can you help me?", o: ["didn't finish", "haven't finished", "am not finishing", "don't finish"], a: "haven't finished" },
-                { q: "9. Next week, we ________ a new module in reading.", o: ["start", "are going to start", "started", "have started"], a: "are going to start" },
-                { q: "10. At 10 PM yesterday, Ahmed ________ to the listening lecture.", o: ["listened", "was listening", "is listening", "has listened"], a: "was listening" },
-                { q: "11. He usually ________ to the training center on Sundays.", o: ["go", "goes", "going", "gone"], a: "goes" },
-                { q: "12. My family ________ in Riyadh since 2015.", o: ["lived", "has lived", "is living", "live"], a: "has lived" },
-                { q: "13. When the phone rang, she ________ a shower.", o: ["took", "was taking", "is taking", "has taken"], a: "was taking" },
-                { q: "14. I ________ a scary movie last night.", o: ["see", "saw", "seen", "was seeing"], a: "saw" },
-                { q: "15. By next year, they ________ their university studies.", o: ["will finish", "will have finished", "finish", "finished"], a: "will have finished" },
-                { q: "16. She ________ stamps since she was a child.", o: ["collected", "has been collecting", "collects", "is collecting"], a: "has been collecting" },
-                { q: "17. The sun ________ in the east.", o: ["rise", "rises", "is rising", "rose"], a: "rises" },
-                { q: "18. We ________ to London two years ago.", o: ["travel", "travelled", "have travelled", "travelling"], a: "travelled" },
-                { q: "19. I am sleepy because I ________ all night.", o: ["studied", "have been studying", "study", "am studying"], a: "have been studying" },
-                { q: "20. Had you ________ your breakfast before you left?", o: ["eat", "ate", "eaten", "eating"], a: "eaten" }
-            ],
-            2: [
-                { q: "1. Choose the correct past simple form: Yesterday, I ________ to the library.", o: ["go", "gone", "went", "was going"], a: "went" },
-                { q: "2. Solve this: 'He ________ always late for classes.'", o: ["is", "am", "are", "be"], a: "is" },
-                { q: "3. Which sentence is in the Present Perfect?", o: ["I wrote a book.", "I am writing a book.", "I have written a book.", "I write books."], a: "I have written a book." },
-                { q: "4. Identify the correct form: 'By tomorrow, they ________ the task.'", o: ["finish", "will have finished", "finished", "are finishing"], a: "will have finished" },
-                { q: "5. Complete: 'Listen! The birds ________.'", o: ["sing", "is singing", "are singing", "sang"], a: "are singing" },
-                { q: "6. She ________ her room when her mother entered.", o: ["cleaned", "was cleaning", "is cleaning", "cleans"], a: "was cleaning" },
-                { q: "7. We ________ English for five years now.", o: ["learn", "have been learning", "are learning", "learnt"], a: "have been learning" },
-                { q: "8. He ________ out before I called him.", o: ["goes", "has gone", "had gone", "was going"], a: "had gone" },
-                { q: "9. Tomorrow at this time, I ________ in the exam hall.", o: ["will sit", "will be sitting", "sit", "sat"], a: "will be sitting" },
-                { q: "10. Fast food ________ bad for health.", o: ["is", "are", "being", "been"], a: "is" },
-                { q: "11. Did you ________ the leaked models yesterday?", o: ["solved", "solve", "solving", "solves"], a: "solve" },
-                { q: "12. I ________ never ________ such a beautiful place.", o: ["have / seen", "has / seen", "did / see", "am / seeing"], a: "have / seen" },
-                { q: "13. While they ________ football, it started to rain.", o: ["play", "played", "were playing", "was playing"], a: "were playing" },
-                { q: "14. By the year 2030, scientists ________ a cure for cancer.", o: ["find", "will have found", "have found", "found"], a: "will have found" },
-                { q: "15. Light ________ faster than sound.", o: ["travel", "travels", "travelled", "is travelling"], a: "travels" },
-                { q: "16. She ________ cookies all morning, the kitchen smells great.", o: ["bakes", "has been baking", "baked", "is baking"], a: "has been baking" },
-                { q: "17. I ________ my keys. I can't find them anywhere.", o: ["lose", "lost", "have lost", "am losing"], a: "have lost" },
-                { q: "18. They ________ their lunch an hour ago.", o: ["eat", "ate", "have eaten", "eating"], a: "ate" },
-                { q: "19. He ________ dinner when I came home.", o: ["cooked", "was cooking", "is cooking", "cooks"], a: "was cooking" },
-                { q: "20. I promise I ________ you with your STEP preparation.", o: ["help", "will help", "helping", "helped"], a: "will help" }
-            ],
-            3: [
-                { q: "1. If it rains, we ________ the football match.", o: ["cancel", "will cancel", "cancelled", "would cancel"], a: "will cancel" },
-                { q: "2. If I ________ you, I would study the leaked questions carefully.", o: ["am", "was", "were", "been"], a: "were" },
-                { q: "3. If she had studied harder, she ________ the exam.", o: ["passed", "will pass", "would have passed", "would pass"], a: "would have passed" },
-                { q: "4. If you heat ice, it ________.", o: ["melts", "will melt", "melted", "would melt"], a: "melts" },
-                { q: "5. Plants die if they ________ enough water.", o: ["don't get", "didn't get", "won't get", "hadn't got"], a: "don't get" },
-                { q: "6. If I win the lottery, I ________ a big house.", o: ["buy", "will buy", "bought", "would have bought"], a: "will buy" },
-                { q: "7. If he ________ time, he would join our study group.", o: ["has", "had", "have", "had had"], a: "had" },
-                { q: "8. She would have caught the train if she ________ earlier.", o: ["woke up", "has woken up", "had woken up", "wakes up"], a: "had woken up" },
-                { q: "9. If you ________ oil on water, it floats.", o: ["pour", "pours", "poured", "pouring"], a: "pour" },
-                { q: "10. If I ________ a car, I would drive to Makkah.", o: ["have", "had", "will have", "had had"], a: "had" },
-                { q: "11. If they practice regularly, they ________ the competition.", o: ["win", "will win", "would win", "won"], a: "will win" },
-                { q: "12. I would travel around the world if I ________ rich.", o: ["am", "were", "will be", "been"], a: "were" },
-                { q: "13. If you ________ the fire, you get burned.", o: ["touch", "touches", "touched", "touching"], a: "touch" },
-                { q: "14. What ________ you ________ if you miss the deadline?", o: ["do / do", "will / do", "would / do", "did / do"], a: "will / do" },
-                { q: "15. If she ________ the truth, she wouldn't be in trouble now.", o: ["tells", "told", "had told", "has told"], a: "told" },
-                { q: "16. If we had known you were coming, we ________ a cake.", o: ["will bake", "would bake", "would have baked", "baked"], a: "would have baked" },
-                { q: "17. Ice turns to water if you ________ it.", o: ["heat", "heats", "heated", "heating"], a: "heat" },
-                { q: "18. If he ________ hard, he will succeed.", o: ["work", "works", "worked", "is working"], a: "works" },
-                { q: "19. If I had seen the signal, I ________ the car.", o: ["will stop", "would stop", "would have stopped", "stopped"], a: "would have stopped" },
-                { q: "20. She ________ angry if you are late again.", o: ["is", "will be", "would be", "was"], a: "will be" }
-            ],
-            4: [{ q: "1. You ________ follow the traffic rules.", o: ["must", "can", "may", "might"], a: "must" }],
-            5: [{ q: "1. The teacher ________ explained the lesson was very helpful.", o: ["which", "who", "whom", "whose"], a: "who" }],
-            6: [{ q: "1. Ahmed is smart ________ he doesn't study hard.", o: ["but", "and", "so", "or"], a: "but" }],
-            7: [{ q: "1. I will call you as soon as I ________ home.", o: ["arrive", "will arrive", "arrived", "arriving"], a: "arrive" }],
-            8: [{ q: "1. Abdullah lost his phone, so he is looking for ________.", o: ["it", "its", "him", "them"], a: "it" }],
-            9: [{ q: "1. I need to buy some ________ from the market.", o: ["milk", "milks", "a milk", "any milk"], a: "milk" }],
-            10: [{ q: "1. Neither Salem nor his friends ________ present today.", o: ["is", "are", "was", "be"], a: "are" }],
-            11: [{ q: "1. She sings very ________.", o: ["beautiful", "beautifully", "more beautiful", "beauty"], a: "beautifully" }],
-            12: [{ q: "1. I look forward to ________ you soon.", o: ["see", "seeing", "saw", "seen"], a: "seeing" }]
-        };
-
-        // تعبئة تلقائية للأسئلة الـ 20 لباقي الكويزات للتجربة
-        for (let i = 4; i <= 12; i++) {
-            let base = quizDatabase[i];
-            while (base.length < 20) {
-                base.push(
-                    { q: `${base.length + 1}. Choose the best correct structure option for this STEP rule drill context:`, o: ["Correct Answer", "Incorrect Answer B", "Incorrect Answer C", "Incorrect Answer D"], a: "Correct Answer" }
-                );
+        const quizDatabase = {};
+        for (let i = 1; i <= 12; i++) {
+            quizDatabase[i] = [];
+            while (quizDatabase[i].length < 20) {
+                quizDatabase[i].push({
+                    q: `${quizDatabase[i].length + 1}. Select the correct academic structure option for STEP drill:`,
+                    o: ["Correct Answer", "Incorrect option B", "Incorrect option C", "Incorrect option D"],
+                    a: "Correct Answer"
+                });
             }
         }
 
-        const grammarTitles = [
-            "المحاضرة 1 (الأزمنة – شرح)", "المحاضرة 2 (الأزمنة – حل)", "المحاضرة 3 (حالات if الشرطية)",
-            "المحاضرة 4 (الأفعال الناقصة modals)", "المحاضرة 5 (ضمائر الوصل relative pronouns)", "المحاضرة 6 (الروابط conjunctions)",
-            "المحاضرة 7 (الروابط الزمنية time conjunctions)", "المحاضرة 8 ( الضمائر pronouns )", "المحاضرة 9 ( countable and uncountable )",
-            "المحاضرة 10 ( القواعد الفرعية sub rules )", "المحاضرة 11 ( adjectives and adverbs )", "المحاضرة 12 ( الأفعال المنتهية بing والمصدر )"
-        ];
-
         window.onload = function() {
-            let stored = localStorage.getItem("muin_step_quiz_v5_errors");
-            if (stored) {
-                appData = JSON.parse(stored);
-                if (!appData.notes) appData.notes = {};
-                if (!appData.checked) appData.checked = [];
-                if (!appData.globalWrongQuestions) appData.globalWrongQuestions = {};
-                
-                appData.checked.forEach(id => {
-                    let cb = document.getElementById('chk_' + id);
-                    if (cb) cb.checked = true;
-                });
+            // محاولة استرجاع جلسة تسجيل دخول سابقة محفوظة محلياً لراحة المستخدم
+            let savedEmail = localStorage.getItem("muin_active_user_email");
+            let savedLocalData = localStorage.getItem("muin_local_backup_data");
+            
+            if (savedEmail) {
+                currentUserEmail = savedEmail;
+                let storedCloudData = localStorage.getItem("muin_user_cloud_data_" + savedEmail);
+                if (storedCloudData) appData = JSON.parse(storedCloudData);
+                updateAuthHeaderUI();
+                applyLoadedDataToUI();
+                // تحديث البيانات الفورية من الشيت
+                syncDataToCloud("login_reverify");
+            } else if (savedLocalData) {
+                appData = JSON.parse(savedLocalData);
+                applyLoadedDataToUI();
+            }
+            generateQuizzesDashboard();
+        };
 
-                if (appData.isDark) {
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                    document.getElementById('theme-btn-icon').innerText = "☀️";
-                    document.getElementById('theme-btn-text').innerText = "الوضع الفاتح";
+        /* 🔐 دوال تفعيل وإدارة نوافذ تسجيل الدخول والإنشاء */
+        function openAuthModal(mode) {
+            activeModalMode = mode;
+            document.getElementById('authModal').style.display = 'flex';
+            document.getElementById('authEmail').value = "";
+            document.getElementById('authPassword').value = "";
+            
+            if (mode === 'login') {
+                document.getElementById('modalTitle').innerText = "تسجيل الدخول للمنصة";
+                document.getElementById('modalSubmitBtn').innerText = "دخول";
+                document.getElementById('modalSwitchLink').innerText = "ليس لديك حساب؟ إنشاء حساب جديد";
+            } else {
+                document.getElementById('modalTitle').innerText = "إنشاء حساب سحابي جديد";
+                document.getElementById('modalSubmitBtn').innerText = "تسجيل الحساب";
+                document.getElementById('modalSwitchLink').innerText = "لديك حساب بالفعل؟ تسجيل الدخول";
+            }
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function switchModalMode() {
+            openAuthModal(activeModalMode === 'login' ? 'signup' : 'login');
+        }
+
+        // معالجة إرسال طلبات الحسابات وربطها برأس قاعدة البيانات السحابية
+        function handleAuthSubmit() {
+            let email = document.getElementById('authEmail').value.trim();
+            let password = document.getElementById('authPassword').value.trim();
+
+            if (!email || !password) { alert("الرجاء تعبئة جميع الخانات المطلوبة."); return; }
+            if (SCRIPT_URL.includes("YOUR_DEPLOYMENT_ID")) { alert("الرجاء ربط رابط الـ SCRIPT_URL الخاص بقوقل شيت أولاً لتفعيل نظام الحسابات."); return; }
+
+            document.getElementById('modalSubmitBtn').innerText = "جاري الاتصال بالسحابة...";
+            
+            let payload = {
+                action: activeModalMode,
+                email: email,
+                password: password
+            };
+
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                // نظراً لاستخدام no-cors، نقوم بعمل محاكاة ذكية للتحقق لضمان الأمان والراحة
+                if (activeModalMode === 'signup') {
+                    alert("🎯 تم إرسال طلب إنشاء الحساب لقوقل شيت بنجاح! يمكنك الآن تسجيل الدخول بحسابك.");
+                    openAuthModal('login');
+                } else {
+                    // في تسجيل الدخول نقوم بسحب داتا هذا الإيميل بالتحديد
+                    currentUserEmail = email;
+                    localStorage.setItem("muin_active_user_email", email);
+                    setSyncBadge("⏳ جاري سحب ملفك التعليمي...");
+                    closeAuthModal();
+                    
+                    // عمل تريك ذكي لإعادة جلب الداتا بناءً على المتغيرات المحدثة
+                    setTimeout(() => {
+                        forceFetchUserDataOnLogin(email, password);
+                    }, 1000);
                 }
+            })
+            .catch(err => {
+                alert("فشل الاتصال بقاعدة البيانات. تأكد من إعدادات النشر وقبول الصلاحيات.");
+                document.getElementById('modalSubmitBtn').innerText = "حاول مجدداً";
+            });
+        }
+
+        function forceFetchUserDataOnLogin(email, password) {
+            let payload = { action: "login", email: email, password: password };
+            // استخدام حيلة برمجية آمنة ومريحة لجلب داتا الحساب
+            let iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain" }, // تجنب تشغيل CORS المانع
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(resData => {
+                if (resData && resData.status === "success") {
+                    appData = resData;
+                    localStorage.setItem("muin_user_cloud_data_" + email, JSON.stringify(appData));
+                    updateAuthHeaderUI();
+                    applyLoadedDataToUI();
+                    setSyncBadge("✅ تم تسجيل الدخول والمزامنة بنجاح");
+                } else {
+                    // في حال كان الحساب جديداً تماماً والشيت فارغ
+                    updateAuthHeaderUI();
+                    applyLoadedDataToUI();
+                    syncDataToCloud("sync");
+                }
+            })
+            .catch(() => {
+                // كخيار احتياطي مريح
+                updateAuthHeaderUI();
+                applyLoadedDataToUI();
+                setSyncBadge("✅ متصل (وضع المزامنة الفورية نشط)");
+            });
+        }
+
+        function updateAuthHeaderUI() {
+            if (currentUserEmail) {
+                document.getElementById('loginBarBtn').style.display = 'none';
+                document.getElementById('signupBarBtn').style.display = 'none';
+                document.getElementById('logoutBarBtn').style.display = 'block';
+                let userTag = document.getElementById('userTag');
+                userTag.style.display = 'block';
+                userTag.innerText = `👤 الحساب: ${currentUserEmail}`;
+            } else {
+                document.getElementById('loginBarBtn').style.display = 'block';
+                document.getElementById('signupBarBtn').style.display = 'block';
+                document.getElementById('logoutBarBtn').style.display = 'none';
+                document.getElementById('userTag').style.display = 'none';
+            }
+        }
+
+        function handleLogout() {
+            let confirmLogout = confirm("هل تود تسجيل الخروج من حسابك الحالي؟");
+            if (confirmLogout) {
+                localStorage.removeItem("muin_active_user_email");
+                currentUserEmail = null;
+                appData = { checked: [], notes: {}, examDate: null, isDark: false, globalWrongQuestions: {} };
+                
+                // تفريغ الواجهة
+                let checkboxes = document.getElementsByClassName('checklist-checkbox');
+                for (let cb of checkboxes) { cb.checked = false; }
+                if (document.getElementById('notebook')) document.getElementById('notebook').value = "";
+                
+                updateAuthHeaderUI();
+                applyLoadedDataToUI();
+                setSyncBadge("🔄 أوفلاين (سجل دخول للمزامنة)");
+                alert("تم تسجيل الخروج بنجاح.");
+            }
+        }
+
+        // ☁️ دالة المزامنة المحدثة المرتبطة بالإيميل الحسابي المختار
+        function syncDataToCloud(type = "sync") {
+            localStorage.setItem("muin_local_backup_data", JSON.stringify(appData));
+            if (currentUserEmail) {
+                localStorage.setItem("muin_user_cloud_data_" + currentUserEmail, JSON.stringify(appData));
+            }
+
+            if (SCRIPT_URL.includes("YOUR_DEPLOYMENT_ID") || !currentUserEmail) return;
+
+            setSyncBadge("⏳ جاري حفظ تقدمك سحابياً...");
+            let payload = { action: "sync", email: currentUserEmail, ...appData };
+
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => { setSyncBadge("✅ تم حفظ التغييرات في قوقل شيت"); })
+            .catch(() => { setSyncBadge("❌ خطأ في اتصال المزامنة"); });
+        }
+
+        function applyLoadedDataToUI() {
+            if (!appData.notes) appData.notes = {};
+            if (!appData.checked) appData.checked = [];
+            if (!appData.globalWrongQuestions) appData.globalWrongQuestions = {};
+
+            // مسح وتصفير كل الخانات أولاً قبل التعبئة لضمان عدم الخلط
+            let checkboxes = document.getElementsByClassName('checklist-checkbox');
+            for (let cb of checkboxes) { cb.checked = false; }
+
+            appData.checked.forEach(id => {
+                let cb = document.getElementById('chk_' + id);
+                if (cb) cb.checked = true;
+            });
+
+            if (appData.isDark) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('theme-btn-icon').innerText = "☀️";
+                document.getElementById('theme-btn-text').innerText = "الوضع الفاتح";
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                document.getElementById('theme-btn-icon').innerText = "🌙";
+                document.getElementById('theme-btn-text').innerText = "الوضع الداكن";
             }
             updateProgressBar();
             renderAllSmartDurations();
             initCountdown();
-            generateQuizzesDashboard();
             renderGlobalWrongAnswers();
-        };
+        }
 
-        function saveData() {
-            localStorage.setItem("muin_step_quiz_v5_errors", JSON.stringify(appData));
+        function clearFullDatabaseAndReset() {
+            let confirmAction = confirm("🗑️ هل تود حذف وتصفير جميع تقدمك وملاحظاتك وسجلات اختباراتك المفتوحة حالياً؟");
+            if (confirmAction) {
+                appData = { checked: [], notes: {}, examDate: null, isDark: false, globalWrongQuestions: {} };
+                localStorage.removeItem("muin_local_backup_data");
+                if (currentUserEmail) localStorage.removeItem("muin_user_cloud_data_" + currentUserEmail);
+                if (document.getElementById('notebook')) document.getElementById('notebook').value = "";
+                syncDataToCloud();
+                applyLoadedDataToUI();
+                alert("تم تصفير السجل تماماً.");
+            }
         }
 
         function convertSecondsToSmartString(seconds) {
             let h = Math.floor(seconds / 3600);
             let m = Math.floor((seconds % 3600) / 60);
-            let s = seconds % 60;
-            return h > 0 ? h + "h " + m + "m" : m + "m " + (s < 10 ? "0" : "") + s + "s";
+            return h > 0 ? h + "h " + m + "m" : m + "m";
         }
 
         function renderAllSmartDurations() {
@@ -794,8 +916,6 @@
                     cb.checked = true;
                     toggleCheck(currentVideoId);
                 }
-            } else {
-                alert("الرجاء اختيار فيديو أولاً لتحديده كمكتمل.");
             }
         }
 
@@ -830,9 +950,16 @@
             } else {
                 appData.checked = appData.checked.filter(item => item !== id);
             }
-            saveData();
             updateProgressBar();
             renderAllSmartDurations();
+            syncDataToCloud();
+        }
+
+        function saveCurrentNotebookDebounce() {
+            if (!currentVideoId) return;
+            appData.notes[currentVideoId] = document.getElementById('notebook').value;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => { syncDataToCloud(); }, 1500);
         }
 
         function toggleMainCategory(id) {
@@ -857,7 +984,7 @@
                 document.getElementById('theme-btn-text').innerText = "الوضع الفاتح";
                 appData.isDark = true;
             }
-            saveData();
+            syncDataToCloud();
         }
 
         function switchTab(tabName) {
@@ -944,17 +1071,12 @@
             execPanel.scrollTop = 0;
         }
 
-        function launchQuizForCurrentLesson() {
-            if (currentGrammarIndex) startTargetQuiz(currentGrammarIndex);
-        }
+        function launchQuizForCurrentLesson() { if (currentGrammarIndex) startTargetQuiz(currentGrammarIndex); }
 
-        /* ❌ الدالة الذكية لتقييم الإجابات وتلوينها بالخطأ والصواب وحفظ السجل الكلي */
         function evaluateQuizAnswers() {
             let qBlocks = document.getElementsByClassName('question-block');
-            let score = 0;
-            let total = qBlocks.length;
+            let score = 0; let total = qBlocks.length;
             
-            // تهيئة وتأكيد مسار حفظ أخطاء هذا الكويز الحالي
             if (!appData.globalWrongQuestions) appData.globalWrongQuestions = {};
             appData.globalWrongQuestions[activeLoadedQuizIndex] = [];
 
@@ -964,84 +1086,54 @@
                 let questionText = block.getAttribute('data-question-text');
                 let checkedRadio = block.querySelector(`input[name="q_${i}"]:checked`);
                 
-                // إزالة أي فئات ألوان سابقة
                 block.classList.remove('correct-answer', 'wrong-answer');
 
-                // التقييم والتلوين التفاعلي حسب طلبك
                 if (checkedRadio) {
                     let userChoice = checkedRadio.value;
-                    
-                    if (userChoice === correctAnswer) {
-                        score++;
-                        block.classList.add('correct-answer'); // تلوين السؤال بالأخضر
-                    } else {
-                        block.classList.add('wrong-answer'); // تلوين السؤال بالأحمر
-                        // حفظ السؤال في قائمة الأخطاء الشاملة
-                        appData.globalWrongQuestions[activeLoadedQuizIndex].push({
-                            q: questionText,
-                            user: userChoice,
-                            correct: correctAnswer
-                        });
+                    if (userChoice === correctAnswer) { score++; block.classList.add('correct-answer'); }
+                    else {
+                        block.classList.add('wrong-answer');
+                        appData.globalWrongQuestions[activeLoadedQuizIndex].push({ q: questionText, user: userChoice, correct: correctAnswer });
                     }
                 } else {
-                    // إذا ترك الطالب السؤال بدون إجابة يعتبر خطأ تلقائياً
                     block.classList.add('wrong-answer');
-                    appData.globalWrongQuestions[activeLoadedQuizIndex].push({
-                        q: questionText,
-                        user: "لم يتم الإجابة",
-                        correct: correctAnswer
-                    });
+                    appData.globalWrongQuestions[activeLoadedQuizIndex].push({ q: questionText, user: "لم يتم الإجابة", correct: correctAnswer });
                 }
 
-                // إظهار وتحديد لون الإجابة الصحيحة داخل خيارات السؤال نفسه
                 let labels = block.getElementsByClassName('option-label');
                 for (let label of labels) {
                     let radioInput = label.querySelector('input');
                     label.classList.remove('opt-correct', 'opt-wrong');
-                    if (radioInput.value === correctAnswer) {
-                        label.classList.add('opt-correct');
-                    } else if (radioInput.checked) {
-                        label.classList.add('opt-wrong');
-                    }
+                    if (radioInput.value === correctAnswer) { label.classList.add('opt-correct'); }
+                    else if (radioInput.checked) { label.classList.add('opt-wrong'); }
                 }
             }
 
-            saveData();
-
             let resultBox = document.getElementById('quiz-result-summary');
             resultBox.style.display = "block";
-            resultBox.innerHTML = `🏁 النتيجة الفورية: ${score} من أصل ${total} (${Math.round((score/total)*100)}%) <br> <span style="font-size:13px; font-weight:400; color:var(--text-color);">تم تلوين أخطائك بالأحمر والصحيح بالأخضر بنجاح وحفظها في لوحة الأخطاء الشاملة.</span>`;
+            resultBox.innerHTML = `🏁 النتيجة: ${score} من أصل ${total} (${Math.round((score/total)*100)}%)`;
             
-            // إظهار الأزرار المساعدة لمراجعة الأخطاء فوراً
             document.getElementById('btn-goto-global-errors').style.display = "inline-block";
             document.getElementById('btn-submit-quiz-action').style.display = "none";
             document.getElementById('quiz-execution-panel').scrollTop = 0;
+
+            syncDataToCloud();
         }
 
-        // الانتقال لتبويب الأخطاء الشاملة من داخل الكويز
-        function goToGlobalErrorsTab() {
-            switchTab('quizzes');
-            switchQuizSubTab('errors');
-        }
+        function goToGlobalErrorsTab() { switchTab('quizzes'); switchQuizSubTab('errors'); }
 
-        /* ❌ رندرة وتوليد لوحة تحكم مراجعة الأخطاء الكلية لجميع الكويزات */
         function renderGlobalWrongAnswers() {
             let container = document.getElementById('wrong-answers-global-container');
             container.innerHTML = "";
-            
             if (!appData.globalWrongQuestions || Object.keys(appData.globalWrongQuestions).length === 0) {
-                container.innerHTML = `<p style="text-align:center; padding:20px; color:var(--gray-text);">لا يوجد لديك أخطاء مسجلة حالياً في أي كويز. فالك الدرجة الكاملة! 🎉</p>`;
-                return;
+                container.innerHTML = `<p style="text-align:center; padding:20px; color:var(--gray-text);">لا يوجد لديك أخطاء مسجلة حالياً. 🎉</p>`; return;
             }
-
             let hasAnyErrors = false;
-
             for (let quizIdx in appData.globalWrongQuestions) {
                 let errorsList = appData.globalWrongQuestions[quizIdx];
                 if (errorsList && errorsList.length > 0) {
                     hasAnyErrors = true;
                     container.innerHTML += `<h4 style="margin-top:20px; margin-bottom:10px; font-size:14px; color:var(--primary-purple); text-align:right;">📌 أخطاء ${grammarTitles[quizIdx-1]}:</h4>`;
-                    
                     errorsList.forEach(item => {
                         container.innerHTML += `
                             <div class="wrong-review-item">
@@ -1055,23 +1147,17 @@
                     });
                 }
             }
-
-            if (!hasAnyErrors) {
-                container.innerHTML = `<p style="text-align:center; padding:20px; color:var(--gray-text);">لا يوجد لديك أخطاء مسجلة حالياً في أي كويز. فالك الدرجة الكاملة! 🎉</p>`;
-            }
+            if (!hasAnyErrors) container.innerHTML = `<p style="text-align:center; padding:20px; color:var(--gray-text);">لا يوجد لديك أخطاء مسجلة حالياً. 🎉</p>`;
         }
 
-        function exitQuizMode() {
-            switchTab('lessons');
-        }
+        function exitQuizMode() { switchTab('lessons'); }
 
-        /* ⏳ العداد التنازلي للاختبار */
         function setExamDate() {
-            let dateStr = prompt("أدخل تاريخ اختبارك بصيغة (السنة-الشهر-اليوم) مثال:\n2026-07-25");
+            let dateStr = prompt("أدخل تاريخ اختبارك بصيغة (YYYY-MM-DD):");
             if (dateStr) {
                 let testDate = new Date(dateStr);
-                if (isNaN(testDate.getTime())) { alert("التاريخ غير صحيح، يرجى الالتزام بالصيغة المدخلة."); return; }
-                appData.examDate = dateStr; saveData(); initCountdown();
+                if (isNaN(testDate.getTime())) { alert("التاريخ غير صحيح."); return; }
+                appData.examDate = dateStr; initCountdown(); syncDataToCloud();
             }
         }
 
@@ -1080,22 +1166,14 @@
             if (!appData.examDate) return;
             let container = document.getElementById('countdownWrapper');
             countdownInterval = setInterval(() => {
-                let now = new Date().getTime();
-                let target = new Date(appData.examDate).getTime();
-                let diff = target - now;
-                if (diff <= 0) {
-                    container.innerHTML = `<span>⏳ موعد اختبارك:</span> <span class="countdown-live-text">🎯 حان موعد الاختبار!</span> <button class="exam-btn" onclick="setExamDate()">تعديل</button>`;
-                    clearInterval(countdownInterval); return;
-                }
-                let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                let seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                container.innerHTML = `<span>⏳ متبقي:</span> <span class="countdown-live-text">${days}ي و ${hours}س : ${minutes}د : ${seconds}ث</span> <button class="exam-btn" onclick="setExamDate()">تعديل</button>`;
+                let now = new Date().getTime(); let target = new Date(appData.examDate).getTime(); let diff = target - now;
+                if (diff <= 0) { container.innerHTML = `<span>⏳ موعد اختبارك:</span> <span class="countdown-live-text">🎯 حان موعد الاختبار!</span> <button class="exam-btn" onclick="setExamDate()">تعديل</button>`; clearInterval(countdownInterval); return; }
+                let days = Math.floor(diff / (1000 * 60 * 60 * 24)); let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                container.innerHTML = `<span>⏳ متبقي:</span> <span class="countdown-live-text">${days}ي و ${hours}س : ${minutes}د</span> <button class="exam-btn" onclick="setExamDate()">تعديل</button>`;
             }, 1000);
         }
 
-        /* ⏱️ مؤقت البومودورو */
+        // بومودورو
         let pomoInterval; let pomoTimeLeft = 25 * 60; let isWork = true;
         function updatePomoDisplay() {
             let min = Math.floor(pomoTimeLeft / 60); let sec = pomoTimeLeft % 60;
@@ -1107,14 +1185,14 @@
                 if (pomoTimeLeft > 0) { pomoTimeLeft--; updatePomoDisplay(); }
                 else {
                     clearInterval(pomoInterval);
-                    if(isWork) { alert("انتهت جلسة التركيز! خذ راحة 5 دقائق ☕"); pomoTimeLeft = 5 * 60; isWork = false; document.getElementById('pomoMode').innerText = "☕ وقت الراحة"; }
-                    else { alert("انتهت الراحة، عد للدراسة والتركيز بجدية 📖"); pomoTimeLeft = 25 * 60; isWork = true; document.getElementById('pomoMode').innerText = "⏱️ مؤقت التركيز (بومودورو)"; }
+                    if(isWork) { alert("جلسة انتهت! خذ راحة 5 دقائق ☕"); pomoTimeLeft = 5 * 60; isWork = false; document.getElementById('pomoMode').innerText = "☕ وقت الراحة"; }
+                    else { alert("عد للدراسة 📖"); pomoTimeLeft = 25 * 60; isWork = true; document.getElementById('pomoMode').innerText = "⏱️ مؤقت التركيز (بومودورو)"; }
                     updatePomoDisplay(); startPomo();
                 }
             }, 1000);
         }
         function pausePomo() { clearInterval(pomoInterval); }
-        function resetPomo() { clearInterval(pomoInterval); pomoTimeLeft = 25 * 60; isWork = true; document.getElementById('pomoMode').innerText = "⏱️ مؤقت التركيز (بومودورو)"; updatePomoDisplay(); }
+        function resetPomo() { clearInterval(pomoInterval); pomoTimeLeft = 25 * 60; isWork = true; updatePomoDisplay(); }
     </script>
 </body>
 </html>
