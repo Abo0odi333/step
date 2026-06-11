@@ -9,15 +9,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* المتغيرات الافتراضية (الوضع الفاتح) */
         :root {
             --main-bg: #f9fbfd;
             --sidebar-bg: #ffffff;
+            --navbar-bg: #ffffff;
+            --card-bg: #ffffff;
             --primary-purple: #7c4dff;
             --dark-purple: #4a148c;
             --text-color: #4a4a4a;
+            --heading-color: #222222;
             --border-color: #f1edf8;
             --success-color: #00c853;
             --gray-text: #888888;
+            --hover-bg: #f6f2ff;
+            --sub-bg: #fafafa;
+            --duration-bg: #f1edfe;
+            --duration-text: #000000;
+            --input-bg: #fafafa;
+            --shadow: rgba(0,0,0,0.04);
+        }
+
+        /* المتغيرات للوضع الداكن (Dark Mode) */
+        [data-theme="dark"] {
+            --main-bg: #0b0f19;
+            --sidebar-bg: #111827;
+            --navbar-bg: #111827;
+            --card-bg: #1f2937;
+            --primary-purple: #9d76ff;
+            --dark-purple: #c0a5ff;
+            --text-color: #9ca3af;
+            --heading-color: #f3f4f6;
+            --border-color: #374151;
+            --success-color: #059669;
+            --gray-text: #6b7280;
+            --hover-bg: #2d2447;
+            --sub-bg: #1f2937;
+            --duration-bg: #312e81;
+            --duration-text: #e0e7ff;
+            --input-bg: #111827;
+            --shadow: rgba(0,0,0,0.3);
         }
 
         * {
@@ -25,6 +56,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
 
         body {
@@ -39,12 +71,19 @@
         /* 1. الهيدر العلوي */
         .navbar {
             height: 70px;
-            background-color: #ffffff;
+            background-color: var(--navbar-bg);
             display: flex;
             align-items: center;
+            justify-content: space-between;
             padding: 0 30px;
             border-bottom: 1px solid var(--border-color);
             z-index: 100;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .brand-logo {
@@ -53,6 +92,24 @@
             color: var(--primary-purple);
             text-decoration: none;
             letter-spacing: 0.5px;
+        }
+
+        /* زر الوضع الداكن */
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .theme-toggle-btn:hover {
+            background-color: var(--hover-bg);
         }
 
         /* تقسيم الشاشة الرئيسي */
@@ -67,7 +124,7 @@
         .sidebar {
             width: 395px;
             background-color: var(--sidebar-bg);
-            border-left: 1px solid #e2e8f0;
+            border-left: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -96,7 +153,7 @@
             text-align: right;
             font-size: 15px;
             font-weight: 700;
-            color: #333;
+            color: var(--heading-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -105,14 +162,14 @@
         }
 
         .main-category-btn:hover {
-            background-color: #fcfaff;
+            background-color: var(--hover-bg);
         }
 
         .main-category-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background-color: #ffffff;
+            background-color: var(--sidebar-bg);
         }
 
         .sub-category-title {
@@ -124,7 +181,7 @@
             display: flex;
             justify-content: space-between;
             border-bottom: 1px solid var(--border-color);
-            background-color: #fafafa;
+            background-color: var(--sub-bg);
         }
 
         .sub-category-content {
@@ -137,19 +194,18 @@
             display: flex;
             align-items: center;
             padding: 12px 20px;
-            border-bottom: 1px solid #f8fafc;
-            transition: transform 0.2s ease, background 0.2s ease;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .lecture-item:hover {
-            background-color: #f6f2ff;
+            background-color: var(--hover-bg);
             transform: translateX(-3px);
         }
 
         .play-icon {
             width: 22px;
             height: 22px;
-            background-color: #eeebfc;
+            background-color: var(--sub-bg);
             color: var(--primary-purple);
             border-radius: 50%;
             display: flex;
@@ -162,7 +218,7 @@
 
         .lecture-link {
             flex: 1;
-            color: #444;
+            color: var(--text-color);
             text-decoration: none;
             font-size: 13px;
             cursor: pointer;
@@ -173,11 +229,11 @@
 
         .lecture-duration {
             font-size: 11px;
-            color: #000000;
+            color: var(--duration-text);
             margin-left: 12px;
             font-weight: 700;
             flex-shrink: 0;
-            background: #f1edfe;
+            background: var(--duration-bg);
             padding: 2px 6px;
             border-radius: 4px;
         }
@@ -216,11 +272,11 @@
         }
 
         .lecture-item.active {
-            background-color: #f1edfe;
+            background-color: var(--hover-bg);
             border-right: 3px solid var(--primary-purple);
         }
         .lecture-item.active .lecture-link {
-            color: var(--dark-purple);
+            color: var(--primary-purple);
             font-weight: 700;
         }
         .lecture-item.active .play-icon {
@@ -238,11 +294,11 @@
         }
 
         .lesson-progress-bar {
-            background: #fff;
+            background: var(--card-bg);
             padding: 12px 20px;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            box-shadow: var(--shadow);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -252,10 +308,35 @@
         .progress-right {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
             font-size: 14px;
             color: var(--text-color);
             font-weight: 600;
+        }
+
+        /* ستايل العداد التنازلي الجديد */
+        .exam-countdown-container {
+            font-size: 13px;
+            background-color: var(--main-bg);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px dashed var(--primary-purple);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .exam-btn {
+            background: none;
+            border: none;
+            color: var(--primary-purple);
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 13px;
+        }
+        .countdown-live-text {
+            color: #ff3d00;
+            font-weight: 700;
         }
 
         .btn-complete {
@@ -268,10 +349,13 @@
             cursor: pointer;
             font-weight: 700;
         }
+        .btn-complete:hover {
+            filter: brightness(1.1);
+        }
 
         .lesson-title-display {
             font-size: 18px;
-            color: #222;
+            color: var(--heading-color);
             margin-bottom: 15px;
             font-weight: 700;
         }
@@ -284,10 +368,11 @@
 
         .video-wrapper {
             flex: 2;
-            background: #fff;
+            background: var(--card-bg);
             padding: 20px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
         }
 
         .video-container {
@@ -312,15 +397,16 @@
         }
 
         .tool-card {
-            background: #fff;
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 15px;
+            box-shadow: var(--shadow);
         }
 
         .tool-card h3 {
             font-size: 14px;
-            color: var(--dark-purple);
+            color: var(--primary-purple);
             margin-bottom: 10px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 5px;
@@ -332,6 +418,7 @@
             font-weight: 800;
             text-align: center;
             margin-bottom: 10px;
+            color: var(--heading-color);
         }
         .pomo-controls {
             display: flex;
@@ -353,12 +440,13 @@
             width: 100%;
             height: 180px;
             padding: 12px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-color);
             border-radius: 6px;
             resize: none;
             font-size: 13px;
             outline: none;
-            background: #fafafa;
+            background: var(--input-bg);
+            color: var(--text-color);
             line-height: 1.6;
         }
 
@@ -366,6 +454,7 @@
             text-align: center;
             margin: auto;
             padding: 40px;
+            color: var(--heading-color);
         }
 
         .external-btn {
@@ -389,7 +478,13 @@
 <body>
 
     <header class="navbar">
-        <a href="#" class="brand-logo">معين 🎓</a>
+        <div class="navbar-right">
+            <a href="#" class="brand-logo">معين 🎓</a>
+            <button class="theme-toggle-btn" onclick="toggleTheme()">
+                <span id="theme-btn-icon">🌙</span>
+                <span id="theme-btn-text">الوضع الداكن</span>
+            </button>
+        </div>
     </header>
 
     <div class="app-container">
@@ -468,18 +563,22 @@
         <main class="main-content">
             <div class="lesson-progress-bar">
                 <button class="btn-complete" onclick="markCurrentAsComplete()">تحديد كمكتمل</button>
+                
                 <div class="progress-right">
+                    <div class="exam-countdown-container" id="countdownWrapper">
+                        <span>⏳ موعد اختبارك:</span>
+                        <button class="exam-btn" onclick="setExamDate()">تحديد موعد الاختبار</button>
+                    </div>
+
                     <span id="overallProgressDisplay">0% من إنجازك الكلي</span>
                     <span>&lt;</span>
                     <span>دورة ستيب STEP 2026</span>
-                    <span>&lt;</span>
-                    <span>منصة معين</span>
                 </div>
             </div>
 
             <div class="welcome-box" id="welcomeMessage">
                 <h2>🎯 أهلاً بك في منصة معين التعليمية</h2>
-                <p style="margin-top: 10px; color: var(--gray-text);">تم تفعيل نغمة جرس رقمية ذكية تعمل فوراً وتلقائياً عند انتهاء مؤقت بومودورو.</p>
+                <p style="margin-top: 10px; color: var(--gray-text);">تم تفعيل الوضع الداكن والعداد التنازلي بنجاح لتنظيم مذكرتك وحماية عينيك ليلاً.</p>
             </div>
 
             <div id="videoArea" style="display: none; width: 100%;" class="video-area-animated">
@@ -515,22 +614,33 @@
     </div>
 
     <script>
-        let appData = { checked: [], notes: {} };
+        let appData = { checked: [], notes: {}, examDate: null, isDark: false };
         let currentVideoId = "";
+        let countdownInterval;
 
         window.onload = function() {
-            let stored = localStorage.getItem("muin_step_accurate_fixed_durations");
+            let stored = localStorage.getItem("muin_step_advanced_v3");
             if (stored) {
                 appData = JSON.parse(stored);
                 if (!appData.notes) appData.notes = {};
+                if (!appData.checked) appData.checked = [];
                 
+                // تفعيل المجلدات والمستندات المحققة
                 appData.checked.forEach(id => {
                     let cb = document.getElementById('chk_' + id);
                     if (cb) cb.checked = true;
                 });
+
+                // تفعيل الوضع المحفوظ للثيم
+                if (appData.isDark) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    document.getElementById('theme-btn-icon').innerText = "☀️";
+                    document.getElementById('theme-btn-text').innerText = "الوضع الفاتح";
+                }
             }
             updateProgressBar();
             renderAllSmartDurations();
+            initCountdown();
 
             document.getElementById('notebook').addEventListener('input', function() {
                 if (currentVideoId) {
@@ -541,9 +651,10 @@
         };
 
         function saveData() {
-            localStorage.setItem("muin_step_accurate_fixed_durations", JSON.stringify(appData));
+            localStorage.setItem("muin_step_advanced_v3", JSON.stringify(appData));
         }
 
+        // تحويل ثواني البايثون الحقيقية والمحققة إلى صيغة ذكية
         function convertSecondsToSmartString(seconds) {
             let h = Math.floor(seconds / 3600);
             let m = Math.floor((seconds % 3600) / 60);
@@ -632,31 +743,84 @@
             content.style.maxHeight = (content.style.maxHeight && content.style.maxHeight !== "0px") ? "0px" : "1500px";
         }
 
-        /* سكريبت مؤقت البومودورو المطور بالصوت */
+        /* 🌙 ميزة تبديل الـ Dark Mode */
+        function toggleTheme() {
+            let currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                document.getElementById('theme-btn-icon').innerText = "🌙";
+                document.getElementById('theme-btn-text').innerText = "الوضع الداكن";
+                appData.isDark = false;
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('theme-btn-icon').innerText = "☀️";
+                document.getElementById('theme-btn-text').innerText = "الوضع الفاتح";
+                appData.isDark = true;
+            }
+            saveData();
+        }
+
+        /* ⏳ ميزة تحديد والتحكم بالعداد التنازلي للاختبار */
+        function setExamDate() {
+            let dateStr = prompt("أدخل تاريخ اختبارك بصيغة (السنة-الشهر-اليوم) مثال:\n2026-07-25");
+            if (dateStr) {
+                let testDate = new Date(dateStr);
+                if (isNaN(testDate.getTime())) {
+                    alert("التاريخ المدخل غير صحيح، يرجى كتابته بالشكل الصحيح: YYYY-MM-DD");
+                    return;
+                }
+                appData.examDate = dateStr;
+                saveData();
+                initCountdown();
+            }
+        }
+
+        function initCountdown() {
+            clearInterval(countdownInterval);
+            if (!appData.examDate) return;
+
+            let container = document.getElementById('countdownWrapper');
+            
+            countdownInterval = setInterval(() => {
+                let now = new Date().getTime();
+                let target = new Date(appData.examDate).getTime();
+                let diff = target - now;
+
+                if (diff <= 0) {
+                    container.innerHTML = `<span>⏳ موعد اختبارك:</span> <span class="countdown-live-text">🎯 حان موعد الاختبار! بالتوفيق</span> <button class="exam-btn" onclick="setExamDate()">تعديل</button>`;
+                    clearInterval(countdownInterval);
+                    return;
+                }
+
+                let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                container.innerHTML = `<span>⏳ متبقي لاختبارك:</span> <span class="countdown-live-text">${days} يوم و ${hours}س : ${minutes}د : ${seconds}ث</span> <button class="exam-btn" onclick="setExamDate()">تعديل</button>`;
+            }, 1000);
+        }
+
+        /* ⏱️ مؤقت البومودورو مدمج الصوت */
         let pomoInterval;
         let pomoTimeLeft = 25 * 60;
         let isWork = true;
 
-        // دالة توليد صوت رنين الجرس إلكترونياً بدون ملف خارجي
         function playAlarmSound() {
             try {
                 let AudioContext = window.AudioContext || window.webkitAudioContext;
                 if (!AudioContext) return;
                 let ctx = new AudioContext();
                 
-                // النغمة الأولى
                 let osc1 = ctx.createOscillator();
                 let gain1 = ctx.createGain();
                 osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(880, ctx.currentTime); // جرس مرتفع النبرة
+                osc1.frequency.setValueAtTime(880, ctx.currentTime);
                 gain1.gain.setValueAtTime(0.3, ctx.currentTime);
                 gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-                osc1.connect(gain1);
-                gain1.connect(ctx.destination);
-                osc1.start();
-                osc1.stop(ctx.currentTime + 0.4);
+                osc1.connect(gain1); gain1.connect(ctx.destination);
+                osc1.start(); osc1.stop(ctx.currentTime + 0.4);
 
-                // النغمة الثانية المكملة (بعد 150 ملي ثانية لتعطي تأثير رنين حقيقي)
                 setTimeout(() => {
                     let osc2 = ctx.createOscillator();
                     let gain2 = ctx.createGain();
@@ -664,15 +828,10 @@
                     osc2.frequency.setValueAtTime(1200, ctx.currentTime);
                     gain2.gain.setValueAtTime(0.3, ctx.currentTime);
                     gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
-                    osc2.connect(gain2);
-                    gain2.connect(ctx.destination);
-                    osc2.start();
-                    osc2.stop(ctx.currentTime + 0.5);
+                    osc2.connect(gain2); gain2.connect(ctx.destination);
+                    osc2.start(); osc2.stop(ctx.currentTime + 0.5);
                 }, 150);
-
-            } catch (e) {
-                console.log("صلاحية الصوت تنتظر تفاعل المستخدم مع الصفحة أولاً.");
-            }
+            } catch (e) { console.log(e); }
         }
 
         function updatePomoDisplay() {
@@ -689,8 +848,7 @@
                     updatePomoDisplay();
                 } else {
                     clearInterval(pomoInterval);
-                    playAlarmSound(); // إطلاق الصوت فوراً عند الصفر
-                    
+                    playAlarmSound();
                     if(isWork) {
                         alert("انتهت جلسة التركيز! خذ راحة 5 دقائق ☕");
                         pomoTimeLeft = 5 * 60; isWork = false; document.getElementById('pomoMode').innerText = "☕ وقت الراحة";
