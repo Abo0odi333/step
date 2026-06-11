@@ -171,7 +171,6 @@
             line-height: 1.4;
         }
 
-        /* ستايل عرض المدة الذكية المحدّثة */
         .lecture-duration {
             font-size: 11px;
             color: #000000;
@@ -480,7 +479,7 @@
 
             <div class="welcome-box" id="welcomeMessage">
                 <h2>🎯 أهلاً بك في منصة معين التعليمية</h2>
-                <p style="margin-top: 10px; color: var(--gray-text);">تم دمج المدد الحقيقية المستخرجة بواسطة أداة البايثون في القائمة بنجاح وصيغة ذكية وثابتة.</p>
+                <p style="margin-top: 10px; color: var(--gray-text);">تم تفعيل نغمة جرس رقمية ذكية تعمل فوراً وتلقائياً عند انتهاء مؤقت بومودورو.</p>
             </div>
 
             <div id="videoArea" style="display: none; width: 100%;" class="video-area-animated">
@@ -545,7 +544,6 @@
             localStorage.setItem("muin_step_accurate_fixed_durations", JSON.stringify(appData));
         }
 
-        // تحويل ثواني البايثون الحقيقية والمحققة إلى صيغة ذكية h m s 
         function convertSecondsToSmartString(seconds) {
             let h = Math.floor(seconds / 3600);
             let m = Math.floor((seconds % 3600) / 60);
@@ -634,10 +632,48 @@
             content.style.maxHeight = (content.style.maxHeight && content.style.maxHeight !== "0px") ? "0px" : "1500px";
         }
 
-        /* سكريبت مؤقت البومودورو */
+        /* سكريبت مؤقت البومودورو المطور بالصوت */
         let pomoInterval;
         let pomoTimeLeft = 25 * 60;
         let isWork = true;
+
+        // دالة توليد صوت رنين الجرس إلكترونياً بدون ملف خارجي
+        function playAlarmSound() {
+            try {
+                let AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                let ctx = new AudioContext();
+                
+                // النغمة الأولى
+                let osc1 = ctx.createOscillator();
+                let gain1 = ctx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(880, ctx.currentTime); // جرس مرتفع النبرة
+                gain1.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                osc1.connect(gain1);
+                gain1.connect(ctx.destination);
+                osc1.start();
+                osc1.stop(ctx.currentTime + 0.4);
+
+                // النغمة الثانية المكملة (بعد 150 ملي ثانية لتعطي تأثير رنين حقيقي)
+                setTimeout(() => {
+                    let osc2 = ctx.createOscillator();
+                    let gain2 = ctx.createGain();
+                    osc2.type = 'sine';
+                    osc2.frequency.setValueAtTime(1200, ctx.currentTime);
+                    gain2.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+                    osc2.connect(gain2);
+                    gain2.connect(ctx.destination);
+                    osc2.start();
+                    osc2.stop(ctx.currentTime + 0.5);
+                }, 150);
+
+            } catch (e) {
+                console.log("صلاحية الصوت تنتظر تفاعل المستخدم مع الصفحة أولاً.");
+            }
+        }
 
         function updatePomoDisplay() {
             let min = Math.floor(pomoTimeLeft / 60);
@@ -653,6 +689,8 @@
                     updatePomoDisplay();
                 } else {
                     clearInterval(pomoInterval);
+                    playAlarmSound(); // إطلاق الصوت فوراً عند الصفر
+                    
                     if(isWork) {
                         alert("انتهت جلسة التركيز! خذ راحة 5 دقائق ☕");
                         pomoTimeLeft = 5 * 60; isWork = false; document.getElementById('pomoMode').innerText = "☕ وقت الراحة";
