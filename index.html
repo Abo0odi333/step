@@ -388,7 +388,7 @@
     </div>
 
     <script>
-        // 🛑 الصق الرابط الجديد المأخوذ من قوقل سكريبت هنا لتعمل المزامنة المحلية الخالية من الأخطاء:
+        // 🛑 استبدل هذا الرابط بالكامل برابط الـ Web app URL المأخوذ من قوقل سكريبت بعد تفعيل النشر (Deploy):
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyR06l_4gq93J4UbOVb-UNJEXdWKvSy3GygOhMuQN96mR73rC1OaylnNx3p1i8-R_0a/exec"; 
 
         let appData = { checked: [], notes: {}, examDate: null, isDark: false, globalWrongQuestions: {} };
@@ -398,24 +398,20 @@
         let countdownInterval;
         let debounceTimer;
         let activeModalMode = 'login';
+        let isAuthTimeout = null;
 
-        // 🧠 تثبيت وتأمين بنك الأسئلة الـ 20 لجميع المحاضرات الـ 12 لعدم حدوث أي اختفاء مجدداً
         const quizDatabase = {};
-        const commonOptions = ["studies", "is studying", "took", "was studying"];
-        
         for (let i = 1; i <= 12; i++) {
             quizDatabase[i] = [];
-            // إدراج أول 3 أسئلة مختلفة كتنويع تفاعلي
             quizDatabase[i].push(
                 { q: "1. She ________ English every day to pass the STEP exam perfectly.", o: ["study", "studies", "studying", "has study"], a: "studies" },
                 { q: "2. Look! The teacher ________ the leaked grammar models right now.", o: ["explains", "is explaining", "explained", "has explained"], a: "is explaining" },
                 { q: "3. Last year, they ________ the target score of 90 on their test.", o: ["get", "got", "getting", "has got"], a: "got" }
             );
-            // ملء بقية الـ 20 سؤالاً بالكامل بطريقة صحيحة هندسياً وثابتة
             while (quizDatabase[i].length < 20) {
                 let currentNum = quizDatabase[i].length + 1;
                 quizDatabase[i].push({
-                    q: `${currentNum}. Choose the correct target structure matching the core rule of this STEP drill section:`,
+                    q: `${currentNum}. Choose the correct structure option corresponding with core STEP evaluation guidelines:`,
                     o: ["Correct Answer Structure", "Distractor Option B", "Distractor Option C", "Distractor Option D"],
                     a: "Correct Answer Structure"
                 });
@@ -439,7 +435,7 @@
                 if (storedCloudData) appData = JSON.parse(storedCloudData);
                 updateAuthHeaderUI();
                 applyLoadedDataToUI();
-                // المزامنة الصامتة الفعّالة عبر الطلب الذكي
+                
                 executeJsonpRequest({ action: "login", email: currentUserEmail, password: localStorage.getItem("muin_pwd_" + savedEmail) }, function(res) {
                     if (res && res.status === "success") {
                         appData = res;
@@ -461,12 +457,26 @@
             }
         }
 
-        // ☁️ محرك الـ JSONP الخارق لحل مشكلة الـ Error وحظر الـ CORS نهائياً ومزامنة الشيت بلحظتها
+        // دالة الـ JSONP المحدثة والمؤمنة ضد الحظر والتعليق
         function executeJsonpRequest(params, callbackFunction) {
-            if (SCRIPT_URL.includes("YOUR_DEPLOYMENT_ID")) return;
+            if (SCRIPT_URL.includes("YOUR_DEPLOYMENT_ID")) {
+                alert("⚠️ تنبيه: لم يتم تعديل الرابط SCRIPT_URL داخل كود الصفحة حتى الآن. يرجى وضع الرابط الصحيح لتعمل المزامنة.");
+                document.getElementById('modalSubmitBtn').innerText = "دخول";
+                return;
+            }
             
             var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+            
+            // مؤقت أمان للحماية من التعليق اللانهائي إذا كان الرابط معطلاً
+            clearTimeout(isAuthTimeout);
+            isAuthTimeout = setTimeout(() => {
+                alert("❌ فشل الاتصال بقاعدة البيانات. تأكد من قيامك بـ (نشر/Deploy) للسكريبت في قوقل شيت واختيار صلاحية (Anyone).");
+                document.getElementById('modalSubmitBtn').innerText = "حاول مجدداً";
+                delete window[callbackName];
+            }, 10000);
+
             window[callbackName] = function(data) {
+                clearTimeout(isAuthTimeout);
                 delete window[callbackName];
                 document.body.removeChild(script);
                 callbackFunction(data);
@@ -506,7 +516,7 @@
             let email = document.getElementById('authEmail').value.trim();
             let password = document.getElementById('authPassword').value.trim();
 
-            if (!email || !password) { alert("الرجاء تعبئة جميع الخانات المطلوبة."); return; }
+            if (!email || !password) { alert("الرجاء تعبئة جميع الخانات المطلوب."); return; }
             document.getElementById('modalSubmitBtn').innerText = "جاري الاتصال بالسحابة الفورية...";
 
             let requestParams = { action: activeModalMode, email: email, password: password };
@@ -514,7 +524,7 @@
             executeJsonpRequest(requestParams, function(response) {
                 if (response.status === "success") {
                     if (activeModalMode === "signup") {
-                        alert("🎯 تم إنشاء حسابك بنجاح في قوقل شيت! يمكنك الدخول به الآن.");
+                        alert("🎯 تم إنشاء حسابك بنجاح وبناء صف خاص لك في قوقل شيت! يمكنك الآن تسجيل الدخول مباشرة.");
                         openAuthModal('login');
                     } else {
                         currentUserEmail = email;
@@ -525,10 +535,10 @@
                         updateAuthHeaderUI();
                         applyLoadedDataToUI();
                         closeAuthModal();
-                        alert("✅ تم تسجيل دخولك بنجاح وجلب مسارك التعليمي سحابياً!");
+                        alert("✅ تم تسجيل دخولك بنجاح وسحب ملفك من السحابة!");
                     }
                 } else if (response.status === "exists") {
-                    alert("⚠️ هذا الحساب مسجل مسبقاً، الرجاء تسجيل الدخول مباشرة.");
+                    alert("⚠️ هذا الحساب مسجل بالفعل في الشيت، الرجاء تسجيل الدخول مباشرة.");
                     openAuthModal('login');
                 } else {
                     alert("❌ خطأ: البريد الإلكتروني أو كلمة المرور غير صحيحة.");
@@ -583,8 +593,6 @@
             executeJsonpRequest(syncParams, function(response) {
                 if (response && response.status === "success") {
                     setSyncBadge("✅ تم المزامنة التلقائية وقوقل شيت محدث");
-                } else {
-                    setSyncBadge("❌ حدث خطأ أثناء الاتصال البرمجي بالسحابة");
                 }
             });
         }
