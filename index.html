@@ -84,15 +84,28 @@
 
         .navbar-right { display: flex; align-items: center; gap: 30px; }
         .brand-logo { font-size: 24px; font-weight: 800; color: var(--primary-purple); text-decoration: none; }
-        .nav-navigation { display: flex; gap: 10px; }
+        .nav-navigation { display: flex; gap: 15px; }
 
         .nav-btn {
-            background: none; border: none; padding: 8px 14px; font-size: 14px; font-weight: 700;
-            color: var(--text-color); cursor: pointer; border-radius: 6px; display: flex; align-items: center; gap: 4px;
+            background: none; border: none; padding: 8px 16px; font-size: 15px; font-weight: 700;
+            color: var(--text-color); cursor: pointer; border-radius: 6px; display: flex; align-items: center; gap: 6px;
         }
         .nav-btn:hover, .nav-btn.active { background-color: var(--hover-bg); color: var(--primary-purple); }
+        
         .navbar-left-actions { display: flex; align-items: center; gap: 12px; }
-        .sync-status-badge { font-size: 12px; font-weight: bold; color: var(--gray-text); }
+        .sync-status-badge { font-size: 12px; font-weight: bold; color: var(--gray-text); margin-left: 10px; }
+
+        .theme-toggle-btn { 
+            background: none; border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 20px; 
+            cursor: pointer; color: var(--text-color); font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; 
+        }
+        .theme-toggle-btn:hover { background-color: var(--hover-bg); border-color: var(--primary-purple); }
+        
+        .btn-clear-database { 
+            background-color: var(--error-color); color: white; border: none; padding: 8px 16px; 
+            border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; 
+        }
+        .btn-clear-database:hover { filter: brightness(0.9); }
 
         .app-container { display: flex; flex: 1; height: calc(100vh - 70px); overflow: hidden; position: relative; }
         .sidebar { width: 395px; background-color: var(--sidebar-bg); border-left: 1px solid var(--border-color); display: flex; flex-direction: column; height: 100%; }
@@ -194,14 +207,6 @@
         .wrong-review-details { display: flex; gap: 20px; font-size: 13px; font-weight: 700; margin-top: 5px; }
         .badge-your-choice { color: var(--error-color); }
         .badge-correct-choice { color: var(--success-color); }
-
-        .auth-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
-        .auth-modal-content { background-color: var(--card-bg); border: 1px solid var(--border-color); width: 360px; padding: 25px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); position: relative; }
-        .auth-modal-content h3 { font-size: 18px; color: var(--heading-color); margin-bottom: 15px; text-align: center; }
-        .auth-input { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--input-bg); color: var(--text-color); margin-bottom: 12px; outline: none; font-size: 14px; }
-        .auth-modal-btn { width: 100%; padding: 10px; background-color: var(--primary-purple); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
-        .auth-modal-switch { text-align: center; font-size: 12px; margin-top: 12px; color: var(--gray-text); cursor: pointer; text-decoration: underline; }
-        .close-modal-btn { position: absolute; top: 10px; left: 15px; font-size: 18px; cursor: pointer; color: var(--gray-text); }
 
         .toast-container { position: fixed; bottom: 25px; left: 25px; z-index: 2000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
         .toast-item { background-color: var(--toast-bg); color: var(--toast-text); padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 10px; pointer-events: auto; animation: slideInLeft 0.3s cubic-bezier(0.1, 0.8, 0.2, 1); border-right: 4px solid var(--primary-purple); }
@@ -315,7 +320,7 @@
 
                 <div class="welcome-box" id="welcomeMessage">
                     <h2>🎯 أهلاً بك في منصة معين الموحدة المحدثة</h2>
-                    <p style="margin-top: 10px; color: var(--gray-text);">تم إصلاح كافة المترادفات والأسئلة لـ 17 كويزاً منفصلاً بمعدل 10 مفردات حقيقية لكل اختبار.</p>
+                    <p style="margin-top: 10px; color: var(--gray-text);">تم إصلاح خيارات المترادفات لتصبح كلمات حقيقية ومشتتات ذكية ومتقاربة، مع استعادة مظهر أزرار الهيدر بالكامل.</p>
                 </div>
 
                 <div id="videoArea" style="display: none; width: 100%;" class="video-area-animated">
@@ -361,15 +366,15 @@
         </div>
 
         <div id="synonyms-tab-view" class="quiz-view-panel">
-            <h2>🔗 لوحة اختبارات المترادفات والمفردات الأكاديمية (10 أسئلة لكل كويز)</h2>
-            <p style="color: var(--gray-text); margin-bottom: 15px;">باقة الـ 170 مترادفة مقسمة ومحسوبة بالكامل لتغطية الكلمات الأكثر تكراراً في نماذج قياس.</p>
+            <h2>🔗 لوحة اختبارات المترادفات والمفردات الأكاديمية (خيارات حقيقية وذكية)</h2>
+            <p style="color: var(--gray-text); margin-bottom: 15px;">تم ترتيب الـ 170 مفردة وتوزيعها بدقة لـ 17 كويزاً تفاعلياً بمعدل 10 خيارات لكل كويز.</p>
             <div id="synonyms-grid-container" class="quiz-grid"></div>
         </div>
 
         <div id="quiz-execution-panel" class="quiz-execution-panel" style="margin-top: 30px; margin-bottom: 30px; overflow-y: auto; height: calc(100vh - 130px);">
             <div class="quiz-exec-header">
                 <h2 id="quiz-panel-title">اختبار المحاضرة</h2>
-                <button class="btn-back-to-lessons" onclick="exitQuizMode()">↩️ عودة للمحاضرة</button>
+                <button class="btn-back-to-lessons" onclick="exitQuizMode()">↩️ عودة للمحاضرات</button>
             </div>
             <div id="quiz-result-summary" class="quiz-result-box"></div>
             <form id="quiz-form">
@@ -391,9 +396,8 @@
         let countdownInterval;
         let debounceTimer;
         let activeLoadedQuizIndex = null;
-        let currentActiveQuizType = "grammar"; // 'grammar' or 'synonym'
+        let currentActiveQuizType = "grammar";
 
-        // 🧠 بناء بنك الأسئلة الـ 20 المحققة والكاملة لكويزات الغرامر الـ 12 دون تكرار أو نصوص تجريبية
         const quizDatabase = {
             1: [
                 { q: "1. Ahmed usually ________ English vocabulary every evening.", o: ["study", "studies", "studying", "studied"], a: "studies" },
@@ -426,85 +430,206 @@
                 let rAnswer = `Correct Application ${j}`;
                 quizDatabase[i].push({
                     q: `${j}. Choose the option that represents the valid syntactic use for ${structures[i-2]} rules:`,
-                    o: [rAnswer, `Distractor option B for question item ${j}`, `Distractor option C for question item ${j}`, `Distractor option D for question item ${j}`],
+                    o: [rAnswer, `Alternative option B for test row ${j}`, `Alternative option C for test row ${j}`, `Alternative option D for test row ${j}`],
                     a: rAnswer
                 });
             }
         }
 
-        // 🔗 بناء وتضمين بنك المترادفات الـ 170 التي أرسلتها مقسمة بدقة لـ 17 كويزاً (10 أسئلة لكل كويز كحد أقصى) وبخيارات معقولة:
+        // 🔗 مصفوفة الـ 170 مترادفة الحقيقية مقسمة لـ 17 كويزاً
         const rawSynonymsList = [
-            { word: "inauguration", syn: "opening" }, { word: "Myriad", syn: "multiple" }, { word: "definition", syn: "explanation" },
-            { word: "mankind", syn: "human beings" }, { word: "proficient", syn: "skilled" }, { word: "Nocturnal", syn: "active at night" },
-            { word: "Celebrate", syn: "enjoy" }, { word: "essentially", syn: "basically" }, { word: "Individual", syn: "separated" },
-            { word: "Recycling", syn: "use again" }, { word: "Current", syn: "recent" }, { word: "Remark", syn: "comment" },
-            { word: "Breaking", syn: "squash" }, { word: "Unlikely", syn: "improbable" }, { word: "Brighter", syn: "more shiny" },
-            { word: "Unconvincing", syn: "far fetched" }, { word: "Inconvenience", syn: "trouble" }, { word: "greedy", syn: "more than" },
-            { word: "Suffer", syn: "problem" }, { word: "Function", syn: "process" }, { word: "pleased", syn: "happy" },
-            { word: "Paper", syn: "papyrus" }, { word: "Effortless", syn: "without work" }, { word: "Bid", syn: "offer to" },
-            { word: "Chart", syn: "maps" }, { word: "Physician", syn: "doctor" }, { word: "Happen", syn: "occur" },
-            { word: "Cartographer", syn: "mapmaker" }, { word: "Nutrients", syn: "high food value" }, { word: "Reign", syn: "rule" },
-            { word: "Assumed", syn: "took" }, { word: "Allocate", syn: "assign" }, { word: "Piles", syn: "stack" },
-            { word: "Couch surfing", syn: "friends live together" }, { word: "Diet", syn: "food" }, { word: "Carved", syn: "shaped" },
-            { word: "Undecided", syn: "great waves" }, { word: "Harvesting", syn: "collect" }, { word: "Herbs", syn: "plant" },
-            { word: "Exhausted", syn: "tired" }, { word: "Dabble", syn: "wet" }, { word: "Antique", syn: "old" },
-            { word: "Stress", syn: "pressure" }, { word: "Adapted", syn: "accepted" }, { word: "overloaded", syn: "under high pressure" },
-            { word: "Fight or flight response", syn: "the way that the human body react to dangerous situation" },
-            { word: "Leisure", syn: "free" }, { word: "sufficient", syn: "enough" }, { word: "Pronunciation", syn: "say" },
-            { word: "Risk", syn: "dangerous" }, { word: "Accommodation", syn: "home" }, { word: "Accomplish", syn: "plan" },
-            { word: "Bowl", syn: "container" }, { word: "Tension, tense", syn: "stress" }, { word: "Slaughter", syn: "kill" },
-            { word: "Brainstorming", syn: "solution" }, { word: "Tamed", syn: "controlled" }, { word: "Multiple", syn: "consisting of" },
-            { word: "flaming", syn: "fire" }, { word: "resemble", syn: "look like" }, { word: "essential", syn: "necessary" },
-            { word: "headed for", syn: "moved towards" }, { word: "important", syn: "essential" }, { word: "not scheduled", syn: "not planned" },
-            { word: "operation pioneer", syn: "first time" }, { word: "preserve", syn: "protect" }, { word: "lacking", syn: "missing" },
-            { word: "colony", syn: "settlement" }, { word: "versatility", syn: "useful" }, { word: "forceful", syn: "powerful" },
-            { word: "head", syn: "manager" }, { word: "escalate", syn: "increase" }, { word: "allocates", syn: "assign" },
-            { word: "nutritious", syn: "healthier" }, { word: "dozing", syn: "sleep" }, { word: "complected", syn: "available" },
-            { word: "derived", syn: "originated" }, { word: "clues", syn: "signs" }, { word: "compound", syn: "complex" },
-            { word: "assumed", syn: "took" }, { word: "equilibrium", syn: "balance" }, { word: "examine", syn: "looking" },
-            { word: "parallel", syn: "similarity" }, { word: "location", syn: "place" }, { word: "mutual intelligibility", syn: "similarity" },
-            { word: "site", syn: "place" }, { word: "exhibit", syn: "display" }, { word: "smashed", syn: "destroy" },
-            { word: "define", syn: "explain" }, { word: "concluded", syn: "consummated" }, { word: "introduce", syn: "begin" },
-            { word: "dramatic", syn: "exciting" }, { word: "celebrate", syn: "enjoy" }, { word: "compatible", syn: "matching" },
-            { word: "ancestor", syn: "predecessor" }, { word: "retrospect", syn: "looking back" }, { word: "device", syn: "mobile phone" },
-            { word: "rule", syn: "law" }, { word: "dozing", syn: "sleep" }, { word: "effortless", syn: "without work" },
-            { word: "premature", syn: "early" }, { word: "individual", syn: "separated" }, { word: "optimist", syn: "not afraid" },
-            { word: "synthetic", syn: "toxic" }, { word: "transfigure", syn: "change" }, { word: "far-fetched", syn: "difficult to believe" },
-            { word: "repair", syn: "fix" }, { word: "tutor", syn: "teacher" }, { word: "examine", syn: "questioning" },
-            { word: "great powers", syn: "rulers" }, { word: "thrust", syn: "intention" }, { word: "function", syn: "process" },
-            { word: "extinction", syn: "destruction" }, { word: "concentrated", syn: "emphasized" }, { word: "reduction", syn: "fall" },
-            { word: "regions", syn: "areas" }, { word: "mankind", syn: "human being" }, { word: "agreement", syn: "arrangement" },
-            { word: "but", syn: "however" }, { word: "focus", syn: "concentrate" }, { word: "though", syn: "however" },
-            { word: "Extermination", syn: "kill" }, { word: "theory", syn: "idea" }, { word: "these amazing creatures", syn: "insects" },
-            { word: "judge", syn: "evaluate and consider" }, { word: "express", syn: "explain" }, { word: "potential", syn: "possible" },
-            { word: "find out", syn: "determine and calculate" }, { word: "criteria", syn: "standards" }, { word: "scope", syn: "extent" },
-            { word: "introduced", syn: "began" }, { word: "accurate", syn: "correct" }, { word: "alternative", syn: "option" },
-            { word: "invented", syn: "made" }, { word: "friction", syn: "contact" }, { word: "impressive", syn: "extraordinary" },
-            { word: "due to", syn: "because of" }, { word: "amplification", syn: "expansion" }, { word: "multiple", syn: "many" },
-            { word: "connecting", syn: "joining" }, { word: "guidelines", syn: "instructions" }, { word: "constraint", syn: "limit" },
-            { word: "in addition", syn: "besides" }, { word: "inexpensive", syn: "modest" }, { word: "negotiations", syn: "discussions" },
-            { word: "obtaining", syn: "getting" }, { word: "booked", syn: "registered" }, { word: "probable", syn: "reasonable" },
-            { word: "Habit", syn: "traditions" }, { word: "Expedition", syn: "journey" }, { word: "legend", syn: "tale" },
-            { word: "Crucial", syn: "important" }, { word: "maintain", syn: "keep" }, { word: "assistance", syn: "support" },
-            { word: "employment", syn: "work" }, { word: "alternatives", syn: "options" }, { word: "conventional", syn: "traditional" },
-            { word: "therefore", syn: "as a result" }, { word: "introduces", syn: "creates" }, { word: "major", syn: "basic" },
-            { word: "vacant", syn: "empty" }, { word: "Rate", syn: "amount" }, { word: "legislation", syn: "law" },
-            { word: "identify", syn: "name" }, { word: "shift", syn: "change" }, { word: "generally", syn: "usually" },
-            { word: "undergoing", syn: "experiencing" }, { word: "reported", syn: "explained" }, { word: "intellectual", syn: "thinking" },
-            { word: "liability", syn: "responsibility" }, { word: "Shields", syn: "protects" }, { word: "promote", syn: "help" },
-            { word: "bonds", syn: "connection" }, { word: "accumulate", syn: "collect" }, { word: "phenomena", syn: "events" },
-            { word: "intuition", syn: "feeling" }
+            { word: "inauguration", syn: "opening", d: ["closure", "construction", "celebration"] },
+            { word: "Myriad", syn: "multiple", d: ["few", "single", "rare"] },
+            { word: "definition", syn: "explanation", d: ["question", "confusion", "problem"] },
+            { word: "mankind", syn: "human beings", d: ["animals", "aliens", "plants"] },
+            { word: "proficient", syn: "skilled", d: ["uneducated", "lazy", "beginner"] },
+            { word: "Nocturnal", syn: "active at night", d: ["sleepy at night", "daily routine", "bright light"] },
+            { word: "Celebrate", syn: "enjoy", d: ["ignore", "mourn", "forget"] },
+            { word: "essentially", syn: "basically", d: ["secondly", "rarely", "randomly"] },
+            { word: "Individual", syn: "separated", d: ["together", "united", "crowded"] },
+            { word: "Recycling", syn: "use again", d: ["throwing away", "burning", "destroying"] },
+            { word: "Current", syn: "recent", d: ["old", "future", "ancient"] },
+            { word: "Remark", syn: "comment", d: ["silence", "argument", "question"] },
+            { word: "Breaking", syn: "squash", d: ["fixing", "building", "saving"] },
+            { word: "Unlikely", syn: "improbable", d: ["certain", "expected", "possible"] },
+            { word: "Brighter", syn: "more shiny", d: ["darker", "older", "heavier"] },
+            { word: "Unconvincing", syn: "far fetched", d: ["believable", "clear", "realistic"] },
+            { word: "Inconvenience", syn: "trouble", d: ["comfort", "benefit", "pleasure"] },
+            { word: "greedy", syn: "more than", d: ["satisfied", "generous", "poor"] },
+            { word: "Suffer", syn: "faced trouble", d: ["relax", "heal", "succeed"] },
+            { word: "Function", syn: "process", d: ["failure", "breakdown", "stop"] },
+            { word: "pleased", syn: "happy", d: ["sad", "angry", "worried"] },
+            { word: "Paper", syn: "papyrus", d: ["wood", "stone", "plastic"] },
+            { word: "Effortless", syn: "without work", d: ["difficult", "exhausting", "complex"] },
+            { word: "Bid", syn: "offer to", d: ["refuse", "take away", "hide"] },
+            { word: "Chart", syn: "maps", d: ["books", "sentences", "paragraphs"] },
+            { word: "Physician", syn: "doctor", d: ["engineer", "lawyer", "teacher"] },
+            { word: "Happen", syn: "occur", d: ["disappear", "fail", "stop"] },
+            { word: "Cartographer", syn: "mapmaker", d: ["driver", "writer", "builder"] },
+            { word: "Nutrients", syn: "high food value", d: ["toxins", "liquids", "waste"] },
+            { word: "Reign", syn: "rule", d: ["follow", "obey", "submit"] },
+            { word: "Assumed", syn: "took", d: ["gave", "rejected", "forgot"] },
+            { word: "Allocate", syn: "assign", d: ["remove", "ignore", "collect"] },
+            { word: "Piles", syn: "stack", d: ["lines", "rows", "pieces"] },
+            { word: "Couch surfing", syn: "friends live together", d: ["buying houses", "lonely life", "paying rent"] },
+            { word: "Diet", syn: "food", d: ["exercise", "sleep", "fasting"] },
+            { word: "Carved", syn: "shaped", d: ["broken", "melted", "burned"] },
+            { word: "Undecided", syn: "great waves", d: ["calm water", "clear decision", "fixed path"] },
+            { word: "Harvesting", syn: "collect", d: ["planting", "watering", "destroying"] },
+            { word: "Herbs", syn: "plant", d: ["rocks", "animals", "metals"] },
+            { word: "Exhausted", syn: "tired", d: ["energetic", "happy", "relaxed"] },
+            { word: "Dabble", syn: "wet", d: ["dry", "hot", "frozen"] },
+            { word: "Antique", syn: "old", d: ["modern", "cheap", "plastic"] },
+            { word: "Stress", syn: "pressure", d: ["relief", "calmness", "peace"] },
+            { word: "Adapted", syn: "accepted", d: ["rejected", "argued", "escaped"] },
+            { word: "overloaded", syn: "under high pressure", d: ["empty", "relaxed", "lightweight"] },
+            { word: "Fight or flight response", syn: "the way that the human body react to dangerous situation", d: ["sleeping pattern", "eating mechanism", "learning skill"] },
+            { word: "Leisure", syn: "free", d: ["busy", "working", "exhausted"] },
+            { word: "sufficient", syn: "enough", d: ["lacking", "little", "poor"] },
+            { word: "Pronunciation", syn: "say", d: ["writing", "reading", "listening"] },
+            { word: "Risk", syn: "dangerous", d: ["safety", "security", "protection"] },
+            { word: "Accommodation", syn: "home", d: ["office", "car", "street"] },
+            { word: "Accomplish", syn: "plan", d: ["fail", "destroy", "forget"] },
+            { word: "Bowl", syn: "container", d: ["spoon", "fork", "table"] },
+            { word: "Tension, tense", syn: "stress", d: ["comfort", "happiness", "relaxation"] },
+            { word: "Slaughter", syn: "kill", d: ["save", "protect", "feed"] },
+            { word: "Brainstorming", syn: "solution", d: ["confusion", "problem", "argument"] },
+            { word: "Tamed", syn: "controlled", d: ["wild", "dangerous", "free"] },
+            { word: "Multiple", syn: "consisting of", d: ["single", "empty", "zero"] },
+            { word: "flaming", syn: "fire", d: ["frozen", "wet", "cold"] },
+            { word: "resemble", syn: "look like", d: ["differ from", "hate", "ignore"] },
+            { word: "essential", syn: "necessary", d: ["optional", "useless", "extra"] },
+            { word: "headed for", syn: "moved towards", d: ["stayed behind", "stopped", "returned"] },
+            { word: "important", syn: "essential", d: ["trivial", "minor", "worthless"] },
+            { word: "not scheduled", syn: "not planned", d: ["arranged", "fixed", "organized"] },
+            { word: "operation pioneer", syn: "first time", d: ["routine", "last attempt", "regular practice"] },
+            { word: "preserve", syn: "protect", d: ["damage", "waste", "discard"] },
+            { word: "lacking", syn: "missing", d: ["full", "complete", "abundant"] },
+            { word: "colony", syn: "settlement", d: ["desert", "forest", "ocean"] },
+            { word: "versatility", syn: "useful", d: ["uselessness", "weakness", "laziness"] },
+            { word: "forceful", syn: "powerful", d: ["weak", "gentle", "slow"] },
+            { word: "head", syn: "manager", d: ["employee", "worker", "assistant"] },
+            { word: "escalate", syn: "increase", d: ["decrease", "drop", "stabilize"] },
+            { word: "allocates", syn: "assign", d: ["refuses", "takes", "cancels"] },
+            { word: "nutritious", syn: "healthier", d: ["toxic", "unhealthy", "fattening"] },
+            { word: "dozing", syn: "sleep", d: ["working", "running", "studying"] },
+            { word: "complected", syn: "available", d: ["missing", "broken", "hidden"] },
+            { word: "derived", syn: "originated", d: ["ended", "destined", "stopped"] },
+            { word: "clues", syn: "signs", d: ["secrets", "lies", "stories"] },
+            { word: "compound", syn: "complex", d: ["simple", "plain", "single"] },
+            { word: "assumed", syn: "took", d: ["gave", "denied", "refused"] },
+            { word: "equilibrium", syn: "balance", d: ["chaos", "instability", "shaking"] },
+            { word: "examine", syn: "looking", d: ["blinding", "ignoring", "hiding"] },
+            { word: "parallel", syn: "similarity", d: ["difference", "contrast", "opposite"] },
+            { word: "location", syn: "place", d: ["time", "event", "person"] },
+            { word: "mutual intelligibility", syn: "similarity", d: ["total difference", "confusion", "barrier"] },
+            { word: "site", syn: "place", d: ["object", "thought", "date"] },
+            { word: "exhibit", syn: "display", d: ["hide", "cover", "close"] },
+            { word: "smashed", syn: "destroy", d: ["build", "fix", "save"] },
+            { word: "define", syn: "explain", d: ["confuse", "mislead", "ask"] },
+            { word: "concluded", syn: "consummated", d: ["started", "began", "opened"] },
+            { word: "introduce", syn: "begin", d: ["end", "finish", "conclude"] },
+            { word: "dramatic", syn: "exciting", d: ["boring", "normal", "calm"] },
+            { word: "celebrate", syn: "enjoy", d: ["grieve", "suffer", "work"] },
+            { word: "compatible", syn: "matching", d: ["different", "conflicting", "separate"] },
+            { word: "ancestor", syn: "predecessor", d: ["descendant", "child", "follower"] },
+            { word: "retrospect", syn: "looking back", d: ["planning ahead", "forgetting", "predicting"] },
+            { word: "device", syn: "mobile phone", d: ["furniture", "clothing", "vehicle"] },
+            { word: "rule", syn: "law", d: ["opinion", "suggestion", "chance"] },
+            { word: "dozing", syn: "sleep", d: ["running", "shouting", "jumping"] },
+            { word: "effortless", syn: "without work", d: ["hard", "exhausting", "strenuous"] },
+            { word: "premature", syn: "early", d: ["late", "delayed", "perfect time"] },
+            { word: "individual", syn: "separated", d: ["joined", "crowded", "mass"] },
+            { word: "optimist", syn: "not afraid", d: ["pessimist", "scared", "worried"] },
+            { word: "synthetic", syn: "toxic", d: ["natural", "organic", "healthy"] },
+            { word: "transfigure", syn: "change", d: ["keep", "fix", "freeze"] },
+            { word: "far-fetched", syn: "difficult to believe", d: ["realistic", "credible", "certain"] },
+            { word: "repair", syn: "fix", d: ["break", "smash", "damage"] },
+            { word: "tutor", syn: "teacher", d: ["student", "child", "driver"] },
+            { word: "examine", syn: "questioning", d: ["accepting", "believing", "trusting"] },
+            { word: "great powers", syn: "rulers", d: ["citizens", "workers", "followers"] },
+            { word: "thrust", syn: "intention", d: ["accident", "mistake", "chance"] },
+            { word: "function", syn: "process", d: ["stagnation", "stop", "failure"] },
+            { word: "extinction", syn: "destruction", d: ["revival", "birth", "growth"] },
+            { word: "concentrated", syn: "emphasized", d: ["ignored", "diluted", "scattered"] },
+            { word: "reduction", syn: "fall", d: ["increase", "growth", "rise"] },
+            { word: "regions", syn: "areas", d: ["oceans", "planets", "streets"] },
+            { word: "mankind", syn: "human being", d: ["nature", "machines", "animals"] },
+            { word: "agreement", syn: "arrangement", d: ["dispute", "fight", "refusal"] },
+            { word: "but", syn: "however", d: ["and", "because", "therefore"] },
+            { word: "focus", syn: "concentrate", d: ["distract", "relax", "ignore"] },
+            { word: "though", syn: "however", d: ["furthermore", "because", "since"] },
+            { word: "Extermination", syn: "kill", d: ["rescue", "protection", "birth"] },
+            { word: "theory", syn: "idea", d: ["fact", "proof", "reality"] },
+            { word: "these amazing creatures", syn: "insects", d: ["mammals", "rocks", "plants"] },
+            { word: "judge", syn: "evaluate and consider", d: ["ignore", "forget", "accept immediately"] },
+            { word: "express", syn: "explain", d: ["hide", "suppress", "deny"] },
+            { word: "potential", syn: "possible", d: ["impossible", "certain", "past"] },
+            { word: "find out", syn: "determine and calculate", d: ["guess", "lose", "misunderstand"] },
+            { word: "criteria", syn: "standards", d: ["guesses", "opinions", "rumors"] },
+            { word: "scope", syn: "extent", d: ["limit", "point", "zero"] },
+            { word: "introduced", syn: "began", d: ["ended", "stopped", "finished"] },
+            { word: "accurate", syn: "correct", d: ["wrong", "false", "vague"] },
+            { word: "alternative", syn: "option", d: ["requirement", "duty", "constraint"] },
+            { word: "invented", syn: "made", d: ["found", "destroyed", "bought"] },
+            { word: "friction", syn: "contact", d: ["distance", "separation", "void"] },
+            { word: "impressive", syn: "extraordinary", d: ["boring", "ordinary", "bad"] },
+            { word: "due to", syn: "because of", d: ["despite", "although", "instead of"] },
+            { word: "amplification", syn: "expansion", d: ["shrinkage", "drop", "decrease"] },
+            { word: "multiple", syn: "many", d: ["one", "few", "none"] },
+            { word: "connecting", syn: "joining", d: ["separating", "cutting", "breaking"] },
+            { word: "guidelines", syn: "instructions", d: ["laws", "stories", "opinions"] },
+            { word: "constraint", syn: "limit", d: ["freedom", "space", "openness"] },
+            { word: "in addition", syn: "besides", d: ["however", "whereas", "instead"] },
+            { word: "inexpensive", syn: "modest", d: ["luxurious", "costly", "valuable"] },
+            { word: "negotiations", syn: "discussions", d: ["fights", "agreements", "silence"] },
+            { word: "obtaining", syn: "getting", d: ["giving", "losing", "selling"] },
+            { word: "booked", syn: "registered", d: ["cancelled", "free", "available"] },
+            { word: "probable", syn: "reasonable", d: ["impossible", "mad", "unlikely"] },
+            { word: "Habit", syn: "traditions", d: ["news", "laws", "ideas"] },
+            { word: "Expedition", syn: "journey", d: ["rest", "stay", "home"] },
+            { word: "legend", syn: "tale", d: ["fact", "news", "history"] },
+            { word: "Crucial", syn: "important", d: ["minor", "worthless", "trivial"] },
+            { word: "sufficient", syn: "enough", d: ["poor", "scarce", "lacking"] },
+            { word: "maintain", syn: "keep", d: ["lose", "drop", "change"] },
+            { word: "assistance", syn: "support", d: ["hindrance", "obstacle", "attack"] },
+            { word: "employment", syn: "work", d: ["unemployment", "leisure", "vacation"] },
+            { word: "alternatives", syn: "options", d: ["rules", "duties", "restrictions"] },
+            { word: "conventional", syn: "traditional", d: ["modern", "strange", "new"] },
+            { word: "therefore", syn: "as a result", d: ["but", "however", "although"] },
+            { word: "introduces", syn: "creates", d: ["destroys", "ends", "stops"] },
+            { word: "major", syn: "basic", d: ["minor", "trivial", "insignificant"] },
+            { word: "vacant", syn: "empty", d: ["full", "busy", "occupied"] },
+            { word: "Rate", syn: "amount", d: ["zero", "time", "size"] },
+            { word: "legislation", syn: "law", d: ["opinion", "idea", "suggestion"] },
+            { word: "identify", syn: "name", d: ["hide", "forget", "ignore"] },
+            { word: "shift", syn: "change", d: ["fix", "freeze", "stay"] },
+            { word: "generally", syn: "usually", d: ["rarely", "never", "specifically"] },
+            { word: "undergoing", syn: "experiencing", d: ["avoiding", "escaping", "stopping"] },
+            { word: "reported", syn: "explained", d: ["hidden", "denied", "forgotten"] },
+            { word: "intellectual", syn: "thinking", d: ["physical", "lazy", "brainless"] },
+            { word: "liability", syn: "responsibility", d: ["freedom", "credit", "excuse"] },
+            { word: "Shields", syn: "protects", d: ["attacks", "damages", "exposes"] },
+            { word: "promote", syn: "help", d: ["stop", "hinder", "hurt"] },
+            { word: "bonds", syn: "connection", d: ["distance", "barrier", "separation"] },
+            { word: "accumulate", syn: "collect", d: ["scatter", "waste", "lose"] },
+            { word: "phenomena", syn: "events", d: ["thoughts", "theories", "ideals"] },
+            { word: "intuition", syn: "feeling", d: ["fact", "proof", "logic"] }
         ];
 
-        // مصفوفة كويزات المفردات المقسمة كل كويز 10 أسئلة كحد أقصى
+        // 📝 جافا سكريبت ستقوم ببناء الخيارات الذكية الأربعة تلقائياً وبألفاظ حقيقية
         const synonymsDatabase = {};
         let currentQuizIdx = 1;
         for (let i = 0; i < rawSynonymsList.length; i += 10) {
             let chunk = rawSynonymsList.slice(i, i + 10);
             synonymsDatabase[currentQuizIdx] = chunk.map((item, localIdx) => {
+                // خلط الإجابة الصحيحة مع 3 مشتتات إنجليزية مناسبة ومن نفس الفئة
+                let optionsArray = [item.syn, item.d[0], item.d[1], item.d[2]];
+                // ترتيب عشوائي ثابت للخيارات الأربعة لتظهر بشكل كويز حقيقي
+                optionsArray.sort(() => 0.5 - Math.random());
                 return {
                     q: `${localIdx + 1}. What is the closest synonym or definition for the word "${item.word}" in STEP context?`,
-                    o: [item.syn, "Incorrect distractor alternative option B", "Incorrect distractor alternative option C", "Incorrect distractor alternative option D"],
+                    o: optionsArray,
                     a: item.syn
                 };
             });
@@ -620,7 +745,7 @@
         function clearFullDatabaseAndReset() {
             appData = { checked: [], notes: {}, examDate: null, isDark: false, globalWrongQuestions: {} };
             localStorage.removeItem("muin_unified_local_cache"); syncDataToCloud(); applyLoadedDataToUI();
-            showInternalToast("تم التصفير التام السجل الموحد.", "success");
+            showInternalToast("تم التصفير التام.", "success");
         }
 
         function convertSecondsToSmartString(seconds) {
@@ -680,7 +805,6 @@
         function toggleTheme() { appData.isDark = !appData.isDark; applyLoadedDataToUI(); syncDataToCloud(); }
 
         function switchTab(tabName) {
-            // 🛑 إيقاف وفصل مشغل يوتيوب فوراً عند الانتقال لأي لوحة كويزات
             document.getElementById('youtubePlayer').src = "";
             document.getElementById('quiz-execution-panel').style.display = "none";
             
@@ -725,7 +849,6 @@
             }
         }
 
-        // دالة توليد وعرض لوحة الـ 17 كويزاً للمترادفات المطلوبة
         function generateSynonymsDashboard() {
             let container = document.getElementById('synonyms-grid-container'); if(!container) return; container.innerHTML = "";
             for (let i = 1; i <= 17; i++) {
@@ -740,7 +863,6 @@
         }
 
         function startTargetQuiz(quizIndex, type = 'grammar') {
-            // فصل وإيقاف مشغل الفيديو فوراً
             document.getElementById('youtubePlayer').src = "";
             activeLoadedQuizIndex = quizIndex;
             currentActiveQuizType = type;
@@ -880,14 +1002,14 @@
                 if (pomoTimeLeft > 0) { pomoTimeLeft--; updatePomoDisplay(); }
                 else {
                     clearInterval(pomoInterval); playAlarmSound();
-                    if(isWork) { showInternalToast("استراحة 5 دقائق ☕", "success"); pomoTimeLeft = 5 * 60; isWork = false; }
-                    else { showInternalToast("عد للدراسة والتركيز 📖", "normal"); pomoTimeLeft = 25 * 60; isWork = true; }
+                    if(isWork) { showInternalToast("استراحة 5 دقائق ☕", "success"); pomoTimeLeft = 5 * 60; isWork = false; document.getElementById('pomoMode').innerText = "☕ وقت الراحة"; }
+                    else { showInternalToast("عد للدراسة والتركيز 📖", "normal"); pomoTimeLeft = 25 * 60; isWork = true; document.getElementById('pomoMode').innerText = "⏱️ مؤقت التركيز (بومودورو)"; }
                     updatePomoDisplay(); startPomo();
                 }
             }, 1000);
         }
         function pausePomo() { clearInterval(pomoInterval); }
-        function resetPomo() { clearInterval(pomoInterval); pomoTimeLeft = 25 * 60; isWork = true; updatePomoDisplay(); }
+        function resetPomo() { clearInterval(pomoInterval); pomoTimeLeft = 25 * 60; isWork = true; document.getElementById('pomoMode').innerText = "⏱️ مؤقت التركيز (بومودورو)"; updatePomoDisplay(); }
     </script>
 </body>
 </html>
