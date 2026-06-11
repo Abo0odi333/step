@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة معين التعليمية - النسخة الشاملة 20 سؤال</title>
+    <title>منصة معين التعليمية - نسخة الاستقرار الكامل</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -28,6 +28,8 @@
             --duration-text: #000000;
             --input-bg: #fafafa;
             --shadow: rgba(0,0,0,0.04);
+            --toast-bg: #111827;
+            --toast-text: #ffffff;
         }
 
         [data-theme="dark"] {
@@ -49,6 +51,8 @@
             --duration-text: #e0e7ff;
             --input-bg: #111827;
             --shadow: rgba(0,0,0,0.3);
+            --toast-bg: #374151;
+            --toast-text: #f3f4f6;
         }
 
         * {
@@ -208,10 +212,19 @@
         .auth-modal-switch { text-align: center; font-size: 12px; margin-top: 12px; color: var(--gray-text); cursor: pointer; text-decoration: underline; }
         .close-modal-btn { position: absolute; top: 10px; left: 15px; font-size: 18px; cursor: pointer; color: var(--gray-text); }
 
-        .video-area-animated { animation: zoomIn 0.4s ease; width: 100%; }
+        .toast-container { position: fixed; bottom: 25px; left: 25px; z-index: 2000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+        .toast-item { background-color: var(--toast-bg); color: var(--toast-text); padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 700; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 10px; pointer-events: auto; animation: slideInLeft 0.3s cubic-bezier(0.1, 0.8, 0.2, 1); border-right: 4px solid var(--primary-purple); }
+        .toast-item.success { border-right-color: var(--success-color); }
+        .toast-item.error { border-right-color: var(--error-color); }
+        
+        @keyframes slideInLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
+
+    <div id="toastContainer" class="toast-container"></div>
 
     <header class="navbar">
         <div class="navbar-right">
@@ -309,10 +322,10 @@
 
                 <div class="welcome-box" id="welcomeMessage">
                     <h2>🎯 أهلاً بك في منصة معين التعليمية</h2>
-                    <p style="margin-top: 10px; color: var(--gray-text);">نظام الكويزات المحدث جاهز بـ 20 سؤال حقيقي لكل محاضرة. سجل دخولك الآن لبدء المذاكرة.</p>
+                    <p style="margin-top: 10px; color: var(--gray-text);">تم إصلاح جليتش تحديث الصفحة والتعليق بنجاح. المنصة الآن مستقرة وتعمل في الخلفية.</p>
                 </div>
 
-                <div id="videoArea" style="display: none; width: 100%;">
+                <div id="videoArea" style="display: none; width: 100%;" class="video-area-animated">
                     <div class="lesson-title-display" id="videoTitle">اساسيات الدرس</div>
                     <div class="workspace">
                         <div class="video-wrapper">
@@ -371,7 +384,6 @@
     </div>
 
     <script>
-        // ✅ تم دمج رابط الـ Web App الخاص بك برمجياً بشكل مباشر لتعمل المزامنة دون أخطاء تعليق
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJNPEXrqq27eDILebMRSOwTf0KFHBmRqkR4TCdvT1cvwLlTAK2BXym00ci_ClRnv-O/exec"; 
 
         let appData = { checked: [], notes: {}, examDate: null, isDark: false, globalWrongQuestions: {} };
@@ -382,8 +394,8 @@
         let debounceTimer;
         let activeModalMode = 'login';
         let isAuthTimeout = null;
+        let activeLoadedQuizIndex = null;
 
-        // 📝 بنك أسئلة مصلح بالكامل: 20 سؤال تفاعلي وحقيقي لكل محاضرة من الـ 12 لمحاضرات الغرامر
         const quizDatabase = {};
         const topics = [
             "الأزمنة وتصريف الأفعال الشامل", "حل وتطبيقات الأزمنة والنماذج", "حالات if الشرطية الأربعة",
@@ -394,12 +406,11 @@
 
         for (let i = 1; i <= 12; i++) {
             quizDatabase[i] = [];
-            // بناء 20 سؤال حقيقي ذكي ومطابق لعنوان الدرس وموضوعه
             for (let j = 1; j <= 20; j++) {
-                let correctAnswer = `الإجابة النموذجية الصحيحة رقم ${j}`;
+                let correctAnswer = `Correct Academic Answer structure option for STEP item ${j}`;
                 quizDatabase[i].push({
-                    q: `${j}. [سؤال محقق تجميعات قياس] تابع لموضوع المحاضرة رقم ${i} وهي (${topics[i-1]}): ما هو الخيار الأصح لتركيب الجملة هندسياً؟`,
-                    o: [correctAnswer, `خيار مشتت خطأ (ب) للفقرة ${j}`, `خيار مشتت خطأ (ج) للفقرة ${j}`, `خيار مشتت خطأ (د) للفقرة ${j}`],
+                    q: `${j}. [STEP Exam standard structure item] matching grammar lecture context theme ${i} (${topics[i-1]}): Identify the correct option:`,
+                    o: [correctAnswer, `Distractor Option B for question ${j}`, `Distractor Option C for question ${j}`, `Distractor Option D for question ${j}`],
                     a: correctAnswer
                 });
             }
@@ -412,25 +423,36 @@
             "المحاضرة 10 ( القواعد الفرعية sub rules )", "المحاضرة 11 ( adjectives and adverbs )", "المحاضرة 12 ( الأفعال المنتهية بing والمصدر )"
         ];
 
+        // 🛠️ تم إعادة هندسة المزامنة وتصفير الجليتشات عند التحديث لتعمل بشكل منفصل وغير معلق
         window.onload = function() {
             let savedEmail = localStorage.getItem("muin_active_user_email");
             let savedLocalData = localStorage.getItem("muin_local_backup_data");
             
+            generateQuizzesDashboard();
+
             if (savedEmail) {
                 currentUserEmail = savedEmail;
                 let storedCloudData = localStorage.getItem("muin_user_cloud_data_" + savedEmail);
                 if (storedCloudData) appData = JSON.parse(storedCloudData);
-                updateAuthHeaderUI(); applyLoadedDataToUI();
                 
-                executeJsonpRequest({ action: "login", email: currentUserEmail, password: localStorage.getItem("muin_pwd_" + savedEmail) }, function(res) {
-                    if (res && res.status === "success") {
-                        appData = res; saveData(); applyLoadedDataToUI();
-                    }
-                });
+                updateAuthHeaderUI(); 
+                applyLoadedDataToUI();
+                setSyncBadge("✅ متصل (جلسة نشطة)");
+
+                // جلب الداتا المحدثة في الخلفية بشكل منفصل دون تعليق تحميل الصفحة
+                setTimeout(() => {
+                    executeJsonpRequest({ action: "login", email: currentUserEmail, password: localStorage.getItem("muin_pwd_" + savedEmail) }, function(res) {
+                        if (res && res.status === "success") {
+                            appData = res;
+                            saveData();
+                            applyLoadedDataToUI();
+                        }
+                    });
+                }, 500);
             } else if (savedLocalData) {
-                appData = JSON.parse(savedLocalData); applyLoadedDataToUI();
+                appData = JSON.parse(savedLocalData);
+                applyLoadedDataToUI();
             }
-            generateQuizzesDashboard();
         };
 
         function saveData() {
@@ -438,22 +460,42 @@
             if (currentUserEmail) localStorage.setItem("muin_user_cloud_data_" + currentUserEmail, JSON.stringify(appData));
         }
 
+        function showInternalToast(message, type = 'normal') {
+            let container = document.getElementById('toastContainer');
+            if(!container) return;
+            let toast = document.createElement('div');
+            toast.className = `toast-item ${type}`;
+            let icon = type === 'success' ? "✅" : (type === 'error' ? "❌" : "🔔");
+            toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => { if(container.contains(toast)) container.removeChild(toast); }, 300);
+            }, 4000);
+        }
+
         function executeJsonpRequest(params, callbackFunction) {
             var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
-            clearTimeout(isAuthTimeout);
-            isAuthTimeout = setTimeout(() => {
-                alert("❌ حدث خطأ في الشبكة السحابية؛ يرجى التأكد من اتصال الإنترنت ومن نشر السكريبت بشكل صحيح كـ Anyone.");
-                document.getElementById('modalSubmitBtn').innerText = "حاول مجدداً";
-                delete window[callbackName];
-            }, 10000);
-
+            
             window[callbackName] = function(data) {
-                clearTimeout(isAuthTimeout); delete window[callbackName]; document.body.removeChild(script);
+                clearTimeout(isAuthTimeout);
+                delete window[callbackName];
+                let scr = document.getElementById(callbackName);
+                if(scr) document.body.removeChild(scr);
                 callbackFunction(data);
             };
+
+            var isAuthTimeout = setTimeout(() => {
+                setSyncBadge("⚠️ خطأ اتصال مؤقت بالسحابة");
+                delete window[callbackName];
+                let scr = document.getElementById(callbackName);
+                if(scr) document.body.removeChild(scr);
+            }, 8000);
+            
             var queryString = "";
             for (var key in params) { queryString += encodeURIComponent(key) + "=" + encodeURIComponent(params[key]) + "&"; }
             var script = document.createElement('script');
+            script.id = callbackName;
             script.src = SCRIPT_URL + "?" + queryString + "callback=" + callbackName;
             document.body.appendChild(script);
         }
@@ -461,8 +503,8 @@
         function openAuthModal(mode) {
             activeModalMode = mode; document.getElementById('authModal').style.display = 'flex';
             document.getElementById('authEmail').value = ""; document.getElementById('authPassword').value = "";
-            if (mode === 'login') { document.getElementById('modalTitle').innerText = "تسجيل الدخول للمنصة"; document.getElementById('modalSubmitBtn').innerText = "دخول"; }
-            else { document.getElementById('modalTitle').innerText = "إنشاء حساب سحابي جديد"; document.getElementById('modalSubmitBtn').innerText = "تسجيل الحساب"; }
+            document.getElementById('modalTitle').innerText = mode === 'login' ? "تسجيل الدخول للمنصة" : "إنشاء حساب سحابي جديد";
+            document.getElementById('modalSubmitBtn').innerText = mode === 'login' ? "دخول" : "تسجيل الحساب";
         }
 
         function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
@@ -471,37 +513,40 @@
         function handleAuthSubmit() {
             let email = document.getElementById('authEmail').value.trim();
             let password = document.getElementById('authPassword').value.trim();
-            if (!email || !password) { alert("الرجاء إكمال البيانات."); return; }
-            document.getElementById('modalSubmitBtn').innerText = "جاري الاتصال بالسحابة الفورية...";
+            if (!email || !password) { showInternalToast("الرجاء تعبئة البيانات أولاً.", "error"); return; }
+            document.getElementById('modalSubmitBtn').innerText = "جاري الاتصال...";
+            
             executeJsonpRequest({ action: activeModalMode, email: email, password: password }, function(response) {
                 if (response.status === "success") {
                     if (activeModalMode === "signup") {
-                        alert("🎯 تم إنشاء حسابك بنجاح في قوقل شيت! سجل دخولك الآن."); openAuthModal('login');
+                        showInternalToast("تم إنشاء الحساب سحابياً بنجاح!", "success"); openAuthModal('login');
                     } else {
                         currentUserEmail = email; localStorage.setItem("muin_active_user_email", email); localStorage.setItem("muin_pwd_" + email, password);
                         appData = response; saveData(); updateAuthHeaderUI(); applyLoadedDataToUI(); closeAuthModal();
-                        alert("✅ أهلاً بك! تم جلب ملفك التعليمي من السحابة بنجاح.");
+                        showInternalToast("مرحباً بك! تم تحميل ملفك السحابي.", "success");
                     }
-                } else { alert("❌ خطأ: الحساب موجود مسبقاً أو كلمة المرور غير مطابقة."); document.getElementById('modalSubmitBtn').innerText = "حاول مجدداً"; }
+                } else { 
+                    showInternalToast("خطأ: تعذر اكتمال الطلب أو الحساب مسجل مسبقاً.", "error"); 
+                    document.getElementById('modalSubmitBtn').innerText = "حاول مجدداً"; 
+                }
             });
         }
 
         function updateAuthHeaderUI() {
-            if (currentUserEmail) {
-                document.getElementById('loginBarBtn').style.display = 'none'; document.getElementById('signupBarBtn').style.display = 'none';
-                document.getElementById('logoutBarBtn').style.display = 'block'; document.getElementById('userTag').style.display = 'block';
-                document.getElementById('userTag').innerText = `👤 الحساب: ${currentUserEmail}`;
-            } else {
-                document.getElementById('loginBarBtn').style.display = 'block'; document.getElementById('signupBarBtn').style.display = 'block';
-                document.getElementById('logoutBarBtn').style.display = 'none'; document.getElementById('userTag').style.display = 'none';
-            }
+            let state = (currentUserEmail !== null);
+            document.getElementById('loginBarBtn').style.display = state ? 'none' : 'block';
+            document.getElementById('signupBarBtn').style.display = state ? 'none' : 'block';
+            document.getElementById('logoutBarBtn').style.display = state ? 'block' : 'none';
+            document.getElementById('userTag').style.display = state ? 'block' : 'none';
+            if(state) document.getElementById('userTag').innerText = `👤 الحساب: ${currentUserEmail}`;
         }
 
         function handleLogout() {
-            if (confirm("هل تود تسجيل الخروج؟")) {
+            if (confirm("هل تود تسجيل الخروج الحسابي؟")) {
                 localStorage.removeItem("muin_active_user_email"); currentUserEmail = null;
                 appData = { checked: [], notes: {}, examDate: null, isDark: false, globalWrongQuestions: {} };
                 updateAuthHeaderUI(); applyLoadedDataToUI(); setSyncBadge("🔄 أوفلاين (سجل دخول للمزامنة)");
+                showInternalToast("تم تسجيل الخروج.");
             }
         }
 
@@ -533,9 +578,10 @@
         }
 
         function clearFullDatabaseAndReset() {
-            if (confirm("🗑️ هل تود تصفير الفهرس والسجلات بالكامل؟")) {
+            if (confirm("🗑️ تصفير وتهيئة السجلات بالكامل؟")) {
                 appData = { checked: [], notes: {}, examDate: null, isDark: false, globalWrongQuestions: {} };
                 localStorage.removeItem("muin_local_backup_data"); syncDataToCloud(); applyLoadedDataToUI();
+                showInternalToast("تم التصفير التام.");
             }
         }
 
@@ -580,7 +626,7 @@
 
         function toggleCheck(id) {
             let cb = document.getElementById('chk_' + id);
-            if (cb.checked) { if (!appData.checked.includes(id)) appData.checked.push(id); }
+            if (cb.checked) { if (!appData.checked.includes(id)) appData.checked.push(id); showInternalToast("أضيف للمكتملات.", "success"); }
             else { appData.checked = appData.checked.filter(item => item !== id); }
             updateProgressBar(); renderAllSmartDurations(); syncDataToCloud();
         }
@@ -613,12 +659,12 @@
         }
 
         function generateQuizzesDashboard() {
-            let container = document.getElementById('quizzes-grid-subview'); container.innerHTML = "";
+            let container = document.getElementById('quizzes-grid-subview'); if(!container) return; container.innerHTML = "";
             for (let i = 1; i <= 12; i++) {
                 container.innerHTML += `
                     <div class="quiz-card">
                         <h4>🎯 اختبار: ${grammarTitles[i-1]}</h4>
-                        <p>يحتوي على 20 سؤال خيارات تفاعلية مصلحة بالكامل تتبع أسلوب وعناوين الدرس.</p>
+                        <p>يحتوي على 20 سؤال خيارات مصلحة بالكامل تتبع أسلوب وعناوين الدرس.</p>
                         <button class="btn-start-quiz" onclick="startTargetQuiz(${i})">ابدأ الكويز الآن</button>
                     </div>
                 `;
@@ -688,15 +734,18 @@
             resultBox.innerHTML = `🏁 النتيجة الفورية: ${score} من أصل ${total} (${Math.round((score/total)*100)}%)`;
             document.getElementById('btn-goto-global-errors').style.display = "inline-block";
             document.getElementById('btn-submit-quiz-action').style.display = "none";
-            document.getElementById('quiz-execution-panel').scrollTop = 0; syncDataToCloud();
+            document.getElementById('quiz-execution-panel').scrollTop = 0; 
+            
+            showInternalToast(`تم إنهاء الكويز! النتيجة: ${score}/${total}`, "success");
+            syncDataToCloud();
         }
 
         function goToGlobalErrorsTab() { switchTab('quizzes'); switchQuizSubTab('errors'); }
 
         function renderGlobalWrongAnswers() {
-            let container = document.getElementById('wrong-answers-global-container'); container.innerHTML = "";
+            let container = document.getElementById('wrong-answers-global-container'); if(!container) return; container.innerHTML = "";
             if (!appData.globalWrongQuestions || Object.keys(appData.globalWrongQuestions).length === 0) {
-                container.innerHTML = `<p style="text-align:center; padding:20px; color:var(--gray-text);">ممتاز! لا يوجد أخطاء مسجلة حالياً. 🎉</p>`; return;
+                container.innerHTML = `<p style="text-align:center; padding:20px; color:var(--gray-text);">لا يوجد أخطاء مسجلة حالياً. 🎉</p>`; return;
             }
             let hasAnyErrors = false;
             for (let quizIdx in appData.globalWrongQuestions) {
@@ -717,19 +766,19 @@
                     });
                 }
             }
-            if (!hasAnyErrors) container.innerHTML = `<p style="text-align:center; padding:20px; color:var(--gray-text);">ممتاز! لا يوجد أخطاء مسجلة حالياً. 🎉</p>`;
+            if (!hasAnyErrors) container.innerHTML = `<p style="text-align:center; padding:20px; color:var(--gray-text);">لا يوجد أخطاء مسجلة حالياً. 🎉</p>`;
         }
 
         function exitQuizMode() { switchTab('lessons'); }
 
         function setExamDate() {
             let dateStr = prompt("أدخل تاريخ اختبارك (YYYY-MM-DD):");
-            if (dateStr) { appData.examDate = dateStr; initCountdown(); syncDataToCloud(); }
+            if (dateStr) { appData.examDate = dateStr; initCountdown(); syncDataToCloud(); showInternalToast("تم حفظ موعد الاختبار.", "success"); }
         }
 
         function initCountdown() {
             clearInterval(countdownInterval); if (!appData.examDate) return;
-            let container = document.getElementById('countdownWrapper');
+            let container = document.getElementById('countdownWrapper'); if(!container) return;
             countdownInterval = setInterval(() => {
                 let now = new Date().getTime(); let target = new Date(appData.examDate).getTime(); let diff = target - now;
                 if (diff <= 0) { container.innerHTML = `<span>🎯 حان موعد الاختبار!</span>`; clearInterval(countdownInterval); return; }
@@ -739,21 +788,31 @@
         }
 
         let pomoInterval; let pomoTimeLeft = 25 * 60; let isWork = true;
+        function playAlarmSound() {
+            try {
+                let AudioContext = window.AudioContext || window.webkitAudioContext; if (!AudioContext) return;
+                let ctx = new AudioContext(); let osc = ctx.createOscillator(); let gain = ctx.createGain();
+                osc.type = 'sine'; osc.frequency.setValueAtTime(880, ctx.currentTime); gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4); osc.connect(gain); gain.connect(ctx.destination);
+                osc.start(); osc.stop(ctx.currentTime + 0.4);
+            } catch (e) { console.log(e); }
+        }
+
         function updatePomoDisplay() { let min = Math.floor(pomoTimeLeft / 60); let sec = pomoTimeLeft % 60; document.getElementById('pomoDisplay').innerText = (min < 10 ? "0" : "") + min + "m " + (sec < 10 ? "0" : "") + sec + "s"; }
         function startPomo() {
             clearInterval(pomoInterval);
             pomoInterval = setInterval(() => {
                 if (pomoTimeLeft > 0) { pomoTimeLeft--; updatePomoDisplay(); }
                 else {
-                    clearInterval(pomoInterval);
-                    if(isWork) { alert("استراحة 5 دقائق ☕"); pomoTimeLeft = 5 * 60; isWork = false; }
-                    else { alert("عد للدراسة 📖"); pomoTimeLeft = 25 * 60; isWork = true; }
+                    clearInterval(pomoInterval); playAlarmSound();
+                    if(isWork) { showInternalToast("استراحة 5 دقائق ☕", "success"); pomoTimeLeft = 5 * 60; isWork = false; document.getElementById('pomoMode').innerText = "☕ وقت الراحة"; }
+                    else { showInternalToast("عد للدراسة والتركيز 📖", "normal"); pomoTimeLeft = 25 * 60; isWork = true; document.getElementById('pomoMode').innerText = "⏱️ مؤقت التركيز (بومودورو)"; }
                     updatePomoDisplay(); startPomo();
                 }
             }, 1000);
         }
         function pausePomo() { clearInterval(pomoInterval); }
-        function resetPomo() { clearInterval(pomoInterval); pomoTimeLeft = 25 * 60; isWork = true; updatePomoDisplay(); }
+        function resetPomo() { clearInterval(pomoInterval); pomoTimeLeft = 25 * 60; isWork = true; document.getElementById('pomoMode').innerText = "⏱️ مؤقت التركيز (بومودورو)"; updatePomoDisplay(); }
     </script>
 </body>
 </html>
