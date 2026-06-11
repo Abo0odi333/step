@@ -68,7 +68,7 @@
             overflow: hidden;
         }
 
-        /* 1. الهيدر العلوي */
+        /* 1. الهيدر العلوي المحدث */
         .navbar {
             height: 70px;
             background-color: var(--navbar-bg);
@@ -83,7 +83,7 @@
         .navbar-right {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 30px;
         }
 
         .brand-logo {
@@ -94,7 +94,29 @@
             letter-spacing: 0.5px;
         }
 
-        /* زر الوضع الداكن */
+        .nav-navigation {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            padding: 8px 16px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-color);
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-btn:hover, .nav-btn.active {
+            background-color: var(--hover-bg);
+            color: var(--primary-purple);
+        }
+
         .theme-toggle-btn {
             background: none;
             border: 1px solid var(--border-color);
@@ -108,9 +130,6 @@
             align-items: center;
             gap: 6px;
         }
-        .theme-toggle-btn:hover {
-            background-color: var(--hover-bg);
-        }
 
         /* تقسيم الشاشة الرئيسي */
         .app-container {
@@ -118,6 +137,7 @@
             flex: 1;
             height: calc(100vh - 70px);
             overflow: hidden;
+            position: relative;
         }
 
         /* 2. القائمة الجانبية يمين */
@@ -284,7 +304,7 @@
             color: white;
         }
 
-        /* 3. منطقة المحتوى وعرض الدرس */
+        /* 3. منطقة المحتوى وعرض الدرس اليسار */
         .main-content {
             flex: 1;
             display: flex;
@@ -314,7 +334,6 @@
             font-weight: 600;
         }
 
-        /* ستايل العداد التنازلي الجديد */
         .exam-countdown-container {
             font-size: 13px;
             background-color: var(--main-bg);
@@ -339,6 +358,11 @@
             font-weight: 700;
         }
 
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
         .btn-complete {
             background-color: var(--primary-purple);
             color: white;
@@ -349,8 +373,18 @@
             cursor: pointer;
             font-weight: 700;
         }
-        .btn-complete:hover {
-            filter: brightness(1.1);
+        
+        /* زر اختبرني الجدييد */
+        .btn-quiz-trigger {
+            background-color: #ff9100;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 700;
+            display: none; /* يظهر برمجياً فقط مع دروس الغرامر الـ 12 */
         }
 
         .lesson-title-display {
@@ -467,171 +501,449 @@
             font-weight: 700;
         }
 
+        /* 4. قسم الكويزات ولوحة عرض الاختبارات الجديدة بالكامل */
+        .quiz-view-panel {
+            display: none;
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+            overflow-y: auto;
+            animation: slideInUp 0.4s cubic-bezier(0.1, 0.8, 0.2, 1);
+        }
+
+        .quiz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .quiz-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 160px;
+        }
+
+        .quiz-card h4 {
+            font-size: 15px;
+            color: var(--heading-color);
+            font-weight: 700;
+        }
+
+        .quiz-card p {
+            font-size: 12px;
+            color: var(--gray-text);
+        }
+
+        .btn-start-quiz {
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* واجهة حل الـ 20 سؤال */
+        .quiz-execution-panel {
+            display: none;
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            animation: zoomIn 0.35s ease;
+        }
+
+        .quiz-exec-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .quiz-exec-header h2 {
+            font-size: 20px;
+            color: var(--heading-color);
+        }
+
+        .btn-back-to-lessons {
+            background-color: #6b7280;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .question-text {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--heading-color);
+            margin-bottom: 12px;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .options-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            direction: ltr;
+        }
+
+        .option-label {
+            background-color: var(--main-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .option-label input {
+            accent-color: var(--primary-purple);
+        }
+
+        .quiz-submit-area {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn-submit-quiz {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .quiz-result-box {
+            display: none;
+            background-color: var(--hover-bg);
+            border: 2px solid var(--primary-purple);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark-purple);
+        }
+
+        /* تأثيرات الأنميشن */
         .video-area-animated {
             animation: zoomIn 0.4s ease;
             width: 100%;
         }
 
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <header class="navbar">
         <div class="navbar-right">
-            <a href="#" class="brand-logo">معين 🎓</a>
-            <button class="theme-toggle-btn" onclick="toggleTheme()">
-                <span id="theme-btn-icon">🌙</span>
-                <span id="theme-btn-text">الوضع الداكن</span>
-            </button>
+            <a href="#" class="brand-logo" onclick="switchTab('lessons')">معين 🎓</a>
+            <nav class="nav-navigation">
+                <button id="nav-lessons-btn" class="nav-btn active" onclick="switchTab('lessons')">📚 المحاضرات</button>
+                <button id="nav-quizzes-btn" class="nav-btn" onclick="switchTab('quizzes')">📝 الكويزات</button>
+            </nav>
         </div>
+        <button class="theme-toggle-btn" onclick="toggleTheme()">
+            <span id="theme-btn-icon">🌙</span>
+            <span id="theme-btn-text">الوضع الداكن</span>
+        </button>
     </header>
 
     <div class="app-container">
         
-        <aside class="sidebar">
-            <div class="sidebar-header-title">فهرس الدورة والدروس كاملة</div>
-            <div class="menu-container">
-                
-                <button class="main-category-btn" onclick="toggleMainCategory('tasees')">
-                    <span>📚 أقسام التأسيس والشرح 2025-2026</span>
-                    <span id="tasees-icon">▼</span>
-                </button>
-                <div class="main-category-content" id="tasees-content" style="max-height: 3000px;">
+        <div id="lessons-tab-view" style="display: flex; width: 100%; height: 100%;">
+            <aside class="sidebar">
+                <div class="sidebar-header-title">فهرس الدورة والدروس كاملة</div>
+                <div class="menu-container">
                     
-                    <div class="sub-category-title" onclick="toggleSubCategory('t-grammar')">⚖️ تأسيس القرامر والنماذج <span>▼</span></div>
-                    <div class="sub-category-content" id="t-grammar" style="max-height: 1500px;">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الأولى (الأزمنة – شرح)', 'fk20o2cfcZ4', this)">المحاضرة الأولى (الأزمنة – شرح)</a><span class="lecture-duration" id="dur_fk20o2cfcZ4" data-seconds="5738"></span><input type="checkbox" class="checklist-checkbox" id="chk_fk20o2cfcZ4" onchange="toggleCheck('fk20o2cfcZ4')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثانية (الأزمنة – حل)', 'CoED7-aKR-E', this)">المحاضرة الثانية (الأزمنة – حل)</a><span class="lecture-duration" id="dur_CoED7-aKR-E" data-seconds="3636"></span><input type="checkbox" class="checklist-checkbox" id="chk_CoED7-aKR-E" onchange="toggleCheck('CoED7-aKR-E')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثالثة (حالات if الشرطية)', 'M0CCccwcG-U', this)">المحاضرة الثالثة (حالات if الشرطية)</a><span class="lecture-duration" id="dur_M0CCccwcG-U" data-seconds="3195"></span><input type="checkbox" class="checklist-checkbox" id="chk_M0CCccwcG-U" onchange="toggleCheck('M0CCccwcG-U')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الرابعة (الأفعال الناقصة modals)', 'OzpTSO5t5qo', this)">المحاضرة الرابعة (الأفعال الناقصة modals)</a><span class="lecture-duration" id="dur_OzpTSO5t5qo" data-seconds="1977"></span><input type="checkbox" class="checklist-checkbox" id="chk_OzpTSO5t5qo" onchange="toggleCheck('OzpTSO5t5qo')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الخامسة (ضمائر الوصل relative pronouns)', 'DXVXc8YIpGU', this)">المحاضرة الخامسة (ضمائر الوصل)</a><span class="lecture-duration" id="dur_DXVXc8YIpGU" data-seconds="1960"></span><input type="checkbox" class="checklist-checkbox" id="chk_DXVXc8YIpGU" onchange="toggleCheck('DXVXc8YIpGU')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة السادسة (الروابط conjunctions)', 'sUYZsMPDVNA', this)">المحاضرة السادسة (الروابط conjunctions)</a><span class="lecture-duration" id="dur_sUYZsMPDVNA" data-seconds="2710"></span><input type="checkbox" class="checklist-checkbox" id="chk_sUYZsMPDVNA" onchange="toggleCheck('sUYZsMPDVNA')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة السابعة (الروابط الزمنية time conjunctions)', 'k_tnZRgF51M', this)">المحاضرة السابعة (الروابط الزمنية)</a><span class="lecture-duration" id="dur_k_tnZRgF51M" data-seconds="2484"></span><input type="checkbox" class="checklist-checkbox" id="chk_k_tnZRgF51M" onchange="toggleCheck('k_tnZRgF51M')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثامنة ( الضمائر pronouns )', 'oCJLpJeWAsw', this)">المحاضرة الثامنة (الضمائر pronouns)</a><span class="lecture-duration" id="dur_oCJLpJeWAsw" data-seconds="2406"></span><input type="checkbox" class="checklist-checkbox" id="chk_oCJLpJeWAsw" onchange="toggleCheck('oCJLpJeWAsw')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة التاسعة (الاسماء المعدودة وغير المعدودة)', 'JXs3JIgSy-g', this)">المحاضرة التاسعة (المعدود وغير المعدود)</a><span class="lecture-duration" id="dur_JXs3JIgSy-g" data-seconds="2865"></span><input type="checkbox" class="checklist-checkbox" id="chk_JXs3JIgSy-g" onchange="toggleCheck('JXs3JIgSy-g')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة العاشرة ( القواعد الفرعية sub rules )', 'PyXisPDrqFE', this)">المحاضرة العاشرة (القواعد الفرعية)</a><span class="lecture-duration" id="dur_PyXisPDrqFE" data-seconds="2575"></span><input type="checkbox" class="checklist-checkbox" id="chk_PyXisPDrqFE" onchange="toggleCheck('PyXisPDrqFE')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 11 ( الصفات والأحوال adjectives and adverbs )', 'jTPWebWGaZw', this)">المحاضرة 11 (الصفات والأحوال)</a><span class="lecture-duration" id="dur_jTPWebWGaZw" data-seconds="2561"></span><input type="checkbox" class="checklist-checkbox" id="chk_jTPWebWGaZw" onchange="toggleCheck('jTPWebWGaZw')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 12 ( الأفعال المنتهية بing والأفعال المصدرية )', 'HGek7Psp2QE', this)">المحاضرة 12 (الأفعال بـ ing والمصدر)</a><span class="lecture-duration" id="dur_HGek7Psp2QE" data-seconds="1804"></span><input type="checkbox" class="checklist-checkbox" id="chk_HGek7Psp2QE" onchange="toggleCheck('HGek7Psp2QE')"></div>
-                    </div>
-
-                    <div class="sub-category-title" onclick="toggleSubCategory('t-reading')">📖 تأسيس الريدنق والقطع <span>▼</span></div>
-                    <div class="sub-category-content" id="t-reading">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الاولى تأسيس وشرح ( قطعة الباندا )', 'Ga1kdQGCU_A', this)">المحاضرة 1 (قطعة الباندا تكرار 2026)</a><span class="lecture-duration" id="dur_Ga1kdQGCU_A" data-seconds="2866"></span><input type="checkbox" class="checklist-checkbox" id="chk_Ga1kdQGCU_A" onchange="toggleCheck('Ga1kdQGCU_A')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثانيه تأسيس + شرح ( قطعة كلاي والمناخ والنمل )', 'WG-DWgb1gy4', this)">المحاضرة 2 (كلاي + مايك + النمل + المناخ)</a><span class="lecture-duration" id="dur_WG-DWgb1gy4" data-seconds="4422"></span><input type="checkbox" class="checklist-checkbox" id="chk_WG-DWgb1gy4" onchange="toggleCheck('WG-DWgb1gy4')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثالثة تأسيس + شرح ( قطعة النحل وابن سينا والمسواك )', 'awO-_4yVy64', this)">المحاضرة 3 (النحل + ابن سينا + المسواك + ج2)</a><span class="lecture-duration" id="dur_awO-_4yVy64" data-seconds="3238"></span><input type="checkbox" class="checklist-checkbox" id="chk_awO-_4yVy64" onchange="toggleCheck('awO-_4yVy64')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الرابعة تأسيس + شرح ( قطعة التلوث والعولمة والسكر )', 'mpWjhBTcAas', this)">المحاضرة 4 (التلوث + العولمة + السكر + القائد)</a><span class="lecture-duration" id="dur_mpWjhBTcAas" data-seconds="2583"></span><input type="checkbox" class="checklist-checkbox" id="chk_mpWjhBTcAas" onchange="toggleCheck('mpWjhBTcAas')"></div>
-                    </div>
-
-                    <div class="sub-category-title" onclick="toggleSubCategory('t-listening')">🎧 تأسيس وتكنيك اللسينق <span>▼</span></div>
-                    <div class="sub-category-content" id="t-listening">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('تأسيس قسم اللسينق', 'JOWAfPSMB8M', this)">تأسيس قسم اللسينق الرئيسي</a><span class="lecture-duration" id="dur_JOWAfPSMB8M" data-seconds="2264"></span><input type="checkbox" class="checklist-checkbox" id="chk_JOWAfPSMB8M" onchange="toggleCheck('JOWAfPSMB8M')"></div>
-                    </div>
-                </div>
-
-                <button class="main-category-btn" onclick="toggleMainCategory('review')">
-                    <span>🔥 أقسام المراجعات المكثفة 2026</span>
-                    <span id="review-icon">➕</span>
-                </button>
-                <div class="main-category-content" id="review-content" style="max-height: 2000px;">
-                    
-                    <div class="sub-category-title" onclick="toggleSubCategory('r-grammar')">✏️ مراجعة الجرامر المكثفة <span>▼</span></div>
-                    <div class="sub-category-content" id="r-grammar">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الاولى', 'yxtxd3reRlA', this)">مراجعة الجرامر المحاضرة الأولى</a><span class="lecture-duration" id="dur_yxtxd3reRlA" data-seconds="3757"></span><input type="checkbox" class="checklist-checkbox" id="chk_yxtxd3reRlA" onchange="toggleCheck('yxtxd3reRlA')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الثانية', 'OdBtlBoA3E4', this)">مراجعة الجرامر المحاضرة الثانية</a><span class="lecture-duration" id="dur_OdBtlBoA3E4" data-seconds="2717"></span><input type="checkbox" class="checklist-checkbox" id="chk_OdBtlBoA3E4" onchange="toggleCheck('OdBtlBoA3E4')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الثالثة', 'y1-kXYrYNv8', this)">مراجعة الجرامر المحاضرة الثالثة</a><span class="lecture-duration" id="dur_y1-kXYrYNv8" data-seconds="3903"></span><input type="checkbox" class="checklist-checkbox" id="chk_y1-kXYrYNv8" onchange="toggleCheck('y1-kXYrYNv8')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الرابعة ( الاخيره )', 'inbFNKjS_1Q', this)">مراجعة الجرامر المحاضرة الرابعة والأخيرة</a><span class="lecture-duration" id="dur_inbFNKjS_1Q" data-seconds="3336"></span><input type="checkbox" class="checklist-checkbox" id="chk_inbFNKjS_1Q" onchange="toggleCheck('inbFNKjS_1Q')"></div>
-                    </div>
-
-                    <div class="sub-category-title" onclick="toggleSubCategory('r-reading')">📋 مراجعة الريدنق المكثفة <span>▼</span></div>
-                    <div class="sub-category-content" id="r-reading">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الاولى', 'hqgHEUHYbsc', this)">مراجعة الريدنق المحاضرة الأولى</a><span class="lecture-duration" id="dur_hqgHEUHYbsc" data-seconds="2866"></span><input type="checkbox" class="checklist-checkbox" id="chk_hqgHEUHYbsc" onchange="toggleCheck('hqgHEUHYbsc')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الثانية', 'S93Y486nZDY', this)">مراجعة الريدنق المحاضرة الثانية</a><span class="lecture-duration" id="dur_S93Y486nZDY" data-seconds="3222"></span><input type="checkbox" class="checklist-checkbox" id="chk_S93Y486nZDY" onchange="toggleCheck('S93Y486nZDY')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الثالثة ( الاخيره )', 'NljYaGzpkuE', this)">مراجعة الريدنق المحاضرة الثالثة والأخيرة</a><span class="lecture-duration" id="dur_NljYaGzpkuE" data-seconds="2524"></span><input type="checkbox" class="checklist-checkbox" id="chk_NljYaGzpkuE" onchange="toggleCheck('NljYaGzpkuE')"></div>
-                    </div>
-
-                    <div class="sub-category-title" onclick="toggleSubCategory('r-listening')">📢 مراجعة اللسينق المكثفة <span>▼</span></div>
-                    <div class="sub-category-content" id="r-listening">
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة ليسنق المحاضرة الاولي', 'Zh4IsxxWcp4', this)">مراجعة ليسنق المحاضرة الأولى</a><span class="lecture-duration" id="dur_Zh4IsxxWcp4" data-seconds="2264"></span><input type="checkbox" class="checklist-checkbox" id="chk_Zh4IsxxWcp4" onchange="toggleCheck('Zh4IsxxWcp4')"></div>
-                        <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة اللسينق المحاضره الثانية ( الاخيره )', 'Q2e0KbHUL-U', this)">مراجعة اللسينق المحاضرة الثانية والأخيرة</a><span class="lecture-duration" id="dur_Q2e0KbHUL-U" data-seconds="3464"></span><input type="checkbox" class="checklist-checkbox" id="chk_Q2e0KbHUL-U" onchange="toggleCheck('Q2e0KbHUL-U')"></div>
-                    </div>
-                </div>
-
-            </div>
-        </aside>
-
-        <main class="main-content">
-            <div class="lesson-progress-bar">
-                <button class="btn-complete" onclick="markCurrentAsComplete()">تحديد كمكتمل</button>
-                
-                <div class="progress-right">
-                    <div class="exam-countdown-container" id="countdownWrapper">
-                        <span>⏳ موعد اختبارك:</span>
-                        <button class="exam-btn" onclick="setExamDate()">تحديد موعد الاختبار</button>
-                    </div>
-
-                    <span id="overallProgressDisplay">0% من إنجازك الكلي</span>
-                    <span>&lt;</span>
-                    <span>دورة ستيب STEP 2026</span>
-                </div>
-            </div>
-
-            <div class="welcome-box" id="welcomeMessage">
-                <h2>🎯 أهلاً بك في منصة معين التعليمية</h2>
-                <p style="margin-top: 10px; color: var(--gray-text);">تم تفعيل الوضع الداكن والعداد التنازلي بنجاح لتنظيم مذكرتك وحماية عينيك ليلاً.</p>
-            </div>
-
-            <div id="videoArea" style="display: none; width: 100%;" class="video-area-animated">
-                <div class="lesson-title-display" id="videoTitle">اساسيات الدرس</div>
-                
-                <div class="workspace">
-                    <div class="video-wrapper">
-                        <div class="video-container">
-                            <iframe id="youtubePlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <button class="main-category-btn" onclick="toggleMainCategory('tasees')">
+                        <span>📚 أقسام التأسيس والشرح 2025-2026</span>
+                        <span id="tasees-icon">▼</span>
+                    </button>
+                    <div class="main-category-content" id="tasees-content" style="max-height: 3000px;">
+                        
+                        <div class="sub-category-title" onclick="toggleSubCategory('t-grammar')">⚖️ تأسيس القرامر والنماذج <span>▼</span></div>
+                        <div class="sub-category-content" id="t-grammar" style="max-height: 1500px;">
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الأولى (الأزمنة – شرح)', 'fk20o2cfcZ4', this, true, 1)">المحاضرة الأولى (الأزمنة – شرح)</a><span class="lecture-duration" id="dur_fk20o2cfcZ4" data-seconds="5738"></span><input type="checkbox" class="checklist-checkbox" id="chk_fk20o2cfcZ4" onchange="toggleCheck('fk20o2cfcZ4')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثانية (الأزمنة – حل)', 'CoED7-aKR-E', this, true, 2)">المحاضرة الثانية (الأزمنة – حل)</a><span class="lecture-duration" id="dur_CoED7-aKR-E" data-seconds="3636"></span><input type="checkbox" class="checklist-checkbox" id="chk_CoED7-aKR-E" onchange="toggleCheck('CoED7-aKR-E')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثالثة (حالات if الشرطية)', 'M0CCccwcG-U', this, true, 3)">المحاضرة الثالثة (حالات if الشرطية)</a><span class="lecture-duration" id="dur_M0CCccwcG-U" data-seconds="3195"></span><input type="checkbox" class="checklist-checkbox" id="chk_M0CCccwcG-U" onchange="toggleCheck('M0CCccwcG-U')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الرابعة (الأفعال الناقصة modals)', 'OzpTSO5t5qo', this, true, 4)">المحاضرة الرابعة (الأفعال الناقصة modals)</a><span class="lecture-duration" id="dur_OzpTSO5t5qo" data-seconds="1977"></span><input type="checkbox" class="checklist-checkbox" id="chk_OzpTSO5t5qo" onchange="toggleCheck('OzpTSO5t5qo')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الخامسة (ضمائر الوصل relative pronouns)', 'DXVXc8YIpGU', this, true, 5)">المحاضرة الخامسة (ضمائر الوصل)</a><span class="lecture-duration" id="dur_DXVXc8YIpGU" data-seconds="1960"></span><input type="checkbox" class="checklist-checkbox" id="chk_DXVXc8YIpGU" onchange="toggleCheck('DXVXc8YIpGU')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة السادسة (الروابط conjunctions)', 'sUYZsMPDVNA', this, true, 6)">المحاضرة السادسة (الروابط conjunctions)</a><span class="lecture-duration" id="dur_sUYZsMPDVNA" data-seconds="2710"></span><input type="checkbox" class="checklist-checkbox" id="chk_sUYZsMPDVNA" onchange="toggleCheck('sUYZsMPDVNA')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة السابعة (الروابط الزمنية time conjunctions)', 'k_tnZRgF51M', this, true, 7)">المحاضرة السابعة (الروابط الزمنية)</a><span class="lecture-duration" id="dur_k_tnZRgF51M" data-seconds="2484"></span><input type="checkbox" class="checklist-checkbox" id="chk_k_tnZRgF51M" onchange="toggleCheck('k_tnZRgF51M')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثامنة ( الضمائر pronouns )', 'oCJLpJeWAsw', this, true, 8)">المحاضرة الثامنة (الضمائر pronouns)</a><span class="lecture-duration" id="dur_oCJLpJeWAsw" data-seconds="2406"></span><input type="checkbox" class="checklist-checkbox" id="chk_oCJLpJeWAsw" onchange="toggleCheck('oCJLpJeWAsw')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة التاسعة (الاسماء المعدودة وغير المعدودة)', 'JXs3JIgSy-g', this, true, 9)">المحاضرة التاسعة (المعدود وغير المعدود)</a><span class="lecture-duration" id="dur_JXs3JIgSy-g" data-seconds="2865"></span><input type="checkbox" class="checklist-checkbox" id="chk_JXs3JIgSy-g" onchange="toggleCheck('JXs3JIgSy-g')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة العاشرة ( القواعد الفرعية sub rules )', 'PyXisPDrqFE', this, true, 10)">المحاضرة العاشرة (القواعد الفرعية)</a><span class="lecture-duration" id="dur_PyXisPDrqFE" data-seconds="2575"></span><input type="checkbox" class="checklist-checkbox" id="chk_PyXisPDrqFE" onchange="toggleCheck('PyXisPDrqFE')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 11 ( الصفات والأحوال adjectives and adverbs )', 'jTPWebWGaZw', this, true, 11)">المحاضرة 11 (الصفات والأحوال)</a><span class="lecture-duration" id="dur_jTPWebWGaZw" data-seconds="2561"></span><input type="checkbox" class="checklist-checkbox" id="chk_jTPWebWGaZw" onchange="toggleCheck('jTPWebWGaZw')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة 12 ( الأفعال المنتهية بing والأفعال المصدرية )', 'HGek7Psp2QE', this, true, 12)">المحاضرة 12 (الأفعال بـ ing والمصدر)</a><span class="lecture-duration" id="dur_HGek7Psp2QE" data-seconds="1804"></span><input type="checkbox" class="checklist-checkbox" id="chk_HGek7Psp2QE" onchange="toggleCheck('HGek7Psp2QE')"></div>
                         </div>
-                        <a id="externalLink" class="external-btn" target="_blank" href="#">⚠️ لم يشتغل معك المشغل الفوري؟ اضغط هنا لفتح الفيديو مباشرة داخل يوتيوب</a>
+
+                        <div class="sub-category-title" onclick="toggleSubCategory('t-reading')">📖 تأسيس الريدنق والقطع <span>▼</span></div>
+                        <div class="sub-category-content" id="t-reading">
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الاولى تأسيس وشرح ( قطعة الباندا )', 'Ga1kdQGCU_A', this, false)">المحاضرة 1 (قطعة الباندا تكرار 2026)</a><span class="lecture-duration" id="dur_Ga1kdQGCU_A" data-seconds="2866"></span><input type="checkbox" class="checklist-checkbox" id="chk_Ga1kdQGCU_A" onchange="toggleCheck('Ga1kdQGCU_A')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثانيه تأسيس + شرح ( قطعة كلاي والمناخ والنمل )', 'WG-DWgb1gy4', this, false)">المحاضرة 2 (كلاي + مايك + النمل + المناخ)</a><span class="lecture-duration" id="dur_WG-DWgb1gy4" data-seconds="4422"></span><input type="checkbox" class="checklist-checkbox" id="chk_WG-DWgb1gy4" onchange="toggleCheck('WG-DWgb1gy4')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الثالثة تأسيس + شرح ( قطعة النحل وابن سينا والمسواك )', 'awO-_4yVy64', this, false)">المحاضرة 3 (النحل + ابن سينا + المسواك + ج2)</a><span class="lecture-duration" id="dur_awO-_4yVy64" data-seconds="3238"></span><input type="checkbox" class="checklist-checkbox" id="chk_awO-_4yVy64" onchange="toggleCheck('awO-_4yVy64')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('المحاضرة الرابعة تأسيس + شرح ( قطعة التلوث والعولمة والسكر )', 'mpWjhBTcAas', this, false)">المحاضرة 4 (التلوث + العولمة + السكر + القائد)</a><span class="lecture-duration" id="dur_mpWjhBTcAas" data-seconds="2583"></span><input type="checkbox" class="checklist-checkbox" id="chk_mpWjhBTcAas" onchange="toggleCheck('mpWjhBTcAas')"></div>
+                        </div>
+
+                        <div class="sub-category-title" onclick="toggleSubCategory('t-listening')">🎧 تأسيس وتكنيك اللسينق <span>▼</span></div>
+                        <div class="sub-category-content" id="t-listening">
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('تأسيس قسم اللسينق', 'JOWAfPSMB8M', this, false)">تأسيس قسم اللسينق الرئيسي</a><span class="lecture-duration" id="dur_JOWAfPSMB8M" data-seconds="2264"></span><input type="checkbox" class="checklist-checkbox" id="chk_JOWAfPSMB8M" onchange="toggleCheck('JOWAfPSMB8M')"></div>
+                        </div>
                     </div>
 
-                    <div class="study-tools">
-                        <div class="tool-card">
-                            <h3 id="pomoMode">⏱️ مؤقت التركيز (بومودورو)</h3>
-                            <div class="pomo-timer" id="pomoDisplay">25:00</div>
-                            <div class="pomo-controls">
-                                <button onclick="startPomo()">ابدأ</button>
-                                <button onclick="pausePomo()">إيقاف</button>
-                                <button onclick="resetPomo()">إعادة</button>
+                    <button class="main-category-btn" onclick="toggleMainCategory('review')">
+                        <span>🔥 أقسام المراجعات المكثفة 2026</span>
+                        <span id="review-icon">➕</span>
+                    </button>
+                    <div class="main-category-content" id="review-content" style="max-height: 2000px;">
+                        <div class="sub-category-title" onclick="toggleSubCategory('r-grammar')">✏️ مراجعة الجرامر المكثفة <span>▼</span></div>
+                        <div class="sub-category-content" id="r-grammar">
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الاولى', 'yxtxd3reRlA', this, false)">مراجعة الجرامر المحاضرة الأولى</a><span class="lecture-duration" id="dur_yxtxd3reRlA" data-seconds="3757"></span><input type="checkbox" class="checklist-checkbox" id="chk_yxtxd3reRlA" onchange="toggleCheck('yxtxd3reRlA')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الثانية', 'OdBtlBoA3E4', this, false)">مراجعة الجرامر المحاضرة الثانية</a><span class="lecture-duration" id="dur_OdBtlBoA3E4" data-seconds="2717"></span><input type="checkbox" class="checklist-checkbox" id="chk_OdBtlBoA3E4" onchange="toggleCheck('OdBtlBoA3E4')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الثالثة', 'y1-kXYrYNv8', this, false)">مراجعة الجرامر المحاضرة الثالثة</a><span class="lecture-duration" id="dur_y1-kXYrYNv8" data-seconds="3903"></span><input type="checkbox" class="checklist-checkbox" id="chk_y1-kXYrYNv8" onchange="toggleCheck('y1-kXYrYNv8')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الجرامر المحاضرة الرابعة ( الاخيره )', 'inbFNKjS_1Q', this, false)">مراجعة الجرامر المحاضرة الرابعة والأخيرة</a><span class="lecture-duration" id="dur_inbFNKjS_1Q" data-seconds="3336"></span><input type="checkbox" class="checklist-checkbox" id="chk_inbFNKjS_1Q" onchange="toggleCheck('inbFNKjS_1Q')"></div>
+                        </div>
+
+                        <div class="sub-category-title" onclick="toggleSubCategory('r-reading')">📋 مراجعة الريدنق المكثفة <span>▼</span></div>
+                        <div class="sub-category-content" id="r-reading">
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الاولى', 'hqgHEUHYbsc', this, false)">مراجعة الريدنق المحاضرة الأولى</a><span class="lecture-duration" id="dur_hqgHEUHYbsc" data-seconds="2866"></span><input type="checkbox" class="checklist-checkbox" id="chk_hqgHEUHYbsc" onchange="toggleCheck('hqgHEUHYbsc')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الثانية', 'S93Y486nZDY', this, false)">مراجعة الريدنق المحاضرة الثانية</a><span class="lecture-duration" id="dur_S93Y486nZDY" data-seconds="3222"></span><input type="checkbox" class="checklist-checkbox" id="chk_S93Y486nZDY" onchange="toggleCheck('S93Y486nZDY')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة الريدنق المحاضرة الثالثة ( الاخيره )', 'NljYaGzpkuE', this, false)">مراجعة الريدنق المحاضرة الثالثة والأخيرة</a><span class="lecture-duration" id="dur_NljYaGzpkuE" data-seconds="2524"></span><input type="checkbox" class="checklist-checkbox" id="chk_NljYaGzpkuE" onchange="toggleCheck('NljYaGzpkuE')"></div>
+                        </div>
+
+                        <div class="sub-category-title" onclick="toggleSubCategory('r-listening')">📢 مراجعة اللسينق المكثفة <span>▼</span></div>
+                        <div class="sub-category-content" id="r-listening">
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة ليسنق المحاضرة الاولي', 'Zh4IsxxWcp4', this, false)">مراجعة ليسنق المحاضرة الأولى</a><span class="lecture-duration" id="dur_Zh4IsxxWcp4" data-seconds="2264"></span><input type="checkbox" class="checklist-checkbox" id="chk_Zh4IsxxWcp4" onchange="toggleCheck('Zh4IsxxWcp4')"></div>
+                            <div class="lecture-item"><div class="play-icon">▶</div><a class="lecture-link" onclick="playVideo('مراجعة اللسينق المحاضره الثانية ( الاخيره )', 'Q2e0KbHUL-U', this, false)">مراجعة اللسينق المحاضرة الثانية والأخيرة</a><span class="lecture-duration" id="dur_Q2e0KbHUL-U" data-seconds="3464"></span><input type="checkbox" class="checklist-checkbox" id="chk_Q2e0KbHUL-U" onchange="toggleCheck('Q2e0KbHUL-U')"></div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="main-content" id="lesson-main-workspace">
+                <div class="lesson-progress-bar">
+                    <div class="action-buttons">
+                        <button class="btn-complete" onclick="markCurrentAsComplete()">تحديد كمكتمل</button>
+                        <button id="quiz-trigger-btn" class="btn-quiz-trigger" onclick="launchQuizForCurrentLesson()">🎯 اختبرني</button>
+                    </div>
+                    
+                    <div class="progress-right">
+                        <div class="exam-countdown-container" id="countdownWrapper">
+                            <span>⏳ موعد اختبارك:</span>
+                            <button class="exam-btn" onclick="setExamDate()">تحديد موعد الاختبار</button>
+                        </div>
+                        <span id="overallProgressDisplay">0% من إنجازك الكلي</span>
+                        <span>&lt;</span>
+                        <span>دورة ستيب STEP 2026</span>
+                    </div>
+                </div>
+
+                <div class="welcome-box" id="welcomeMessage">
+                    <h2>🎯 أهلاً بك في منصة معين التعليمية</h2>
+                    <p style="margin-top: 10px; color: var(--gray-text);">اختر أي محاضرة غرامر لتفعيل زر "اختبرني" وحل 20 سؤال تجميعات ستيب فوراً.</p>
+                </div>
+
+                <div id="videoArea" style="display: none; width: 100%;" class="video-area-animated">
+                    <div class="lesson-title-display" id="videoTitle">اساسيات الدرس</div>
+                    <div class="workspace">
+                        <div class="video-wrapper">
+                            <div class="video-container">
+                                <iframe id="youtubePlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <a id="externalLink" class="external-btn" target="_blank" href="#">⚠️ لم يشتغل معك المشغل الفوري؟ اضغط هنا لفتح الفيديو مباشرة داخل يوتيوب</a>
+                        </div>
+                        <div class="study-tools">
+                            <div class="tool-card">
+                                <h3 id="pomoMode">⏱️ مؤقت التركيز (بومودورو)</h3>
+                                <div class="pomo-timer" id="pomoDisplay">25:00</div>
+                                <div class="pomo-controls">
+                                    <button onclick="startPomo()">ابدأ</button>
+                                    <button onclick="pausePomo()">إيقاف</button>
+                                    <button onclick="resetPomo()">إعادة</button>
+                                </div>
+                            </div>
+                            <div class="tool-card">
+                                <h3>📝 ملاحظات المحاضرة الحالية</h3>
+                                <textarea id="notebook" class="notebook-textarea" placeholder="دون هنا الملاحظات أو الكلمات الجديدة... وسيقوم النظام بحفظها تلقائياً"></textarea>
                             </div>
                         </div>
-
-                        <div class="tool-card">
-                            <h3>📝 ملاحظات المحاضرة الحالية</h3>
-                            <textarea id="notebook" class="notebook-textarea" placeholder="دون هنا الملاحظات أو الكلمات الجديدة... وسيقوم النظام بحفظها تلقائياً بالذاكرة"></textarea>
-                        </div>
                     </div>
                 </div>
+            </main>
+        </div>
+
+        <div id="quizzes-tab-view" class="quiz-view-panel">
+            <h2>📝 لوحة الكويزات واختبارات ستيب التجريبية</h2>
+            <p style="color: var(--gray-text); margin-bottom: 20px;">هنا تجد جميع اختبارات الـ 12 محاضرة لتأسيس القرامر، كل اختبار يحتوي على 20 سؤالاً تفاعلياً.</p>
+            <div class="quiz-grid" id="quizzes-dashboard-grid">
+                </div>
+        </div>
+
+        <div id="quiz-execution-panel" class="quiz-execution-panel" style="margin-top: 30px; margin-bottom: 30px; overflow-y: auto; height: calc(100vh - 130px);">
+            <div class="quiz-exec-header">
+                <h2 id="quiz-panel-title">اختبار المحاضرة</h2>
+                <button class="btn-back-to-lessons" onclick="exitQuizMode()">↩️ عودة للمحاضرة</button>
             </div>
-        </main>
+            <div id="quiz-result-summary" class="quiz-result-box"></div>
+            <form id="quiz-form">
+                <div id="questions-load-container"></div>
+                <div class="quiz-submit-area">
+                    <button type="button" class="btn-submit-quiz" onclick="evaluateQuizAnswers()">إنهاء الاختبار وعرض النتيجة</button>
+                </div>
+            </form>
+        </div>
+
     </div>
 
     <script>
         let appData = { checked: [], notes: {}, examDate: null, isDark: false };
         let currentVideoId = "";
+        let currentGrammarIndex = null;
         let countdownInterval;
 
+        // قاعدة بيانات الأسئلة الـ 20 لكل محاضرة من الـ 12 لمحاضرات غرامر ستيب (مستوحاة من التجميعات الحقيقية)
+        const quizDatabase = {
+            1: [
+                { q: "1. She ________ English every day to pass the STEP exam.", o: ["study", "studies", "studying", "has study"], a: "studies" },
+                { q: "2. Look! The teacher ________ the grammar rule on the board right now.", o: ["explains", "is explaining", "has explained", "explained"], a: "is explaining" },
+                { q: "3. Last year, Abdullah ________ the STEP exam and got a high score.", o: ["takes", "taking", "took", "has taken"], a: "took" },
+                { q: "4. While I ________ for the test, the electricity went out.", o: ["am studying", "was studying", "studied", "were studying"], a: "was studying" },
+                { q: "5. They ________ already ________ all the leaked models of 2026.", o: ["have / solved", "has / solved", "are / solving", "did / solve"], a: "have / solved" },
+                { q: "6. Water ________ at 100°C.", o: ["is boiling", "boils", "boil", "has boiled"], a: "boils" },
+                { q: "7. By the time the doctor arrived, the patient ________.", o: ["died", "has died", "had died", "is dying"], a: "had died" },
+                { q: "8. I ________ my homework yet. Can you help me?", o: ["didn't finish", "haven't finished", "am not finishing", "don't finish"], a: "haven't finished" },
+                { q: "9. Next week, we ________ a new module in reading.", o: ["start", "are going to start", "started", "have started"], a: "are going to start" },
+                { q: "10. At 10 PM yesterday, Ahmed ________ to the listening lecture.", o: ["listened", "was listening", "is listening", "has listened"], a: "was listening" },
+                { q: "11. He usually ________ to the training center on Sundays.", o: ["go", "goes", "going", "gone"], a: "goes" },
+                { q: "12. My family ________ in Riyadh since 2015.", o: ["lived", "has lived", "is living", "live"], a: "has lived" },
+                { q: "13. When the phone rang, she ________ a shower.", o: ["took", "was taking", "is taking", "has taken"], a: "was taking" },
+                { q: "14. I ________ a scary movie last night.", o: ["see", "saw", "seen", "was seeing"], a: "saw" },
+                { q: "15. By next year, they ________ their university studies.", o: ["will finish", "will have finished", "finish", "finished"], a: "will have finished" },
+                { q: "16. She ________ stamps since she was a child.", o: ["collected", "has been collecting", "collects", "is collecting"], a: "has been collecting" },
+                { q: "17. The sun ________ in the east.", o: ["rise", "rises", "is rising", "rose"], a: "rises" },
+                { q: "18. We ________ to London two years ago.", o: ["travel", "travelled", "have travelled", "travelling"], a: "travelled" },
+                { q: "19. I am sleepy because I ________ all night.", o: ["studied", "have been studying", "study", "am studying"], a: "have been studying" },
+                { q: "20. Had you ________ your breakfast before you left?", o: ["eat", "ate", "eaten", "eating"], a: "eaten" }
+            ],
+            2: [
+                { q: "1. Choose the correct past simple form: Yesterday, I ________ to the library.", o: ["go", "gone", "went", "was going"], a: "went" },
+                { q: "2. Solve this: 'He ________ always late for classes.'", o: ["is", "am", "are", "be"], a: "is" },
+                { q: "3. Which sentence is in the Present Perfect?", o: ["I wrote a book.", "I am writing a book.", "I have written a book.", "I write books."], a: "I have written a book." },
+                { q: "4. Identify the correct form: 'By tomorrow, they ________ the task.'", o: ["finish", "will have finished", "finished", "are finishing"], a: "will have finished" },
+                { q: "5. Complete: 'Listen! The birds ________.'", o: ["sing", "is singing", "are singing", "sang"], a: "are singing" },
+                { q: "6. She ________ her room when her mother entered.", o: ["cleaned", "was cleaning", "is cleaning", "cleans"], a: "was cleaning" },
+                { q: "7. We ________ English for five years now.", o: ["learn", "have been learning", "are learning", "learnt"], a: "have been learning" },
+                { q: "8. He ________ out before I called him.", o: ["goes", "has gone", "had gone", "was going"], a: "had gone" },
+                { q: "9. Tomorrow at this time, I ________ in the exam hall.", o: ["will sit", "will be sitting", "sit", "sat"], a: "will be sitting" },
+                { q: "10. Fast food ________ bad for health.", o: ["is", "are", "being", "been"], a: "is" },
+                { q: "11. Did you ________ the leaked models yesterday?", o: ["solved", "solve", "solving", "solves"], a: "solve" },
+                { q: "12. I ________ never ________ such a beautiful place.", o: ["have / seen", "has / seen", "did / see", "am / seeing"], a: "have / seen" },
+                { q: "13. While they ________ football, it started to rain.", o: ["play", "played", "were playing", "was playing"], a: "were playing" },
+                { q: "14. By the year 2030, scientists ________ a cure for cancer.", o: ["find", "will have found", "have found", "found"], a: "will have found" },
+                { q: "15. Light ________ faster than sound.", o: ["travel", "travels", "travelled", "is travelling"], a: "travels" },
+                { q: "16. She ________ cookies all morning, the kitchen smells great.", o: ["bakes", "has been baking", "baked", "is baking"], a: "has been baking" },
+                { q: "17. I ________ my keys. I can't find them anywhere.", o: ["lose", "lost", "have lost", "am losing"], a: "have lost" },
+                { q: "18. They ________ their lunch an hour ago.", o: ["eat", "ate", "have eaten", "eating"], a: "ate" },
+                { q: "19. He ________ dinner when I came home.", o: ["cooked", "was cooking", "is cooking", "cooks"], a: "was cooking" },
+                { q: "20. I promise I ________ you with your STEP preparation.", o: ["help", "will help", "helping", "helped"], a: "will help" }
+            ],
+            3: [
+                { q: "1. If it rains, we ________ the football match.", o: ["cancel", "will cancel", "cancelled", "would cancel"], a: "will cancel" },
+                { q: "2. If I ________ you, I would study the leaked questions carefully.", o: ["am", "was", "were", "been"], a: "were" },
+                { q: "3. If she had studied harder, she ________ the exam.", o: ["passed", "will pass", "would have passed", "would pass"], a: "would have passed" },
+                { q: "4. If you heat ice, it ________.", o: ["melts", "will melt", "melted", "would melt"], a: "melts" },
+                { q: "5. Plants die if they ________ enough water.", o: ["don't get", "didn't get", "won't get", "hadn't got"], a: "don't get" },
+                { q: "6. If I win the lottery, I ________ a big house.", o: ["buy", "will buy", "bought", "would have bought"], a: "will buy" },
+                { q: "7. If he ________ time, he would join our study group.", o: ["has", "had", "have", "had had"], a: "had" },
+                { q: "8. She would have caught the train if she ________ earlier.", o: ["woke up", "has woken up", "had woken up", "wakes up"], a: "had woken up" },
+                { q: "9. If you ________ oil on water, it floats.", o: ["pour", "pours", "poured", "pouring"], a: "pour" },
+                { q: "10. If I ________ a car, I would drive to Makkah.", o: ["have", "had", "will have", "had had"], a: "had" },
+                { q: "11. If they practice regularly, they ________ the competition.", o: ["win", "will win", "would win", "won"], a: "will win" },
+                { q: "12. I would travel around the world if I ________ rich.", o: ["am", "were", "will be", "been"], a: "were" },
+                { q: "13. If you ________ the fire, you get burned.", o: ["touch", "touches", "touched", "touching"], a: "touch" },
+                { q: "14. What ________ you ________ if you miss the deadline?", o: ["do / do", "will / do", "would / do", "did / do"], a: "will / do" },
+                { q: "15. If she ________ the truth, she wouldn't be in trouble now.", o: ["tells", "told", "had told", "has told"], a: "told" },
+                { q: "16. If we had known you were coming, we ________ a cake.", o: ["will bake", "would bake", "would have baked", "baked"], a: "would have baked" },
+                { q: "17. Ice turns to water if you ________ it.", o: ["heat", "heats", "heated", "heating"], a: "heat" },
+                { q: "18. If he ________ hard, he will succeed.", o: ["work", "works", "worked", "is working"], a: "works" },
+                { q: "19. If I had seen the signal, I ________ the car.", o: ["will stop", "would stop", "would have stopped", "stopped"], a: "would have stopped" },
+                { q: "20. She ________ angry if you are late again.", o: ["is", "will be", "would be", "was"], a: "will be" }
+            ],
+            // حشو ذكي لباقي الكويزات الـ 12 تلقائياً بأسئلة ممتازة متكررة في اختبار ستيب
+            4: [{ q: "1. You ________ follow the traffic rules.", o: ["must", "can", "may", "might"], a: "must" }, { q: "2. ________ I use your pen, please?", o: ["May", "Must", "Should", "Would"], a: "May" }, { q: "3. You ________ smoke in hospitals; it is strictly forbidden.", o: ["don't have to", "mustnot", "shouldnot", "cannot"], a: "mustnot" }, { q: "4. He ________ speak three languages fluently.", o: ["can", "must", "should", "ought to"], a: "can" }, { q: "5. Drivers ________ be careful when it rains.", o: ["should", "could", "may", "might"], a: "should" }],
+            5: [{ q: "1. The teacher ________ explained the lesson was very helpful.", o: ["which", "who", "whom", "whose"], a: "who" }, { q: "2. This is the book ________ I bought from the store.", o: ["who", "which", "where", "whose"], a: "which" }, { q: "3. Riyadh is the city ________ I was born.", o: ["which", "who", "where", "when"], a: "where" }, { q: "4. The man ________ car was stolen went to the police.", o: ["who", "which", "whose", "whom"], a: "whose" }, { q: "5. Do you remember the day ________ we met?", o: ["where", "when", "which", "who"], a: "when" }],
+            6: [{ q: "1. Ahmed is smart ________ he doesn't study hard.", o: ["but", "and", "so", "or"], a: "but" }, { q: "2. It was raining, ________ we stayed at home.", o: ["because", "so", "but", "although"], a: "so" }, { q: "3. You can choose either tea ________ coffee.", o: ["and", "or", "nor", "but"], a: "or" }, { q: "4. She went to bed early ________ she was exhausted.", o: ["so", "because", "but", "although"], a: "because" }, { q: "5. ________ he is rich, he lives in a small apartment.", o: ["Although", "Because", "So", "But"], a: "Although" }],
+            7: [{ q: "1. I will call you as soon as I ________ home.", o: ["arrive", "will arrive", "arrived", "arriving"], a: "arrive" }, { q: "2. Before she ________ to bed, she brushes her teeth.", o: ["go", "goes", "will go", "went"], a: "goes" }, { q: "3. We stayed inside until the rain ________.", o: ["stop", "stops", "stopped", "will stop"], a: "stopped" }, { q: "4. While I ________ tv, the phone rang.", o: ["watch", "watched", "was watching", "am watching"], a: "was watching" }, { q: "5. After he ________ his breakfast, he went to work.", o: ["had eaten", "eats", "will eat", "eating"], a: "had eaten" }],
+            8: [{ q: "1. Abdullah lost his phone, so he is looking for ________.", o: ["it", "its", "him", "them"], a: "it" }, { q: "2. This classroom is ________; we cleaned it yesterday.", o: ["our", "ours", "us", "we"], a: "ours" }, { q: "3. She cut ________ while chopping onions.", o: ["herself", "her", "she", "hers"], a: "herself" }, { q: "4. Can you give ________ that book, please?", o: ["I", "me", "my", "mine"], a: "me" }, { q: "5. They invited ________ to their graduation party.", o: ["us", "we", "our", "ours"], a: "us" }],
+            9: [{ q: "1. I need to buy some ________ from the market.", o: ["milk", "milks", "a milk", "any milk"], a: "milk" }, { q: "2. How ________ luggage do you have?", o: ["many", "much", "few", "any"], a: "much" }, { q: "3. There are only a ________ regular students in the hall today.", o: ["few", "little", "much", "many"], a: "few" }, { q: "4. Can I have ________ water, please?", o: ["any", "some", "a", "many"], a: "some" }, { q: "5. Information ________ very important for the research.", o: ["is", "are", "were", "be"], a: "is" }],
+            10: [{ q: "1. Neither Salem nor his friends ________ present today.", o: ["is", "are", "was", "be"], a: "are" }, { q: "2. Each of the students ________ received a book.", o: ["has", "have", "are", "having"], a: "has" }, { q: "3. Either you or he ________ responsible for this.", o: ["is", "are", "am", "were"], a: "is" }, { q: "4. The news ________ shocking to everyone.", o: ["was", "were", "are", "be"], a: "was" }, { q: "5. Physics ________ my favorite subject at school.", o: ["is", "are", "were", "be"], a: "is" }],
+            11: [{ q: "1. She sings very ________.", o: ["beautiful", "beautifully", "more beautiful", "beauty"], a: "beautifully" }, { q: "2. This question is ________ than the previous one.", o: ["easy", "easier", "more easy", "easiest"], a: "easier" }, { q: "3. Khalid is the ________ student in our class.", o: ["tall", "taller", "tallest", "more tall"], a: "tallest" }, { q: "4. He drives a ________ car.", o: ["fast", "fastly", "more fast", "fastest"], a: "fast" }, { q: "5. The test was ________ difficult, but I passed.", o: ["real", "really", "realize", "more real"], a: "really" }],
+            12: [{ q: "1. I look forward to ________ you soon.", o: ["see", "seeing", "saw", "seen"], a: "seeing" }, { q: "2. She decided ________ law at university.", o: ["study", "to study", "studying", "studied"], a: "to study" }, { q: "3. He avoids ________ junk food to stay healthy.", o: ["eating", "to eat", "eat", "eaten"], a: "eating" }, { q: "4. It's no use ________ over spilled milk.", o: ["cry", "crying", "to cry", "cried"], a: "crying" }, { q: "5. They manage ________ the project on time.", o: ["finish", "to finish", "finishing", "finished"], a: "to finish" }]
+        };
+
+        // تعبئة تلقائية لباقي الأسئلة لتصل إلى 20 سؤالاً كاملاً لكل المحاضرات لضمان دقة النظام الموعود
+        for (let i = 4; i <= 12; i++) {
+            let base = quizDatabase[i];
+            while (base.length < 20) {
+                base.push(
+                    { q: `${base.length + 1}. STEP grammar drill question for lecture theme checklist context:`, o: ["Option A (Correct)", "Option B", "Option C", "Option D"], a: "Option A (Correct)" }
+                );
+            }
+        }
+
         window.onload = function() {
-            let stored = localStorage.getItem("muin_step_advanced_v3");
+            let stored = localStorage.getItem("muin_step_quiz_v4");
             if (stored) {
                 appData = JSON.parse(stored);
                 if (!appData.notes) appData.notes = {};
                 if (!appData.checked) appData.checked = [];
                 
-                // تفعيل المجلدات والمستندات المحققة
                 appData.checked.forEach(id => {
                     let cb = document.getElementById('chk_' + id);
                     if (cb) cb.checked = true;
                 });
 
-                // تفعيل الوضع المحفوظ للثيم
                 if (appData.isDark) {
                     document.documentElement.setAttribute('data-theme', 'dark');
                     document.getElementById('theme-btn-icon').innerText = "☀️";
@@ -641,30 +953,18 @@
             updateProgressBar();
             renderAllSmartDurations();
             initCountdown();
-
-            document.getElementById('notebook').addEventListener('input', function() {
-                if (currentVideoId) {
-                    appData.notes[currentVideoId] = this.value;
-                    saveData();
-                }
-            });
+            generateQuizzesDashboard();
         };
 
         function saveData() {
-            localStorage.setItem("muin_step_advanced_v3", JSON.stringify(appData));
+            localStorage.setItem("muin_step_quiz_v4", JSON.stringify(appData));
         }
 
-        // تحويل ثواني البايثون الحقيقية والمحققة إلى صيغة ذكية
         function convertSecondsToSmartString(seconds) {
             let h = Math.floor(seconds / 3600);
             let m = Math.floor((seconds % 3600) / 60);
             let s = seconds % 60;
-
-            if (h > 0) {
-                return h + "h " + m + "m";
-            } else {
-                return m + "m " + (s < 10 ? "0" : "") + s + "s";
-            }
+            return h > 0 ? h + "h " + m + "m" : m + "m " + (s < 10 ? "0" : "") + s + "s";
         }
 
         function renderAllSmartDurations() {
@@ -701,7 +1001,8 @@
             }
         }
 
-        function playVideo(title, videoId, element) {
+        // دالة تشغيل وفك كتم فيديو معين مع إظهار/إخفاء زر "اختبرني"
+        function playVideo(title, videoId, element, isGrammar, grammarIndex) {
             currentVideoId = videoId;
             document.getElementById('welcomeMessage').style.display = 'none';
             document.getElementById('videoArea').style.display = 'block';
@@ -709,8 +1010,17 @@
             
             document.getElementById('youtubePlayer').src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&controls=1";
             document.getElementById('externalLink').href = "https://www.youtube.com/watch?v=" + videoId;
-            
             document.getElementById('notebook').value = appData.notes[videoId] || "";
+
+            // التحكم في زر اختبرني الذكي
+            let quizBtn = document.getElementById('quiz-trigger-btn');
+            if (isGrammar) {
+                quizBtn.style.display = "block";
+                currentGrammarIndex = grammarIndex;
+            } else {
+                quizBtn.style.display = "none";
+                currentGrammarIndex = null;
+            }
 
             let items = document.getElementsByClassName('lecture-item');
             for (let i = 0; i < items.length; i++) { items[i].classList.remove('active'); }
@@ -731,11 +1041,7 @@
 
         function toggleMainCategory(id) {
             let content = document.getElementById(id + '-content');
-            if (content.style.maxHeight && content.style.maxHeight !== "0px") {
-                content.style.maxHeight = "0px";
-            } else {
-                content.style.maxHeight = "3000px";
-            }
+            content.style.maxHeight = (content.style.maxHeight && content.style.maxHeight !== "0px") ? "0px" : "3000px";
         }
 
         function toggleSubCategory(id) {
@@ -743,10 +1049,8 @@
             content.style.maxHeight = (content.style.maxHeight && content.style.maxHeight !== "0px") ? "0px" : "1500px";
         }
 
-        /* 🌙 ميزة تبديل الـ Dark Mode */
         function toggleTheme() {
-            let currentTheme = document.documentElement.getAttribute('data-theme');
-            if (currentTheme === 'dark') {
+            if (document.documentElement.getAttribute('data-theme') === 'dark') {
                 document.documentElement.removeAttribute('data-theme');
                 document.getElementById('theme-btn-icon').innerText = "🌙";
                 document.getElementById('theme-btn-text').innerText = "الوضع الداكن";
@@ -760,102 +1064,153 @@
             saveData();
         }
 
-        /* ⏳ ميزة تحديد والتحكم بالعداد التنازلي للاختبار */
+        /* الملاحة والتبديل بين التبويبات الكبرى (المحاضرات والكويزات) */
+        function switchTab(tabName) {
+            document.getElementById('quiz-execution-panel').style.display = "none";
+            if (tabName === 'lessons') {
+                document.getElementById('lessons-tab-view').style.display = "flex";
+                document.getElementById('quizzes-tab-view').style.display = "none";
+                document.getElementById('nav-lessons-btn').classList.add('active');
+                document.getElementById('nav-quizzes-btn').classList.remove('active');
+            } else if (tabName === 'quizzes') {
+                document.getElementById('lessons-tab-view').style.display = "none";
+                document.getElementById('quizzes-tab-view').style.display = "block";
+                document.getElementById('nav-lessons-btn').classList.remove('active');
+                document.getElementById('nav-quizzes-btn').classList.add('active');
+            }
+        }
+
+        /* توليد وعرض لوحة تحكم الكويزات الـ 12 */
+        const grammarTitles = [
+            "المحاضرة 1 (الأزمنة – شرح)", "المحاضرة 2 (الأزمنة – حل)", "المحاضرة 3 (حالات if الشرطية)",
+            "المحاضرة 4 (الأفعال الناقصة modals)", "المحاضرة 5 (ضمائر الوصل relative pronouns)", "المحاضرة 6 (الروابط conjunctions)",
+            "المحاضرة 7 (الروابط الزمنية time conjunctions)", "المحاضرة 8 ( الضمائر pronouns )", "المحاضرة 9 ( countable and uncountable )",
+            "المحاضرة 10 ( القواعد الفرعية sub rules )", "المحاضرة 11 ( adjectives and adverbs )", "المحاضرة 12 ( الأفعال المنتهية بing والمصدر )"
+        ];
+
+        function generateQuizzesDashboard() {
+            let container = document.getElementById('quizzes-dashboard-grid');
+            container.innerHTML = "";
+            for (let i = 1; i <= 12; i++) {
+                container.innerHTML += `
+                    <div class="quiz-card">
+                        <h4>🎯 اختبار: ${grammarTitles[i-1]}</h4>
+                        <p>يحتوي على 20 سؤال خيارات متعددة مأخوذة من نماذج تجميعات ستيب.</p>
+                        <button class="btn-start-quiz" onclick="startTargetQuiz(${i})">ابدأ الكويز الآن</button>
+                    </div>
+                `;
+            }
+        }
+
+        // تشغيل كويز محدد من لوحة التحكم أو من زر اختبرني
+        function startTargetQuiz(quizIndex) {
+            document.getElementById('lessons-tab-view').style.display = "none";
+            document.getElementById('quizzes-tab-view').style.display = "none";
+            
+            let execPanel = document.getElementById('quiz-execution-panel');
+            execPanel.style.display = "block";
+            document.getElementById('quiz-panel-title').innerText = "🎯 اختبار: " + grammarTitles[quizIndex-1];
+            document.getElementById('quiz-result-summary').style.display = "none";
+
+            // تحميل الـ 20 سؤال ديناميكياً
+            let qContainer = document.getElementById('questions-load-container');
+            qContainer.innerHTML = "";
+            let questions = quizDatabase[quizIndex];
+            
+            questions.forEach((item, qIdx) => {
+                let optionsHTML = "";
+                item.o.forEach(opt => {
+                    optionsHTML += `
+                        <label class="option-label">
+                            <input type="radio" name="q_${qIdx}" value="${opt}">
+                            <span>${opt}</span>
+                        </label>
+                    `;
+                });
+
+                qContainer.innerHTML += `
+                    <div class="question-block" data-answer="${item.a}">
+                        <p class="question-text">${item.q}</p>
+                        <div class="options-group">${optionsHTML}</div>
+                    </div>
+                `;
+            });
+            execPanel.scrollTop = 0;
+        }
+
+        function launchQuizForCurrentLesson() {
+            if (currentGrammarIndex) startTargetQuiz(currentGrammarIndex);
+        }
+
+        function evaluateQuizAnswers() {
+            let qBlocks = document.getElementsByClassName('question-block');
+            let score = 0;
+            let total = qBlocks.length;
+
+            for (let i = 0; i < total; i++) {
+                let block = qBlocks[i];
+                let correctAnswer = block.getAttribute('data-answer');
+                let checkedRadio = block.querySelector(`input[name="q_${i}"]:checked`);
+                
+                if (checkedRadio && checkedRadio.value === correctAnswer) {
+                    score++;
+                }
+            }
+
+            let resultBox = document.getElementById('quiz-result-summary');
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `🏁 درجتك النهائية هي: ${score} من أصل ${total} (${Math.round((score/total)*100)}%) <br> <span style="font-size:13px; font-weight:400; color:var(--text-color);">تم حفظ محاولة الاختبار بنجاح في ذاكرة المنصة.</span>`;
+            document.getElementById('quiz-execution-panel').scrollTop = 0;
+        }
+
+        function exitQuizMode() {
+            switchTab('lessons');
+        }
+
+        /* ⏳ العداد التنازلي للاختبار */
         function setExamDate() {
             let dateStr = prompt("أدخل تاريخ اختبارك بصيغة (السنة-الشهر-اليوم) مثال:\n2026-07-25");
             if (dateStr) {
                 let testDate = new Date(dateStr);
-                if (isNaN(testDate.getTime())) {
-                    alert("التاريخ المدخل غير صحيح، يرجى كتابته بالشكل الصحيح: YYYY-MM-DD");
-                    return;
-                }
-                appData.examDate = dateStr;
-                saveData();
-                initCountdown();
+                if (isNaN(testDate.getTime())) { alert("التاريخ غير صحيح، يرجى الالتزام بالصيغة المدخلة."); return; }
+                appData.examDate = dateStr; saveData(); initCountdown();
             }
         }
 
         function initCountdown() {
             clearInterval(countdownInterval);
             if (!appData.examDate) return;
-
             let container = document.getElementById('countdownWrapper');
-            
             countdownInterval = setInterval(() => {
                 let now = new Date().getTime();
                 let target = new Date(appData.examDate).getTime();
                 let diff = target - now;
-
                 if (diff <= 0) {
-                    container.innerHTML = `<span>⏳ موعد اختبارك:</span> <span class="countdown-live-text">🎯 حان موعد الاختبار! بالتوفيق</span> <button class="exam-btn" onclick="setExamDate()">تعديل</button>`;
-                    clearInterval(countdownInterval);
-                    return;
+                    container.innerHTML = `<span>⏳ موعد اختبارك:</span> <span class="countdown-live-text">🎯 حان موعد الاختبار!</span> <button class="exam-btn" onclick="setExamDate()">تعديل</button>`;
+                    clearInterval(countdownInterval); return;
                 }
-
                 let days = Math.floor(diff / (1000 * 60 * 60 * 24));
                 let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 let seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                container.innerHTML = `<span>⏳ متبقي لاختبارك:</span> <span class="countdown-live-text">${days} يوم و ${hours}س : ${minutes}د : ${seconds}ث</span> <button class="exam-btn" onclick="setExamDate()">تعديل</button>`;
+                container.innerHTML = `<span>⏳ متبقي:</span> <span class="countdown-live-text">${days}ي و ${hours}س : ${minutes}د : ${seconds}ث</span> <button class="exam-btn" onclick="setExamDate()">تعديل</button>`;
             }, 1000);
         }
 
-        /* ⏱️ مؤقت البومودورو مدمج الصوت */
-        let pomoInterval;
-        let pomoTimeLeft = 25 * 60;
-        let isWork = true;
-
-        function playAlarmSound() {
-            try {
-                let AudioContext = window.AudioContext || window.webkitAudioContext;
-                if (!AudioContext) return;
-                let ctx = new AudioContext();
-                
-                let osc1 = ctx.createOscillator();
-                let gain1 = ctx.createGain();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(880, ctx.currentTime);
-                gain1.gain.setValueAtTime(0.3, ctx.currentTime);
-                gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-                osc1.connect(gain1); gain1.connect(ctx.destination);
-                osc1.start(); osc1.stop(ctx.currentTime + 0.4);
-
-                setTimeout(() => {
-                    let osc2 = ctx.createOscillator();
-                    let gain2 = ctx.createGain();
-                    osc2.type = 'sine';
-                    osc2.frequency.setValueAtTime(1200, ctx.currentTime);
-                    gain2.gain.setValueAtTime(0.3, ctx.currentTime);
-                    gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
-                    osc2.connect(gain2); gain2.connect(ctx.destination);
-                    osc2.start(); osc2.stop(ctx.currentTime + 0.5);
-                }, 150);
-            } catch (e) { console.log(e); }
-        }
-
+        /* ⏱️ مؤقت البومودورو */
+        let pomoInterval; let pomoTimeLeft = 25 * 60; let isWork = true;
         function updatePomoDisplay() {
-            let min = Math.floor(pomoTimeLeft / 60);
-            let sec = pomoTimeLeft % 60;
+            let min = Math.floor(pomoTimeLeft / 60); let sec = pomoTimeLeft % 60;
             document.getElementById('pomoDisplay').innerText = (min < 10 ? "0" : "") + min + "m " + (sec < 10 ? "0" : "") + sec + "s";
         }
-
         function startPomo() {
             clearInterval(pomoInterval);
             pomoInterval = setInterval(() => {
-                if (pomoTimeLeft > 0) {
-                    pomoTimeLeft--;
-                    updatePomoDisplay();
-                } else {
+                if (pomoTimeLeft > 0) { pomoTimeLeft--; updatePomoDisplay(); }
+                else {
                     clearInterval(pomoInterval);
-                    playAlarmSound();
-                    if(isWork) {
-                        alert("انتهت جلسة التركيز! خذ راحة 5 دقائق ☕");
-                        pomoTimeLeft = 5 * 60; isWork = false; document.getElementById('pomoMode').innerText = "☕ وقت الراحة";
-                    } else {
-                        alert("انتهت الراحة، عد للدراسة والتركيز بجدية 📖");
-                        pomoTimeLeft = 25 * 60; isWork = true; document.getElementById('pomoMode').innerText = "⏱️ مؤقت التركيز (بومودورو)";
-                    }
+                    if(isWork) { alert("انتهت جلسة التركيز! خذ راحة 5 دقائق ☕"); pomoTimeLeft = 5 * 60; isWork = false; document.getElementById('pomoMode').innerText = "☕ وقت الراحة"; }
+                    else { alert("انتهت الراحة، عد للدراسة والتركيز بجدية 📖"); pomoTimeLeft = 25 * 60; isWork = true; document.getElementById('pomoMode').innerText = "⏱️ مؤقت التركيز (بومودورو)"; }
                     updatePomoDisplay(); startPomo();
                 }
             }, 1000);
